@@ -6,6 +6,7 @@ import SEO from "../components/seo"
 import "../style/basepage.less"
 
 export default function({data}){
+	console.log(data.markdownRemark.frontmatter.image.childImageSharp !== undefined)
 	return(
 		<Layout>
 			<SEO lang="en" title={data.markdownRemark.frontmatter.title} description={data.markdownRemark.frontmatter.description}/>
@@ -15,11 +16,13 @@ export default function({data}){
 						<h1>{data.markdownRemark.frontmatter.title}</h1>
 					</div>
 					<div className="content row flex">
-						<div className="center">
-							<div className="img">
-								<Img fluid={data.markdownRemark.frontmatter.image.childImageSharp.fluid}/>
+						{data.markdownRemark.frontmatter.image.childImageSharp !== undefined &&
+							<div className="center">
+								<div className="img">
+									<Img fluid={data.markdownRemark.frontmatter.image.childImageSharp.fluid}/>
+								</div>
 							</div>
-						</div>
+						}
 						<div className="col s12 m11 l10" dangerouslySetInnerHTML={{ __html: data.markdownRemark.html}}></div>
 					</div>
 				</article>
