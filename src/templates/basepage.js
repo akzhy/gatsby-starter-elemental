@@ -6,7 +6,6 @@ import SEO from "../components/seo"
 import "../style/basepage.less"
 
 export default function({data}){
-	console.log(data.markdownRemark.frontmatter.image.childImageSharp !== undefined)
 	return(
 		<Layout>
 			<SEO lang="en" title={data.markdownRemark.frontmatter.title} description={data.markdownRemark.frontmatter.description}/>
