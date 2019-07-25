@@ -1,0 +1,69 @@
+.wall {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+	text-align: center;
+	position: relative;
+
+	.intro {
+
+		.tag-line {
+			font-size: 20px;
+			font-weight: bold;
+			letter-spacing: 1px;
+		}
+
+		.caption {
+			font-size: 18px;
+			margin: 15px 0;
+		}
+	}
+
+	svg {
+		display: block;
+		margin: 0 auto;
+	}
+
+	.social-buttons {
+		position: absolute;
+		left: 25px;
+
+		ul {
+			list-style: none;
+
+			li {
+				margin: 5px 0;
+				img {
+					opacity: 0.7;
+					width: 48px;
+					transition: opacity .25s;
+				}
+
+				&:hover{
+					img{
+						opacity: 1;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 800px) {
+  	.wall{
+		.main-title{
+			svg{
+				height: 100px;
+			}
+		}
+
+		.social-buttons{
+			display: none;
+		}
+		
+		svg text {
+		    font: bold 14px sans-serif;
+		    font-family: 'Work Sans', sans-serif;
+		}
+	}
+}

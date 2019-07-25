@@ -1,0 +1,156 @@
+@import "theme";
+
+nav {
+	display: flex;
+	position: fixed;
+	width: 100%;
+	justify-content: space-between;
+	padding: 22px 44px;
+	align-items: center;
+	z-index: 99;
+	transition: height .25s;
+
+	#menu-open{
+		position: absolute;
+		left: 5%;
+		display: none;
+
+		.icon{
+			width: 32px;
+			height: 32px;
+		}
+	}
+
+	img {
+		width: 46px;
+		height: auto;
+		align-items: center;
+		transition: width 0.25s;
+	}
+
+	&.scrolled {
+		padding: 12px 36px;
+
+		img {
+			width: 34px;
+		}
+	}
+
+	ul {
+		list-style: none;
+
+		li {
+			display: inline-block;
+
+			a {
+				margin: 0 10px;
+				position: relative;
+
+				&:before {
+					content: "";
+					position: absolute;
+					width: 36px;
+					height: 36px;
+					left: 50%;
+					top: 50%;
+					transform: translate(-50%,-50%) scale(0);
+					border-radius: 50%;
+					opacity: 0.2;
+					transition: transform 0.25s;
+				}
+
+				&.active:before,
+				&:focus:before,
+				&:hover:before {
+					transform: translate(-50%,-50%) scale(1);
+				}
+
+				span {
+					position: relative;
+					z-index: 2;
+				}
+			}
+		}
+	}
+}
+
+.sidebar-content{
+	padding: 22px;
+	min-width: 45%;
+	max-width: 75%;
+
+	.sidebar-contents{
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		justify-content: space-between;
+		align-items: center;
+
+		.logo{
+			flex: 0 0 auto;
+
+			img{
+				width: 22px;
+			}
+		}
+
+		.links{
+			flex: 1 1 auto;
+			padding: 20px 0;
+			display: flex;
+			align-items: center;
+
+			ul{
+				list-style: none;
+
+				li{
+					margin: 20px 0;
+				}
+			}
+		}
+
+		.social-links{
+			ul{
+				list-style: none;
+
+				li{
+					display: inline-block;
+					width: 40px;
+					margin: 5px;
+
+					img{
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+@media only screen and (max-width: 800px) {
+  	nav{
+		justify-content: center;
+
+		img {
+			width: 32px;
+		}
+
+		&.scrolled {
+			padding: 10px 36px;
+
+			img {
+				width: 24px;
+			}
+		}
+
+		ul{
+			display: none;
+		}
+
+		#menu-open{
+			display: block;
+		}
+	}
+}
