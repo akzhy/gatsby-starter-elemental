@@ -1,5 +1,5 @@
 import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, Link } from "gatsby"
 import { globalHistory } from "@reach/router"
 
 let path = globalHistory.location.pathname;
@@ -17,7 +17,7 @@ function ListItem(props){
 	}
 	return(
 		<li>
-			<a {...anchorAttrs}><span>{data.name}</span></a>
+			<Link to={data.url} {...anchorAttrs}><span>{data.name}</span></Link>
 		</li>
 	)
 }

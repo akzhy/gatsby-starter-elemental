@@ -1,5 +1,5 @@
 import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, Link } from "gatsby"
 import Logo from "./logo"
 import Navlinks from "./navlinks"
 import FooterLinks from "./footer-links"
@@ -20,9 +20,9 @@ export default function(){
 		<footer className="footer">
 			<div className="container">
 				<div className="logo">
-					<a href="/" title={query.site.siteMetadata.title}>
+					<Link to="/" title={query.site.siteMetadata.title}>
 						<Logo/>
-					</a>
+					</Link>
 				</div>
 				<div className="navlinks text-secondary">
 					<Navlinks/>
