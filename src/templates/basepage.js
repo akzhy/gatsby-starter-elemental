@@ -15,7 +15,7 @@ export default function({data}){
 						<h1>{data.markdownRemark.frontmatter.title}</h1>
 					</div>
 					<div className="content row flex">
-						{data.markdownRemark.frontmatter.image != undefined &&
+						{data.markdownRemark.frontmatter.image &&
 							<div className="center">
 								<div className="img">
 									<Img fluid={data.markdownRemark.frontmatter.image.childImageSharp.fluid}/>
