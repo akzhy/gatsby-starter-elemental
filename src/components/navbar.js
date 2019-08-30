@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "gatsby"
 import Sidebar from "react-sidebar"
 import NavLinks from "./navlinks"
 import SocialLinks from "./sociallinks"
@@ -10,9 +11,9 @@ function SidebarContents(){
 	return(
 		<div className="sidebar-contents">
 			<div className="logo">
-				<a href="/">
+				<Link to="/">
 					<Logo />
-				</a>
+				</Link>
 			</div>
 			<div className="links text-secondary">
 				<NavLinks />
@@ -116,9 +117,9 @@ class Navbar extends React.Component{
 							<Hamburger/>
 						</span>
 					</a>
-					<a href="/">
+					<Link to="/">
 						<Logo/>
-					</a>
+					</Link>
 					<NavLinks/>
 				</nav>
 				{placeholder &&
