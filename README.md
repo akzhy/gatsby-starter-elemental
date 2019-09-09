@@ -44,6 +44,7 @@ let siteMetadata = {
     blogItemsPerPage: 10,
     portfolioItemsPerPage: 10,
     darkmode: true, // Whether to enable the darkmode. Change to false if you want the light mode
+     switchTheme: true, // Whether to show a switch theme button on the navbar
     // The links shown on the navbar and footer, follow the same structure to add or remove more items.
     navLinks: [{
             name: "HOME",
