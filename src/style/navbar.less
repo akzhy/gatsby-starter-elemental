@@ -41,6 +41,7 @@ nav {
 
 		li {
 			display: inline-block;
+			vertical-align: middle;
 
 			a {
 				margin: 0 10px;
@@ -68,6 +69,32 @@ nav {
 				span {
 					position: relative;
 					z-index: 2;
+				}
+			}
+
+			&.switch-theme{
+
+				svg{
+					width: 24px;
+					height: 24px;
+				}
+
+				.switch-button{
+					width: 24px;
+					height: 24px;
+					position: relative;
+					overflow: hidden;
+
+					div{
+						position: absolute;
+						transform: scale(0,0);
+						transition: transform .35s;
+						cursor: pointer;
+
+						&.active{
+							transform: scale(1,1);
+						}
+					}
 				}
 			}
 		}
