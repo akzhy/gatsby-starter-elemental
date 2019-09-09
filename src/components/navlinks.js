@@ -46,6 +46,7 @@ class ThemeSwitchButton extends React.Component {
         const _this = this;
 
         let darkMode = localStorage.getItem("darkMode");
+        document.body.className = this.state.darkMode ? "dark-mode" : "";
 
         if (darkMode) {
             this.setState({
