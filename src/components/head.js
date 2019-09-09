@@ -14,7 +14,9 @@ function Header() {
         }
     `);
     return (
-        <Helmet>
+        <Helmet bodyAttributes={{
+        	class: (query.site.siteMetadata.darkmode ? "dark-mode" : "")
+    	}}>
             <link
                 rel="icon"
                 href={query.site.siteMetadata.icon}
