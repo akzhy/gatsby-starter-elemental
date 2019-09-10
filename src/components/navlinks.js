@@ -42,10 +42,11 @@ class ThemeSwitchButton extends React.Component {
         };
     }
 
-    componentWillMount(){
+    componentDidMount() {
         const _this = this;
         let darkMode = localStorage.getItem("darkMode");
 
+        document.body.className = _this.state.darkMode ? "dark-mode" : "";
         if (darkMode) {
             this.setState({
                 darkMode: (darkMode === "true")
@@ -53,10 +54,6 @@ class ThemeSwitchButton extends React.Component {
                 document.body.className = _this.state.darkMode ? "dark-mode" : "";
             })
         }
-    }
-
-    componentDidMount() {
-        const _this = this;
 
         this.switchBtn.addEventListener("click", function() {
             _this.setState({

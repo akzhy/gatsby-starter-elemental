@@ -114,6 +114,33 @@ nav {
 		justify-content: space-between;
 		align-items: center;
 
+		.switch-theme{
+			display: inline-block;
+
+			svg{
+				width: 24px;
+				height: 24px;
+			}
+
+			.switch-button{
+				width: 24px;
+				height: 24px;
+				position: relative;
+				overflow: hidden;
+
+				div{
+					position: absolute;
+					transform: scale(0,0);
+					transition: transform .35s;
+					cursor: pointer;
+
+					&.active{
+						transform: scale(1,1);
+					}
+				}
+			}
+		}
+
 		.logo{
 			flex: 0 0 auto;
 
