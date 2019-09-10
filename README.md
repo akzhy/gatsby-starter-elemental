@@ -1,6 +1,6 @@
 # Gatsby Starter Elemental
 
-![](https://img.shields.io/badge/version-1.1.0-green.svg) ![](https://img.shields.io/badge/License-MIT-orange.svg)
+![](https://img.shields.io/badge/version-1.1.1-green.svg) ![](https://img.shields.io/badge/License-MIT-orange.svg)
 
 
 Elemental is a portfolio template suitable for artists, photographers, designers etc. With the starter you can create blog posts, portfolio posts an miscellaneous posts (such as privacy-policy).
