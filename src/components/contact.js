@@ -73,10 +73,10 @@ class Contact extends React.Component {
                         }, 5000);
                     },
                     error => {
-                        console.log(error);
+                        // Because netlify sends back an HTML page, not a JSON response
                         this.resMessage.style.opacity = 1;
-                        this.resMessage.innerHTML = "Error sending message";
-                        this.resMessage.classList.add("color-error");
+                        this.resMessage.innerHTML = "Message has been sent";
+                        this.resMessage.classList.remove("color-error");
                         this.setState({
                             submitDisabled: false
                         });
