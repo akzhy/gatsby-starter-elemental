@@ -41,6 +41,7 @@ class Contact extends React.Component {
                 body = `name=${name}&email=${email}&message=${message}`;
 
             const form = event.target;
+            console.log(encodeURIComponent(`form-name=${form.getAttribute("name")}`) + encodeURIComponent(`&${body}`));
             fetch('/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
