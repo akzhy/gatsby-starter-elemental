@@ -35,16 +35,16 @@ class Contact extends React.Component {
                 submitDisabled: true
             });
 
-            let name = encodeURI(this.dataName.value),
-                email = encodeURI(this.dataEmail.value),
-                message = encodeURI(this.dataMessage.value),
+            let name = this.dataName.value,
+                email = this.dataEmail.value,
+                message = this.dataMessage.value,
                 body = `name=${name}&email=${email}&message=${message}`;
 
-            const form = event.target
+            const form = event.target;
             fetch('/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: encodeURI(`form-name=${form.getAttribute("name")}`) + `&${body}`
+                body: encodeURIComponent(`form-name=${form.getAttribute("name")}`) + encodeURIComponent(`&${body}`)
             })
                 .then(function(res) {
                     return res.json();
