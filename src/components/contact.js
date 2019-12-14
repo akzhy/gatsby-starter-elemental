@@ -39,8 +39,10 @@ class Contact extends React.Component {
                 email = encodeURI(this.dataEmail.value),
                 message = encodeURI(this.dataMessage.value),
                 body = `name=${name}&email=${email}&message=${message}`;
+            
+            const action = event.target.getAttribute("action");
 
-            fetch("http://localhost/local/test.json", {
+            fetch(action, {
                 method: "post",
                 body: body
             })
@@ -117,7 +119,7 @@ class Contact extends React.Component {
                 >
                     {this.showContactForm && (
                         <div className="col s12 m6">
-                            <form>
+                            <form name="contact" method="POST" data-netlify="true">
                                 <div className="field">
                                     <label>
                                         <span className="label text-tertiary">
