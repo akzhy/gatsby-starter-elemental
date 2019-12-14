@@ -54,6 +54,7 @@ class Contact extends React.Component {
                         this.setState({
                             submitDisabled: false
                         });
+                        console.log(result);
                         this.resMessage.style.opacity = 1;
                         if (result.response === "error") {
                             this.resMessage.innerHTML =
@@ -73,8 +74,8 @@ class Contact extends React.Component {
                         }, 5000);
                     },
                     error => {
-                        this.resMessage.innerHTML = "Message sent succesfully";
-                        this.resMessage.classList.remove("color-error");
+                        this.resMessage.innerHTML = "Error sending message";
+                        this.resMessage.classList.add("color-error");
                         this.setState({
                             submitDisabled: false
                         });
