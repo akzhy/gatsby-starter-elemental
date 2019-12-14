@@ -39,13 +39,12 @@ class Contact extends React.Component {
                 email = encodeURI(this.dataEmail.value),
                 message = encodeURI(this.dataMessage.value),
                 body = `name=${name}&email=${email}&message=${message}`;
-            
-            console.log(event,event.target);
-            const action = event.target.getAttribute("action");
 
-            fetch(action, {
-                method: "post",
-                body: body
+            const form = e.target
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `form-name=${form.getAttribute("name")}&${body}`
             })
                 .then(function(res) {
                     return res.json();
@@ -120,7 +119,7 @@ class Contact extends React.Component {
                 >
                     {this.showContactForm && (
                         <div className="col s12 m6">
-                            <form name="contact" method="POST" data-netlify="true">
+                            <form name="contact" method="POST" data-netlify="true" onSubmit={this.handleSubmit}>
                                 <input type="hidden" name="form-name" value="contact" />
                                 <div className="field">
                                     <label>
@@ -185,7 +184,6 @@ class Contact extends React.Component {
                                                     ? " disabled"
                                                     : "")
                                             }
-                                            onClick={this.handleSubmit}
                                             id="submit"
                                             ref={c => (this.btn = c)}
                                         >
