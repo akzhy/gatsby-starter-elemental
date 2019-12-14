@@ -44,7 +44,7 @@ class Contact extends React.Component {
             fetch('/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `form-name=${form.getAttribute("name")}&${body}`
+                body: encodeURI(`form-name=${form.getAttribute("name")}`) + `&${body}`
             })
                 .then(function(res) {
                     return res.json();
