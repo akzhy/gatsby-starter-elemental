@@ -40,6 +40,7 @@ class Contact extends React.Component {
                 message = encodeURI(this.dataMessage.value),
                 body = `name=${name}&email=${email}&message=${message}`;
             
+            console.log(event,event.target);
             const action = event.target.getAttribute("action");
 
             fetch(action, {
