@@ -12,7 +12,7 @@ function SidebarContents() {
     return (
         <div className="sidebar-contents">
             <div className="logo">
-                <Link to="/">
+                <Link to="/blog">
                     <Logo />
                 </Link>
             </div>
@@ -115,7 +115,7 @@ class Navbar extends React.Component {
                             <Hamburger />
                         </span>
                     </a>
-                    <Link to="/">
+                    <Link to="/blog">
                         <Logo />
                     </Link>
                     <NavLinks />

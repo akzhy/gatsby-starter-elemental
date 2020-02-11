@@ -20,7 +20,7 @@ export default function() {
         <footer className="footer">
             <div className="container">
                 <div className="logo">
-                    <Link to="/" title={query.site.siteMetadata.title}>
+                    <Link to="/blog" title={query.site.siteMetadata.title}>
                         <Logo />
                     </Link>
                 </div>

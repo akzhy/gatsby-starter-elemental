@@ -1,346 +1,378 @@
 @background: #fff;
 @textPrimary: #223364;
-@textSecondary: #6888DF;
-@textTertiary:#848EA8;
+@textSecondary: #6888df;
+@textTertiary: #848ea8;
 @textNormal: #333;
 @colorPrimary: @textSecondary;
-@colorSecondary: #F55555;
-@colorError : #F55555;
-@colorSuccess : #4CAF50;
-@fontBold: 'Work Sans', sans-serif;
-@fontNormal: "Poppins", sans-serif;
-
-*{
-	margin: 0;
-	padding: 0;
+@colorSecondary: #f55555;
+@colorError: #f55555;
+@colorSuccess: #4caf50;
+@fontBold: Stolzl Bold, verdana, sans-serif;
+@fontNormal: Stolzl Light, verdana, sans-serif;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-
-
-body{
-	background: @background;
-	font-family: @fontNormal;
-	font-size: 18px;
-	color: @textNormal;
+body {
+    background: @background;
+    font-family: @fontNormal;
+    font-size: 18px;
+    color: @textNormal;
 }
 
-nav{
-	background: @background;
+nav {
+    background: @background;
 
-	&:after{
-		content: "";
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		height: 2px;
-		background: linear-gradient(to left,@colorPrimary,@colorSecondary);
-		opacity: 0;
-		transition: opacity .35s;
-	}
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to left, @colorPrimary, @colorSecondary);
+        opacity: 0;
+        transition: opacity 0.35s;
+    }
 
-	&.scrolled:after{
-		opacity: .2;
-	}
+    &.scrolled:after {
+        opacity: 0.2;
+    }
 }
 
 .text-secondary {
-	&, & a{
-		color: @textSecondary;
-	}
+    &,
+    & a {
+        color: @textSecondary;
+    }
 }
 
 .text-tertiary {
-	&, & a{
-		color: @textTertiary;
-	}
+    &,
+    & a {
+        color: @textTertiary;
+    }
 }
 
-.text-primary{
-	&, & a{
-		color: @textPrimary;
-	}
+.text-primary {
+    &,
+    & a {
+        color: @textPrimary;
+    }
 }
 
-.color-primary{
-	color: @colorPrimary;
+.color-primary {
+    color: @colorPrimary;
 }
 
-.color-secondary{
-	color: @colorSecondary;
+.color-secondary {
+    color: @colorSecondary;
 }
 
-.res-message{
-	transition: opacity .35s;
-	opacity: 0;
+.res-message {
+    transition: opacity 0.35s;
+    opacity: 0;
 }
 
-.res-message, .color-success{
-	color: @colorSuccess;
+.res-message,
+.color-success {
+    color: @colorSuccess;
 }
 
-.color-error{
-	color: @colorError;
+.color-error {
+    color: @colorError;
 }
 
-.wall svg text{
-	font: bold 10px sans-serif;
-	font-family: @fontBold;
+.wall svg text {
+    font: bold 10px sans-serif;
+    font-family: @fontBold;
 }
 
-#menu-open path{
-	fill: @textSecondary;
+#menu-open path {
+    fill: @textSecondary;
 }
 
-.font-bold,h1,h2,h3,h4,h5,h6{
-	font-family: @fontBold;
+.font-bold,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: @fontBold;
 }
 
-.btn{
-	height: 50px !important;
-	line-height: 50px !important;
-	font-size: 14px !important;
-	letter-spacing: 1px;
-	margin: 25px 0;
-	padding: 0 45px !important;
-	background-image: linear-gradient(to left,@colorPrimary,@colorSecondary) !important;
-	color: #fff !important;
-	border: none !important;
+.btn {
+    height: 50px !important;
+    line-height: 50px !important;
+    font-size: 14px !important;
+    letter-spacing: 1px;
+    margin: 25px 0;
+    padding: 0 45px !important;
+    background-image: linear-gradient(
+        to left,
+        @colorPrimary,
+        @colorSecondary
+    ) !important;
+    color: #fff !important;
+    border: none !important;
 
-	&.disabled{
-		opacity: .7;
-	}
+    &.disabled {
+        opacity: 0.7;
+    }
 }
 
-.overlay-link{
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	z-index: 2;
-	left: 0;
-	top: 0;
+.overlay-link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    left: 0;
+    top: 0;
 }
 
-.pseudo-divider:after{
-	content: "";
-	position: absolute;
-	width: 100%;
-	height: 5px;
-	background: linear-gradient(to left,@colorPrimary,@colorSecondary) !important;
-	bottom: -4px;
-	left: 0;
+.pseudo-divider:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(
+        to left,
+        @colorPrimary,
+        @colorSecondary
+    ) !important;
+    bottom: -4px;
+    left: 0;
 }
 
-.icon{
-	width: 22px;
-	height: 22px;
-	display: inline-block;
-	vertical-align: middle;
+.icon {
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
-section{
-	padding: 60px 0;
+section {
+    padding: 60px 0;
 
+    svg {
+        display: block;
+        margin: 0 auto;
 
-	svg {
-		display: block;
-		margin: 0 auto;
-
-		text {
-			font: bold 8px sans-serif;
-			font-family: @fontBold;
-		}
-	}
+        text {
+            font: bold 8px sans-serif;
+            font-family: @fontBold;
+        }
+    }
 }
 
-.section-title{
-	padding: 20px 0;
-	margin-bottom: 35px;
-	text-align: center;
+.section-title {
+    padding: 20px 0;
+    margin-bottom: 35px;
+    text-align: center;
 }
 
-.field-box{
-	width: 100%;
-	font-size: 20px;
-	background: @background;
-	color: @textNormal;
-	position: relative;
-	z-index: 2;
-	outline: 0;
-	display: block;
-	resize: none;
+.field-box {
+    width: 100%;
+    font-size: 20px;
+    background: @background;
+    color: @textNormal;
+    position: relative;
+    z-index: 2;
+    outline: 0;
+    display: block;
+    resize: none;
 }
 
-.field-box:not(textarea){
-	height: 48px !important;
+.field-box:not(textarea) {
+    height: 48px !important;
 }
 
-.input-border{
-	padding: 1px;
-	position: relative;
+.input-border {
+    padding: 1px;
+    position: relative;
 
-	&:after{
-		content: "";
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(to left,@colorPrimary,@colorSecondary) !important;
-		border-radius: 5px;
-	}
+    &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            to left,
+            @colorPrimary,
+            @colorSecondary
+        ) !important;
+        border-radius: 5px;
+    }
 }
 
-footer{
-	background: darken(@background,4%);
+footer {
+    background: darken(@background, 4%);
 }
 
-nav ul li a:before{
-	background: @colorSecondary;
+nav ul li a:before {
+    background: @colorSecondary;
 }
 
-.sidebar-content{
-	background: @background;
+.sidebar-content {
+    background: @background;
 }
 
-.pagination ul li{
+.pagination ul li {
+    a {
+        background: @colorPrimary;
+        color: #fff;
 
-	a{
-		background: @colorPrimary;
-		color: #fff;
+        svg path {
+            fill: #fff;
+        }
+    }
 
-		svg path{
-			fill: #fff;
-		}
-	}
-
-	&.active{
-		a{
-			background: linear-gradient(to left,@colorPrimary,@colorSecondary);
-		}
-	}
+    &.active {
+        a {
+            background: linear-gradient(
+                to left,
+                @colorPrimary,
+                @colorSecondary
+            );
+        }
+    }
 }
 
-.fill-primary{
-	&, & path{
-		fill: @colorPrimary;
-	}
+.fill-primary {
+    &,
+    & path {
+        fill: @colorPrimary;
+    }
 }
 
-.fill-secondary{
-	&, & path{
-		fill: @textSecondary;
-	}
+.fill-secondary {
+    &,
+    & path {
+        fill: @textSecondary;
+    }
 }
 
-.blog-post blockquote{
-	border-left: 3px solid @colorSecondary;
+.blog-post blockquote {
+    border-left: 3px solid @colorSecondary;
 }
 
+.dark-mode {
+    @background: #171b27;
+    @textPrimary: #c5c5c5;
+    @textSecondary: #6888df;
+    @textTertiary: #848ea8;
+    @textNormal: #b8b7bf;
+    @colorPrimary: @textSecondary;
+    @colorSecondary: #f55555;
+    @colorError: #f55555;
+    @colorSuccess: #4caf50;
 
-.dark-mode{
-	@background: #171B27;
-	@textPrimary: #c5c5c5;
-	@textSecondary: #6888DF;
-	@textTertiary:#848EA8;
-	@textNormal: #b8b7bf;
-	@colorPrimary: @textSecondary;
-	@colorSecondary: #F55555;
-	@colorError : #F55555;
-	@colorSuccess : #4CAF50;
+    & {
+        background: @background;
+        color: @textNormal;
+    }
 
+    nav {
+        background: @background;
+    }
 
-	&{
-		background: @background;
-		color: @textNormal;
-	}
+    .text-secondary {
+        &,
+        & a {
+            color: @textSecondary;
+        }
+    }
 
-	nav{
-		background: @background;
-	}
+    .text-tertiary {
+        &,
+        & a {
+            color: @textTertiary;
+        }
+    }
 
-	.text-secondary {
-		&, & a{
-			color: @textSecondary;
-		}
-	}
+    .text-primary {
+        &,
+        & a {
+            color: @textPrimary;
+        }
+    }
 
-	.text-tertiary {
-		&, & a{
-			color: @textTertiary;
-		}
-	}
+    .color-primary {
+        color: @colorPrimary;
+    }
 
-	.text-primary{
-		&, & a{
-			color: @textPrimary;
-		}
-	}
+    .color-secondary {
+        color: @colorSecondary;
+    }
 
-	.color-primary{
-		color: @colorPrimary;
-	}
+    .res-message,
+    .color-success {
+        color: @colorSuccess;
+    }
 
-	.color-secondary{
-		color: @colorSecondary;
-	}
+    .color-error {
+        color: @colorError;
+    }
 
-	.res-message, .color-success{
-		color: @colorSuccess;
-	}
+    .field-box {
+        background: @background;
+        color: @textNormal;
+    }
 
-	.color-error{
-		color: @colorError;
-	}
+    footer {
+        background: darken(@background, 4%);
+    }
 
-	.field-box{
-		background: @background;
-		color: @textNormal;
-	}
+    nav ul li a:before {
+        background: @colorSecondary;
+    }
 
-	footer{
-		background: darken(@background,4%);
-	}
+    .btn {
+        background-image: linear-gradient(
+            to left,
+            @colorPrimary,
+            @colorSecondary
+        ) !important;
+    }
 
-	nav ul li a:before{
-		background: @colorSecondary;
-	}
+    .pseudo-divider:after {
+        background: linear-gradient(
+            to left,
+            @colorPrimary,
+            @colorSecondary
+        ) !important;
+    }
 
-	.btn{
-		background-image: linear-gradient(to left,@colorPrimary,@colorSecondary) !important;
-	}
+    .sidebar-content {
+        background: @background;
+    }
 
-	.pseudo-divider:after{
-		background: linear-gradient(to left,@colorPrimary,@colorSecondary) !important;
-	}
-
-	.sidebar-content{
-		background: @background;
-	}
-
-	#menu-open path{
-		fill: @textSecondary;
-	}
-
+    #menu-open path {
+        fill: @textSecondary;
+    }
 }
 
-div[role="navigation"]{
-	display: none;
+div[role="navigation"] {
+    display: none;
 }
 @media only screen and (max-width: 800px) {
-	div[role="navigation"]{
-		display: block;
-	}
-	.container{
-		width: 95% !important;
-	}
+    div[role="navigation"] {
+        display: block;
+    }
+    .container {
+        width: 95% !important;
+    }
 
-	section{
-			padding: 30px 0;
-	}
+    section {
+        padding: 30px 0;
+    }
 
-	section svg text {
-	    font: bold 12px sans-serif;
-	    font-family: 'Work Sans', sans-serif;
-	}
+    section svg text {
+        font: bold 12px sans-serif;
+        font-family: "Work Sans", sans-serif;
+    }
 }

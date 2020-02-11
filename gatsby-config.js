@@ -1,5 +1,5 @@
 let siteMetadata = {
-    title: `Elemental`,
+    title: `Pranjal Mishra`,
     capitalizeTitleOnHome: true,
     logo: `/images/logo.png`,
     icon: `/images/icon.png`,
@@ -13,24 +13,8 @@ let siteMetadata = {
     switchTheme: true,
     navLinks: [
         {
-            name: "HOME",
-            url: "/"
-        },
-        {
-            name: "ABOUT",
-            url: "/about"
-        },
-        {
             name: "BLOG",
             url: "/blog"
-        },
-        {
-            name: "PORTFOLIO",
-            url: "/portfolio"
-        },
-        {
-            name: "CONTACT",
-            url: "/contact"
         }
     ],
     footerLinks: [
@@ -47,22 +31,22 @@ let siteMetadata = {
         {
             name: "Facebook",
             icon: "/images/Facebook.svg",
-            url: "#"
+            url: "https://www.facebook.com/pranjalMishraaWho"
         },
         {
             name: "Twitter",
             icon: "/images/Twitter.svg",
-            url: "#"
+            url: "https://twitter.com/pranjal_mishraa"
         },
         {
             name: "Instagram",
             icon: "/images/Instagram.svg",
-            url: "#"
+            url: "https://www.instagram.com/pranjal.mishraa"
         },
         {
             name: "Youtube",
             icon: "/images/Youtube.svg",
-            url: "#"
+            url: "https://www.youtube.com/channel/UCdk-rQMJDaxuX4pT3PVSFJg"
         }
     ],
     contact: {
@@ -77,6 +61,7 @@ let siteMetadata = {
 
 module.exports = {
     siteMetadata: siteMetadata,
+    sourceMaps: true,
     plugins: [
         `gatsby-plugin-sharp`,
         `gatsby-transformer-sharp`,
