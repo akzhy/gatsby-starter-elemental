@@ -17,7 +17,7 @@ class PortfolioList extends React.Component {
                     </div>
                     <PortfolioItems data={query} />
                     <Pagination
-                        pathContext={this.props.pathContext}
+                        pageContext={this.props.pageContext}
                         type="portfolio"
                     />
                 </section>
@@ -28,11 +28,11 @@ class PortfolioList extends React.Component {
     }
 }
 
-export default function({ data, pathContext }) {
+export default function({ data, pageContext }) {
     return (
         <Layout>
             <SEO lang="en" title="Portfolio" />
-            <PortfolioList datas={data} pathContext={pathContext} />
+            <PortfolioList datas={data} pageContext={pageContext} />
         </Layout>
     );
 }

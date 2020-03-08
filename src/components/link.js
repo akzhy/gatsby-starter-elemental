@@ -6,11 +6,7 @@ const Link = props => {
         return <GatsbyLink {...props}>{props.children}</GatsbyLink>;
     }
 
-    return (
-        <a href={props.to}>
-            {props.children}
-        </a>
-    );
+    return <a href={props.to}>{props.children}</a>;
 };
 
 export default Link;
