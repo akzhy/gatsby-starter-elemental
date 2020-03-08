@@ -3,14 +3,13 @@ import { Link } from "gatsby";
 import { ChevronLeft, ChevronRight } from "./icons";
 import "../style/pagination.less";
 
-export default function({ pathContext, type }) {
-
-    if (pathContext.numPages > 1) {
+export default function({ pageContext, type }) {
+    if (pageContext.numPages > 1) {
         let listItems = [];
-        for (let i = 1; i <= pathContext.numPages; i++) {
+        for (let i = 1; i <= pageContext.numPages; i++) {
             listItems.push(
                 <li
-                    className={i === pathContext.currentPage ? "active" : ""}
+                    className={i === pageContext.currentPage ? "active" : ""}
                     key={"PaginationItem" + i}
                 >
                     <Link
@@ -31,16 +30,16 @@ export default function({ pathContext, type }) {
         return (
             <div className="pagination">
                 <ul>
-                    {pathContext.currentPage !== 1 && (
+                    {pageContext.currentPage !== 1 && (
                         <li>
                             <Link
                                 to={
                                     "/" +
                                     type +
                                     "/" +
-                                    (pathContext.currentPage - 1 === 1
+                                    (pageContext.currentPage - 1 === 1
                                         ? ""
-                                        : pathContext.currentPage - 1)
+                                        : pageContext.currentPage - 1)
                                 }
                                 title="Previous Page"
                             >
@@ -51,14 +50,14 @@ export default function({ pathContext, type }) {
                         </li>
                     )}
                     {listItems}
-                    {pathContext.currentPage !== pathContext.numPages && (
+                    {pageContext.currentPage !== pageContext.numPages && (
                         <li>
                             <Link
                                 to={
                                     "/" +
                                     type +
                                     "/" +
-                                    (pathContext.currentPage + 1)
+                                    (pageContext.currentPage + 1)
                                 }
                                 title="Next Page"
                             >
