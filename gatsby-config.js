@@ -1,5 +1,6 @@
 let siteMetadata = {
     title: `Elemental`,
+    siteUrl: `http://localhost`,
     capitalizeTitleOnHome: true,
     logo: `/images/logo.png`,
     icon: `/images/icon.png`,
@@ -107,6 +108,12 @@ module.exports = {
             options: {
                 strictMath: true
             }
-        }
+        },
+        {
+            resolve: `gatsby-plugin-disqus`,
+            options: {
+              shortname: `your-disqus-shortname`
+            }
+        },
     ]
 };
