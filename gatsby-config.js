@@ -1,4 +1,4 @@
-let siteMetadata = {
+const siteMetadata = {
     title: `Elemental`,
     siteUrl: `http://localhost`,
     capitalizeTitleOnHome: true,
@@ -76,44 +76,49 @@ let siteMetadata = {
     }
 };
 
+const plugins = [
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-react-helmet`,
+    {
+        resolve: `gatsby-transformer-remark`,
+        options: {
+            plugins: [
+                "gatsby-remark-copy-linked-files",
+                {
+                    resolve: `gatsby-remark-images`,
+                    options: {
+                        maxWidth: 1280
+                    }
+                }
+            ]
+        }
+    },
+    {
+        resolve: `gatsby-source-filesystem`,
+        options: {
+            name: `contents`,
+            path: `${__dirname}/contents/`
+        }
+    },
+    {
+        resolve: `gatsby-plugin-less`,
+        options: {
+            strictMath: true
+        }
+    },
+]
+
+if(siteMetadata.disqus) {
+    plugins.push({
+        resolve: `gatsby-plugin-disqus`,
+        options: {
+          shortname: siteMetadata.disqus
+        }
+    })
+}
+
 module.exports = {
     siteMetadata: siteMetadata,
-    plugins: [
-        `gatsby-plugin-sharp`,
-        `gatsby-transformer-sharp`,
-        `gatsby-plugin-react-helmet`,
-        {
-            resolve: `gatsby-transformer-remark`,
-            options: {
-                plugins: [
-                    "gatsby-remark-copy-linked-files",
-                    {
-                        resolve: `gatsby-remark-images`,
-                        options: {
-                            maxWidth: 1280
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            resolve: `gatsby-source-filesystem`,
-            options: {
-                name: `contents`,
-                path: `${__dirname}/contents/`
-            }
-        },
-        {
-            resolve: `gatsby-plugin-less`,
-            options: {
-                strictMath: true
-            }
-        },
-        {
-            resolve: `gatsby-plugin-disqus`,
-            options: {
-              shortname: `your-disqus-shortname`
-            }
-        },
-    ]
+    plugins: plugins
 };
