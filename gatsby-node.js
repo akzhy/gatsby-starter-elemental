@@ -13,6 +13,37 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     }
 };
 
+exports.createSchemaCustomization = ({ actions }) => {
+    const { createTypes } = actions
+    const typeDefs = `
+      type Site implements Node {
+        siteMetadata: SiteMetaData
+      }
+      type SiteMetaData {
+        disqus: String
+      }
+    `
+    createTypes(typeDefs)
+
+    /*const { createTypes } = actions;
+    const typeDefs = [
+        `type Site implements Node { SiteMetadata: SiteMetaData }`,
+        schema.buildObjectType({
+            name: "SiteMetadata",
+            fields: {
+                name: "String!",
+                firstName: "String!",
+                email: "String!",
+                receivedSwag: {
+                    type: "Boolean",
+                    resolve: source => source.receivedSwag || false
+                }
+            },
+            interfaces: ["Node"]
+        })
+    ];*/
+}
+
 exports.createPages = ({ graphql, actions }) => {
     const { createPage } = actions;
 
