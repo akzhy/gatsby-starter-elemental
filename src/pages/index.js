@@ -22,12 +22,15 @@ class IndexPage extends React.Component {
         return n;
     }
 
+    componentWillUnmount(){
+        window.removeEventListener("resize",this.setWindowHeight);
+    }
+
     componentDidMount() {
         this.setWindowHeight();
-        let _this = this;
-        window.addEventListener("resize", function() {
-            _this.setWindowHeight();
-        });
+
+        window.addEventListener("resize", this.setWindowHeight);
+        
         let sWidth = this.svg.clientWidth,
             tText = this.svg.querySelector("text"),
             tWidth = tText.getBoundingClientRect().width;
@@ -36,18 +39,18 @@ class IndexPage extends React.Component {
             let tInnerText = tText.innerHTML;
             if (tInnerText.split(" ").length > 1) {
                 tText.innerHTML = "";
-                tInnerText.split(" ").forEach(function(e, i) {
-                    let tSpan = _this.createSVGElement("tspan", {
+                tInnerText.split(" ").forEach((e, i) => {
+                    let tSpan = this.createSVGElement("tspan", {
                         dy: i === 0 ? "0em" : ".8em",
                         x: "50"
                     });
                     tSpan.innerHTML = e;
                     tText.appendChild(tSpan);
                 });
-                setTimeout(function() {
-                    _this.svg.style.height =
+                setTimeout(() => {
+                    this.svg.style.height =
                         tText.getBoundingClientRect().height + 70;
-                    _this.svg.style.margin = "15px auto";
+                    this.svg.style.margin = "15px auto";
                 }, 250);
             } else {
                 while (tWidth > sWidth) {
@@ -62,11 +65,13 @@ class IndexPage extends React.Component {
             }
         }
     }
+
     setWindowHeight() {
         this.setState({
             winHeight: window.innerHeight
         });
     }
+
     render() {
         return (
             <Layout placeholder={false}>
