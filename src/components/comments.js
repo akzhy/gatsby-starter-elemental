@@ -4,13 +4,11 @@ import { StaticQuery, graphql } from "gatsby";
 
 import { Disqus } from "gatsby-plugin-disqus";
 
-function Comments({ data, title, location }) {
-    if (data.site.siteMetadata.disqus === null) return <></>;
-
+function Comments({ url, title }) {
     const disqusConfig = {
-        url: `${data.site.siteMetadata.siteUrl + location}`,
+        url,
         identifier: title,
-        title: title
+        title
     };
     return <Disqus config={disqusConfig} />;
 }
@@ -28,9 +26,13 @@ export default ({ title, location }) => {
                     }
                 }
             `}
-            render={data => (
-                <Comments data={data} title={title} location={location} />
-            )}
+            render={data => {
+                const url = data.site.siteMetadata.siteUrl + location;
+                const noDisqusShortName =
+                    data.site.siteMetadata.disqus === null;
+                if (noDisqusShortName) return null;
+                return <Comments url={url} title={title} />;
+            }}
         />
     );
 };
