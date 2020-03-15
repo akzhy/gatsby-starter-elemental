@@ -102,9 +102,15 @@ let siteMetadata = {
         phone: "000-000-0000",
         address: "1234 \nLocation \nLocation"
     }
+    // this is optional. you can uncomment this if you use disqus
+    // disqus: `your-disqus-shortname` 
 }
 
 ```
+
+**NOTE**
+There is an optional field called `disqus`. the value will be your
+disqus shortname. You can look for more info [here](https://github.com/tterb/gatsby-plugin-disqus).
 
 #### Creating new blog posts.
 
