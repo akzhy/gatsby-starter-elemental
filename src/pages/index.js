@@ -22,15 +22,15 @@ class IndexPage extends React.Component {
         return n;
     }
 
-    componentWillUnmount(){
-        window.removeEventListener("resize",this.setWindowHeight);
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.setWindowHeight);
     }
 
     componentDidMount() {
         this.setWindowHeight();
 
         window.addEventListener("resize", this.setWindowHeight);
-        
+
         let sWidth = this.svg.clientWidth,
             tText = this.svg.querySelector("text"),
             tWidth = tText.getBoundingClientRect().width;

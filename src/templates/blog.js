@@ -5,7 +5,7 @@ import Layout from "../components/layout";
 import LatestPosts from "../components/blogposts-latest";
 import SEO from "../components/seo";
 import Date from "../components/date";
-import Comments from '../components/comments';
+import Comments from "../components/comments";
 import "../style/blog-singlepage.less";
 
 export default function({ data, location }) {
@@ -44,7 +44,10 @@ export default function({ data, location }) {
                         ></div>
                     </div>
                 </article>
-                <Comments title={data.markdownRemark.frontmatter.title} location={location.pathname} />
+                <Comments
+                    title={data.markdownRemark.frontmatter.title}
+                    location={location.pathname}
+                />
                 <LatestPosts id={data.markdownRemark.id} />
             </div>
         </Layout>
