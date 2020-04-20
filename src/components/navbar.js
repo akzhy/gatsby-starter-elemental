@@ -4,6 +4,7 @@ import Sidebar from "react-sidebar";
 import NavLinks from "./navlinks";
 import SocialLinks from "./sociallinks";
 import Logo from "./logo";
+import CookieBanner from "./cookie-banner";
 import { Hamburger } from "./icons";
 
 import "../style/navbar.less";
@@ -53,7 +54,7 @@ class Navbar extends React.Component {
         let logo = this.nav.querySelector(".logo"),
             _this = this;
 
-        logo.addEventListener("load", function() {
+        logo.addEventListener("load", function () {
             _this.changeNavbarPlaceholderHeight();
         });
 
@@ -62,16 +63,18 @@ class Navbar extends React.Component {
 
     changeNavbarHeight() {
         /* While the name states changeNavbarHeight, this does not directly change the navbar height. It simply reduces the width of the logo, which reduces the height and thereby the overall navbar height.
-
 		Also this slightly reduces the vertical padding
-
 		*/
 
-        window.addEventListener("scroll", function() {
+        window.addEventListener("scroll", function () {
             if (this.scrollY > 0) {
-                document.querySelector("nav").classList.add("scrolled");
+                document
+                    .getElementById("nav-container")
+                    .classList.add("scrolled");
             } else {
-                document.querySelector("nav").classList.remove("scrolled");
+                document
+                    .getElementById("nav-container")
+                    .classList.remove("scrolled");
             }
         });
     }
@@ -109,16 +112,23 @@ class Navbar extends React.Component {
                 >
                     <span></span>
                 </Sidebar>
-                <nav className="text-secondary" ref={c => (this.nav = c)}>
-                    <a href="#mobilenav" id="menu-open" onClick={this.menuOpen}>
-                        <span className="icon">
-                            <Hamburger />
-                        </span>
-                    </a>
-                    <Link to="/">
-                        <Logo />
-                    </Link>
-                    <NavLinks />
+                <nav ref={c => (this.nav = c)}>
+                    <CookieBanner />
+                    <div className="text-secondary" id="nav-container">
+                        <a
+                            href="#mobilenav"
+                            id="menu-open"
+                            onClick={this.menuOpen}
+                        >
+                            <span className="icon">
+                                <Hamburger />
+                            </span>
+                        </a>
+                        <Link to="/">
+                            <Logo />
+                        </Link>
+                        <NavLinks />
+                    </div>
                 </nav>
                 {placeholder && (
                     <div

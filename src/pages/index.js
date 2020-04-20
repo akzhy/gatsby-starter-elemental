@@ -66,7 +66,7 @@ class IndexPage extends React.Component {
         }
     }
 
-    setWindowHeight() {
+    setWindowHeight = () => {
         this.setState({
             winHeight: window.innerHeight
         });
@@ -127,7 +127,7 @@ class IndexPage extends React.Component {
                                         .capitalizeTitleOnHome
                                         ? this.props.data.site.siteMetadata.title.toUpperCase()
                                         : this.props.data.site.siteMetadata
-                                              .title}
+                                            .title}
                                 </text>
                             </svg>
                         </div>
