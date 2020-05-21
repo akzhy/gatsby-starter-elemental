@@ -4,9 +4,12 @@ import Layout from "../components/layout";
 import Img from "gatsby-image";
 import SEO from "../components/seo";
 
-export default function({ data }) {
+export default function({ location }) {
     return (
-        <Layout>
+        <Layout seo={{
+            title: "Portfolio page"
+        }}
+        location={location}>
                         {/*
             <SEO
                 lang="en"

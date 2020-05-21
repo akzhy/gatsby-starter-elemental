@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Button } from "./ui"
 import Img from "gatsby-image"
 import { ArrowRight } from "react-feather"
@@ -24,9 +24,11 @@ export default ({ data, even }) => {
 
     const percentageThreshold = 0.3
 
-    const transform =
-        Math.min(getWindowHeight() / 2, 300) *
-        Math.max(0, state.percentage - percentageThreshold)
+    let transform = 0
+
+    useEffect(() => {
+        transform = Math.min(getWindowHeight() / 2, 300) * Math.max(0, state.percentage - percentageThreshold)
+    }, [])
 
     if (state.percentage > percentageThreshold && !state.animated)
         updateState({ animated: true })

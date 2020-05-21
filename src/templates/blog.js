@@ -4,14 +4,12 @@ import Layout from "../components/layout";
 import Img from "gatsby-image";
 import SEO from "../components/seo";
 
-export default function({ data }) {
+export default function({ location }) {
     return (
-        <Layout>
-            <SEO
-                lang="en"
-                title={data.markdownRemark.frontmatter.title}
-                description={data.markdownRemark.frontmatter.description}
-            />
+        <Layout seo={{
+            title: "Blog page"
+        }}
+        location={location}>
             {/*
             <div className="container">
                 <article className="post">
