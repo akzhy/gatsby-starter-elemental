@@ -1,15 +1,47 @@
-import React from "react";
-import Layout from "../components/layout";
-import SEO from "../components/seo";
-import Contact from "../components/contact";
+import React from "react"
+import { graphql } from "gatsby"
 
-export default function() {
+import Layout from "../components/layout"
+import { Form, Description } from "../components/contact"
+
+export default ({data, location}) => {
     return (
-        <Layout>
-            <SEO lang="en" title="Contact" />
-            <div style={{ minHeight: "600px" }}>
-                <Contact />
+        <Layout
+            seo={{
+                title: "Contact",
+            }}
+            location={location}
+        >
+            <div className="container mx-auto py-12">
+                <div className="title py-12 text-center">
+                    <h2 className="font-black text-5xl text-color-1">
+                        Contact
+                    </h2>
+                </div>
+                <div className="flex flex-wrap pb-40">
+                    <div className="w-full lg:w-1/2 px-6">
+                        <Form />
+                    </div>
+                    <div className="w-full lg:w-1/2 px-6 pt-8">
+                        <Description data={data.site.siteMetadata.contact} />
+                    </div>
+                </div>
             </div>
         </Layout>
-    );
+    )
 }
+
+export const query = graphql`
+    query {
+        site {
+            siteMetadata {
+                contact {
+                    description
+                    mail
+                    phone
+                    address
+                }
+            }
+        }
+    }
+`

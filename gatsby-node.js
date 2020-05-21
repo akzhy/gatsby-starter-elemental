@@ -1,17 +1,25 @@
-const { createFilePath } = require(`gatsby-source-filesystem`);
-const path = require(`path`);
+const { createFilePath } = require(`gatsby-source-filesystem`)
+const path = require(`path`)
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
-    const { createNodeField } = actions;
-    if (node.internal.type === `MarkdownRemark`) {
-        const slug = createFilePath({ node, getNode, basePath: `basepages` });
+    const { createNodeField } = actions
+    if (node.internal.type === `Mdx`) {
+        const slug = createFilePath({ node, getNode })
+        const sourceName = getNode(node.parent).sourceInstanceName
+        const prefix = sourceName === "basepages" ? '' : '/'+sourceName;
+
         createNodeField({
             node,
             name: `slug`,
-            value: slug
-        });
+            value: `${prefix}${slug}`,
+        })
+        createNodeField({
+            node,
+            name: `sourceName`,
+            value: sourceName,
+        })
     }
-};
+}
 
 exports.createSchemaCustomization = ({ actions }) => {
     const { createTypes } = actions
@@ -45,49 +53,31 @@ exports.createSchemaCustomization = ({ actions }) => {
 }
 
 exports.createPages = ({ graphql, actions }) => {
-    const { createPage } = actions;
+    const { createPage } = actions
 
     return graphql(`
         {
-            blog: allMarkdownRemark(
-                filter: { fileAbsolutePath: { regex: "/blog/" } }
-            ) {
+            all: allMdx {
                 edges {
                     node {
-                        frontmatter {
-                            template
-                        }
                         fields {
                             slug
+                            sourceName
                         }
                     }
                 }
             }
-            portfolio: allMarkdownRemark(
-                filter: { fileAbsolutePath: { regex: "/portfolio/" } }
-            ) {
+            blog: allMdx(filter: { fields: { sourceName: { eq: "blog" } } }) {
                 edges {
                     node {
-                        frontmatter {
-                            template
-                        }
-                        fields {
-                            slug
-                        }
+                        id
                     }
                 }
             }
-            basepages: allMarkdownRemark(
-                filter: { fileAbsolutePath: { regex: "/basepages/" } }
-            ) {
+            portfolio: allMdx(filter: { fields: { sourceName: { eq: "portfolio" } } }) {
                 edges {
                     node {
-                        frontmatter {
-                            template
-                        }
-                        fields {
-                            slug
-                        }
+                        id
                     }
                 }
             }
@@ -99,7 +89,57 @@ exports.createPages = ({ graphql, actions }) => {
             }
         }
     `).then(result => {
-        const blogPosts = result.data.blog.edges;
+        result.data.all.edges.forEach(({ node }) => {
+            let template = node.fields.sourceName
+            createPage({
+                path: node.fields.slug,
+                component: path.resolve("./src/templates/" + template + ".js"),
+                context: {
+                    slug: node.fields.slug,
+                },
+            })
+        })
+
+        const blogPosts = result.data.blog.edges
+        const blogPostsPerPage =
+            result.data.limitPost.siteMetadata.blogItemsPerPage
+        const numBlogPages = Math.ceil(blogPosts.length / blogPostsPerPage)
+
+        Array.from({ length: numBlogPages }).forEach((_, i) => {
+            createPage({
+                path: i === 0 ? `/blog` : `/blog/${i + 1}`,
+                component: path.resolve("./src/templates/blog-list.js"),
+                context: {
+                    limit: blogPostsPerPage,
+                    skip: i * blogPostsPerPage,
+                    numPages: numBlogPages,
+                    currentPage: i + 1,
+                },
+            })
+        })
+
+
+        const portfolioItems = result.data.portfolio.edges
+        const portfolioItemsPerPage =
+            result.data.limitPost.siteMetadata.portfolioItemsPerPage
+        const numPortfolioItems = Math.ceil(portfolioItems.length / portfolioItemsPerPage)
+
+        Array.from({ length: numPortfolioItems }).forEach((_, i) => {
+            createPage({
+                path: i === 0 ? `/portfolio` : `/portfolio/${i + 1}`,
+                component: path.resolve("./src/templates/portfolio-list.js"),
+                context: {
+                    limit: portfolioItemsPerPage,
+                    skip: i * portfolioItemsPerPage,
+                    numPages: numPortfolioItems,
+                    currentPage: i + 1,
+                },
+            })
+        })
+
+        // console.log(result);
+        //console.log(result);
+        /*const blogPosts = result.data.blog.edges;
 
         const blogPostsPerPage =
             result.data.limitPost.siteMetadata.blogItemsPerPage;
@@ -178,6 +218,6 @@ exports.createPages = ({ graphql, actions }) => {
                     slug: node.fields.slug
                 }
             });
-        });
-    });
-};
+        });*/
+    })
+}

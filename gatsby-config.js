@@ -1,12 +1,14 @@
 const siteMetadata = {
     title: `Elemental`,
     siteUrl: `http://localhost`,
-    capitalizeTitleOnHome: true,
+    capitalizeTitleOnHome: false,
     logo: `/images/logo.png`,
     icon: `/images/icon.png`,
-    titleImage: `/images/wall.jpg`,
+    titleImage: `/images/wall.png`,
+    twoColumnWall: true,
     introTag: `PHOTOGRAPHER | VIDEOGRAPHER`,
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet accumsan arcu. Proin ac consequat arcu.`,
+    about: 'Cras accumsan a lectus at tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus elementum dapibus dictum. Mauris auctor quam nec est tincidunt hendrerit. Donec pulvinar lobortis mauris. Cras vulputate ullamcorper ligula a rhoncus. Nunc venenatis elementum ligula in semper. Mauris malesuada purus nunc, et ultricies leo aliquam ac. Ut sit amet nunc id magna accumsan hendrerit in eget metus.',
     author: `@_akzhy`,
     blogItemsPerPage: 10,
     portfolioItemsPerPage: 10,
@@ -15,56 +17,56 @@ const siteMetadata = {
     navLinks: [
         {
             name: "HOME",
-            url: "/"
+            url: "/",
         },
         {
             name: "ABOUT",
-            url: "/about"
+            url: "/about",
         },
         {
             name: "BLOG",
-            url: "/blog"
+            url: "/blog",
         },
         {
             name: "PORTFOLIO",
-            url: "/portfolio"
+            url: "/portfolio",
         },
         {
             name: "CONTACT",
-            url: "/contact"
-        }
+            url: "/contact",
+        },
     ],
     footerLinks: [
         {
             name: "PRIVACY POLICY",
-            url: "/privacy-policy"
+            url: "/privacy-policy",
         },
         {
             name: "GitHub",
-            url: "https://github.com/akzhy/gatsby-starter-elemental"
-        }
+            url: "https://github.com/akzhy/gatsby-starter-elemental",
+        },
     ],
     social: [
         {
             name: "Facebook",
             icon: "/images/Facebook.svg",
-            url: "#"
+            url: "#",
         },
         {
             name: "Twitter",
             icon: "/images/Twitter.svg",
-            url: "#"
+            url: "#",
         },
         {
             name: "Instagram",
             icon: "/images/Instagram.svg",
-            url: "#"
+            url: "#",
         },
         {
             name: "Youtube",
             icon: "/images/Youtube.svg",
-            url: "#"
-        }
+            url: "#",
+        },
     ],
     contact: {
         /* Leave the below value completely empty (no space either) if you don't want a contact form. */
@@ -72,55 +74,61 @@ const siteMetadata = {
         description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet accumsan arcu. Proin ac consequat arcu.`,
         mail: "hi@akzhy.com",
         phone: "000-000-0000",
-        address: "1234 \nLocation \nLocation"
-    }
-    // this is optional. you can uncomment this if you use disqus
-    // disqus: `your-disqus-shortname`
-};
+        address: "1234 \nLocation \nLocation",
+    },
+}
 
 const plugins = [
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-react-helmet`,
     {
-        resolve: `gatsby-transformer-remark`,
+        resolve: `gatsby-source-filesystem`,
         options: {
-            plugins: [
-                "gatsby-remark-copy-linked-files",
-                {
-                    resolve: `gatsby-remark-images`,
-                    options: {
-                        maxWidth: 1280
-                    }
-                }
-            ]
-        }
+            name: `blog`,
+            path: `${__dirname}/contents/blog/`,
+        },
     },
     {
         resolve: `gatsby-source-filesystem`,
         options: {
-            name: `contents`,
-            path: `${__dirname}/contents/`
-        }
+            name: `portfolio`,
+            path: `${__dirname}/contents/portfolio/`,
+        },
     },
     {
-        resolve: `gatsby-plugin-less`,
+        resolve: `gatsby-source-filesystem`,
         options: {
-            strictMath: true
-        }
+            name: `basepages`,
+            path: `${__dirname}/contents/basepages`,
+        },
     },
+    {
+        resolve: `gatsby-plugin-mdx`,
+        options: {
+            gatsbyRemarkPlugins: [
+                {
+                    resolve: `gatsby-remark-images`,
+                    options: {
+                        maxWidth: 1200,
+                    },
+                },
+            ],
+        },
+    },
+    `gatsby-plugin-postcss`,
 ]
 
-if(siteMetadata.disqus) {
+if (siteMetadata.disqus) {
     plugins.push({
         resolve: `gatsby-plugin-disqus`,
         options: {
-          shortname: siteMetadata.disqus
-        }
+            shortname: siteMetadata.disqus,
+        },
     })
 }
 
 module.exports = {
     siteMetadata: siteMetadata,
-    plugins: plugins
-};
+    plugins: plugins,
+}

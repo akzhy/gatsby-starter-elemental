@@ -1,169 +1,178 @@
-import React from "react";
-import Layout from "../components/layout";
-import { graphql } from "gatsby";
-import SEO from "../components/seo";
-import SocialLinks from "../components/sociallinks";
-import PortfolioList from "../components/list-portfolio";
-import BlogList from "../components/list-blog";
-import Contact from "../components/contact";
-import "../style/wall.less";
+import React, { useEffect, useRef, useState } from "react"
+import { graphql } from "gatsby"
 
-class IndexPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            winHeight: "100vh"
-        };
-    }
+import { ArrowRight } from "react-feather"
 
-    createSVGElement(n, v) {
-        n = document.createElementNS("http://www.w3.org/2000/svg", n);
-        for (var p in v) n.setAttributeNS(null, p, v[p]);
-        return n;
-    }
+import Layout from "../components/layout"
+import { Button } from "../components/ui"
 
-    componentWillUnmount() {
-        window.removeEventListener("resize", this.setWindowHeight);
-    }
+import ItemPortfolio from "../components/item-portfolio"
+import ItemBlog from "../components/item-blog"
+import { Form, Description as ContactDescription } from "../components/contact"
 
-    componentDidMount() {
-        this.setWindowHeight();
+export default ({ data, location }) => {
+    const siteData = data.site.siteMetadata
 
-        window.addEventListener("resize", this.setWindowHeight);
+    const portfolioList = data.portfolio.edges.map((item, _) => (
+        <ItemPortfolio
+            data={item.node}
+            key={`p-item-index-${item.node.id}`}
+            even={(_ + 1) % 2 === 0}
+        />
+    ))
 
-        let sWidth = this.svg.clientWidth,
-            tText = this.svg.querySelector("text"),
-            tWidth = tText.getBoundingClientRect().width;
+    const blogList = data.blog.edges.map(item => (
+        <ItemBlog data={item.node} key={`b-item-index-${item.node.id}`} />
+    ))
 
-        if (tWidth > sWidth) {
-            let tInnerText = tText.innerHTML;
-            if (tInnerText.split(" ").length > 1) {
-                tText.innerHTML = "";
-                tInnerText.split(" ").forEach((e, i) => {
-                    let tSpan = this.createSVGElement("tspan", {
-                        dy: i === 0 ? "0em" : ".8em",
-                        x: "50"
-                    });
-                    tSpan.innerHTML = e;
-                    tText.appendChild(tSpan);
-                });
-                setTimeout(() => {
-                    this.svg.style.height =
-                        tText.getBoundingClientRect().height + 70;
-                    this.svg.style.margin = "15px auto";
-                }, 250);
-            } else {
-                while (tWidth > sWidth) {
-                    let fontSize = parseInt(
-                        window
-                            .getComputedStyle(tText, null)
-                            .getPropertyValue("font-size")
-                    );
-                    tText.style.fontSize = fontSize - 1 + "px";
-                    tWidth = tText.getBoundingClientRect().width;
-                }
+    return (
+        <Layout front={true} seo={{
+            title: 'Home',
+            description: siteData.description,
+        }}
+        navPlaceholder={false}
+        location={location}
+        >
+            <Wall data={siteData} />
+            {siteData.about !== "" && <About data={siteData.about} />}
+            {portfolioList}
+            <Blog>{blogList}</Blog>
+            <Contact data={siteData.contact}/>
+        </Layout>
+    )
+}
+
+const Wall = ({ data }) => {
+    const wall = useRef(null)
+
+    const twoColumnWall = data.twoColumnWall
+
+    const [state, changeState] = useState({
+        loaded: false,
+        supportsBlend: false,
+    })
+
+    useEffect(() => {
+        if (window.CSS && !state.loaded) {
+            if (CSS.supports("mix-blend-mode", "screen")) {
+                wall.current.classList.add("supports-blend")
+                changeState({
+                    loaded: true,
+                    supportsBlend: true,
+                })
             }
+        }
+    }, [state.loaded])
+
+    const hAttributes = {}
+
+    if (!twoColumnWall && data.titleImage) {
+        hAttributes.style = {
+            backgroundImage: `url('${data.titleImage}')`,
         }
     }
 
-    setWindowHeight() {
-        this.setState({
-            winHeight: window.innerHeight
-        });
+    const innerComponents = (
+        <React.Fragment>
+            <div className="title" {...hAttributes}>
+                <h1
+                    className={`text-7xl font-black ${
+                        data.capitalizeTitleOnHome ? "uppercase" : ""
+                    }`}
+                >
+                    {data.title}
+                </h1>
+            </div>
+            <p className="text-xl text-color-2">{data.introTag}</p>
+            <p className="text-lg mt-4">{data.description}</p>
+            <Button title="SEE WORKS" type="button" iconRight={<ArrowRight />} />
+        </React.Fragment>
+    )
+
+    if (twoColumnWall) {
+        return (
+            <div
+                className="wall h-screen flex justify-center items-center"
+                ref={wall}
+            >
+                <div className="flex-1">
+                    <img src={data.titleImage} alt="" />
+                </div>
+                <div className="flex-1 align-left pl-8">{innerComponents}</div>
+            </div>
+        )
     }
 
-    render() {
-        return (
-            <Layout placeholder={false}>
-                <SEO
-                    lang="en"
-                    title={this.props.data.site.siteMetadata.title}
-                />
-                <div
-                    className="wall"
-                    style={{ height: this.state.winHeight + "px" }}
-                >
-                    <div className="intro container">
-                        <div className="main-title text-primary">
-                            <svg
-                                width="90%"
-                                height="220px"
-                                viewBox="0 0 100 100"
-                                preserveAspectRatio="xMidYMid slice"
-                                ref={c => (this.svg = c)}
-                            >
-                                {this.props.data.site.siteMetadata
-                                    .capitalizeTitleOnHome
-                                    ? this.props.data.site.siteMetadata.title.toUpperCase()
-                                    : this.props.data.site.siteMetadata.title}
-                                <pattern
-                                    id="wallPattern"
-                                    patternUnits="userSpaceOnUse"
-                                    width="100"
-                                    height="100"
-                                >
-                                    <rect
-                                        x="0"
-                                        y="0"
-                                        className="fill-primary"
-                                        width="100"
-                                        height="100"
-                                    />
-                                    <image
-                                        xlinkHref="/images/wall.jpg"
-                                        height="100"
-                                        width="100"
-                                        y="0"
-                                        preserveAspectRatio="none"
-                                    ></image>
-                                </pattern>
-                                <text
-                                    fill="url(#wallPattern)"
-                                    textAnchor="middle"
-                                    x="50"
-                                    y="50"
-                                >
-                                    {this.props.data.site.siteMetadata
-                                        .capitalizeTitleOnHome
-                                        ? this.props.data.site.siteMetadata.title.toUpperCase()
-                                        : this.props.data.site.siteMetadata
-                                              .title}
-                                </text>
-                            </svg>
-                        </div>
-                        <p className="tag-line text-secondary">
-                            {this.props.data.site.siteMetadata.introTag}
-                        </p>
-                        <p className="caption text-tertiary">
-                            {this.props.data.site.siteMetadata.description}
-                        </p>
-                        <a href="#portfolio" className="btn">
-                            SEE WORKS
-                        </a>
-                    </div>
-                    <div className="social-buttons">
-                        <SocialLinks />
-                    </div>
-                </div>
-                <PortfolioList />
-                <BlogList />
-                <Contact />
-            </Layout>
-        );
-    }
+    return (
+        <div
+            className="wall h-screen flex flex-col justify-center items-center text-center"
+            ref={wall}
+        >
+            {innerComponents}
+        </div>
+    )
 }
 
-export default IndexPage;
+
+const About = ({ data }) => {
+    return (
+        <div className="boxed">
+            <div className="py-40 text-center">
+                <h2 className="text-color-1 font-black text-6xl">About</h2>
+                <p className="mt-5 text-lg">{data}</p>
+            </div>
+        </div>
+    )
+}
+
+const Blog = ({ children }) => {
+    return (
+        <div className="container mx-auto">
+            <div className="pt-40 pb-20 text-center">
+                <h2 className="text-color-1 font-black text-6xl">Blog</h2>
+            </div>
+            <div className="flex flex-wrap">{children}</div>
+        </div>
+    )
+}
+
+
+const Contact = ({data}) => {
+    return (
+        <div className="container mx-auto">
+            <div className="pt-40 pb-20 text-center">
+                <h2 className="text-color-1 font-black text-6xl">Contact</h2>
+            </div>
+            <div className="flex flex-wrap pb-40">
+                <div className="w-full lg:w-1/2 px-6">
+                    <Form />
+                </div>
+                <div className="w-full lg:w-1/2 px-6 pt-8">
+                    <ContactDescription data={data}/>
+                </div>
+            </div>
+        </div>
+    )
+}
 
 export const query = graphql`
     query {
-        site {
+        site: site {
             siteMetadata {
                 title
+                description
                 capitalizeTitleOnHome
                 titleImage
+                twoColumnWall
                 introTag
                 description
+                about
+                contact {
+                    description
+                    mail
+                    phone
+                    address
+                }
                 social {
                     name
                     url
@@ -171,5 +180,54 @@ export const query = graphql`
                 }
             }
         }
+        portfolio: allMdx(
+            filter: { fields: { sourceName: { eq: "portfolio" } } }
+            limit: 6
+        ) {
+            edges {
+                node {
+                    id
+                    frontmatter {
+                        title
+                        description
+                        image {
+                            childImageSharp {
+                                fluid(maxWidth: 1000) {
+                                    ...GatsbyImageSharpFluid
+                                }
+                            }
+                        }
+                    }
+                    fields {
+                        slug
+                    }
+                }
+            }
+        }
+        blog: allMdx(
+            filter: { fields: { sourceName: { eq: "blog" } } }
+            limit: 6
+        ) {
+            edges {
+                node {
+                    id
+                    frontmatter {
+                        title
+                        description
+                        date(formatString: "DD MMMM YYYY")
+                        image {
+                            childImageSharp {
+                                fluid(maxWidth: 1000) {
+                                    ...GatsbyImageSharpFluid
+                                }
+                            }
+                        }
+                    }
+                    fields {
+                        slug
+                    }
+                }
+            }
+        }
     }
-`;
+`
