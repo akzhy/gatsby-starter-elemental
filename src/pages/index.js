@@ -66,7 +66,7 @@ class IndexPage extends React.Component {
         }
     }
 
-    setWindowHeight() {
+    setWindowHeight = () => {
         this.setState({
             winHeight: window.innerHeight
         });
