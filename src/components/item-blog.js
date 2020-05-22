@@ -16,11 +16,11 @@ export default ({ data }) => {
                             className="w-full"
                         />
                     </div>
-                    <div className="p-4">
-                        <h4 className="text-color-2 font-black text-3xl pt-2">
+                    <div className="p-4 py-3">
+                        <h4 className="text-color-2 font-black text-3xl pt-1">
                             {data.frontmatter.title}
                         </h4>
-                        <div className="flex items-center pt-2 text-secondary">
+                        <div className="flex items-center text-secondary">
                             <Calendar className="stroke-current"/>
                             <p className="pl-2 text-color-default font-sans">{data.frontmatter.date}</p>
                         </div>
