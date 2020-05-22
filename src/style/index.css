@@ -163,29 +163,75 @@ p {
 }
 
 .post-content p {
-    @apply my-2;
+    @apply my-3;
 }
 
-.post-content h1, h2, h3, h4, h5 {
+.post-content h1, h2, h3, h4, h5, h6 {
     @apply font-black text-color-2 my-4;
 }
 
 .post-content h1 {
-    @apply text-6xl;
-}
-
-.post-content h2 {
     @apply text-5xl;
 }
 
-.post-content h3 {
+.post-content h2 {
     @apply text-4xl;
 }
 
-.post-content h4 {
+.post-content h3 {
     @apply text-3xl;
 }
 
-.post-content h5 {
+.post-content h4 {
     @apply text-2xl;
+}
+
+.post-content h5 {
+    @apply text-xl;
+}
+
+.post-content h5 {
+    @apply text-lg;
+}
+
+.post-content hr {
+    @apply my-4 border-medium;
+}
+
+.post-content ul {
+    list-style: disc
+}
+
+.post-content ol {
+    list-style: decimal;
+}
+
+.post-content ul, .post-content ol {
+    @apply ml-4;
+}
+
+.post-content ul ul, .post-content ol ol {
+    @apply ml-3;
+}
+
+.post-content li {
+    @apply my-2;
+}
+
+.post-content table {
+    @apply w-full my-6;
+}
+
+.post-content table tr {
+    border-bottom: 2px solid #eee;
+    @apply border-medium;
+}
+
+
+.post-content table tr td, .post-content table tr th {
+    @apply p-2 py-3 text-left;
+}
+
+.post-content blockquote{
+    @apply bg-bgalt border-l-4 border-primary p-3;
 }
