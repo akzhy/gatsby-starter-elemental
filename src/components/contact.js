@@ -11,7 +11,7 @@ const Form = () => {
             <TextInput label="Name" name="name" />
             <TextInput label="Email" name="email" type="email" />
             <TextInput label="Message" name="message" type="textarea" />
-            <div className="p-4">
+            <div className="py-3 lg:p-4">
                 <Button
                     type="button,submit"
                     title="Send"
