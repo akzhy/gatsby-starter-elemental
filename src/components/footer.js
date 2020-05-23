@@ -1,7 +1,7 @@
 import React from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import { Logo } from "./utils"
-import Navlinks from "./navigation/list"
+import Navlinks from "./navigation-list"
 
 
 export default function() {
@@ -20,7 +20,7 @@ export default function() {
     `)
 
     const footerLinks = query.site.siteMetadata.footerLinks.map((item, _) => (
-        <ListItem data={item} key={`footer-n-l-${_}`} />
+        <ListItem data={item} className="nav-links" key={`footer-n-l-${_}`} />
     ))
 
     return (
@@ -32,7 +32,7 @@ export default function() {
                     </Link>
                 </div>
                 <div className="text-color-2 my-3 footer-links animated-link-parent">
-                    <Navlinks className="flex items-center justify-center"/>
+                    <Navlinks className="flex items-center justify-center flex-wrap"/>
                 </div>
                 <div
                     className="text-color-2 my-3"
