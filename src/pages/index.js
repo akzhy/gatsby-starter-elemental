@@ -35,7 +35,9 @@ export default ({ data, location }) => {
         >
             <Wall data={siteData} />
             {siteData.about !== "" && <About data={siteData.about} />}
-            {portfolioList}
+            <div className="px-4 lg:px-0">
+                {portfolioList}
+            </div>
             <Blog>{blogList}</Blog>
             <Contact data={siteData.contact}/>
         </Layout>
@@ -76,7 +78,7 @@ const Wall = ({ data }) => {
         <React.Fragment>
             <div className="title" {...hAttributes}>
                 <h1
-                    className={`text-7xl font-black ${
+                    className={`text-5xl lg:text-7xl font-black ${
                         data.capitalizeTitleOnHome ? "uppercase" : ""
                     }`}
                 >
@@ -92,13 +94,13 @@ const Wall = ({ data }) => {
     if (twoColumnWall) {
         return (
             <div
-                className="wall h-screen flex justify-center items-center"
+                className="wall h-screen flex relative justify-center items-center overflow-hidden"
                 ref={wall}
             >
-                <div className="flex-1">
-                    <img src={data.titleImage} alt="" />
+                <div className="flex-1 lg:block absolute lg:relative">
+                    <img src={data.titleImage} alt="" className="h-full w-auto max-w-none lg:h-auto lg:w-full"/>
                 </div>
-                <div className="flex-1 align-left pl-8">{innerComponents}</div>
+                <div className="flex-1 text-center p-3 relative z-10 lg:text-left lg:pl-8">{innerComponents}</div>
             </div>
         )
     }
@@ -117,7 +119,7 @@ const Wall = ({ data }) => {
 const About = ({ data }) => {
     return (
         <div className="boxed">
-            <div className="py-40 text-center">
+            <div className="px-4 py-20 text-center lg:py-40 lg:px-0">
                 <h2 className="text-color-1 font-black text-6xl">About</h2>
                 <p className="mt-5 text-lg">{data}</p>
             </div>
@@ -127,8 +129,8 @@ const About = ({ data }) => {
 
 const Blog = ({ children }) => {
     return (
-        <div className="container mx-auto">
-            <div className="pt-40 pb-20 text-center">
+        <div className="container mx-auto px-4 lg:px-0">
+            <div className="pt-20 pb-10 text-center lg:pt-40 lg:pb-20">
                 <h2 className="text-color-1 font-black text-6xl">Blog</h2>
             </div>
             <div className="flex flex-wrap">{children}</div>
@@ -140,7 +142,7 @@ const Blog = ({ children }) => {
 const Contact = ({data}) => {
     return (
         <div className="container mx-auto">
-            <div className="pt-40 pb-20 text-center">
+            <div className="pt-20 pb-10 lg:pt-40 lg:pb-20 text-center">
                 <h2 className="text-color-1 font-black text-6xl">Contact</h2>
             </div>
             <div className="flex flex-wrap pb-40">
