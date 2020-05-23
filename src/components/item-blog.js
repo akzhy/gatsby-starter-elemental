@@ -7,7 +7,7 @@ import { Calendar } from "react-feather"
 export default ({ data }) => {
     return (
         <div className="w-full md:w-1/2 lg:w-1/3 p-2 lg:p-4">
-            <div className="transition-shadow duration-300 hover:shadow-2xl">
+            <div className="transition-shadow duration-300 hover:shadow-2xl shadow">
                 <Link to={data.fields.slug} title={data.frontmatter.title}>
                     <div className="image">
                         <Img
