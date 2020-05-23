@@ -236,6 +236,10 @@ p {
     @apply bg-bgalt border-l-4 border-primary p-3;
 }
 
+.post-content iframe {
+    max-width: 100%;
+}
+
 @media (max-width: 640px) {
     html {
         font-size: 14px;
