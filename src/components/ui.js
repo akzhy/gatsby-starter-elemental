@@ -65,7 +65,7 @@ const TextInput = ({ label, type = "text", name }) => {
         <div
             className={`${
                 focused ? "shadow-2xl" : ""
-            } transition-shadow duration-300 p-4 pb-6`}
+            } transition-shadow duration-300 py-3 lg:p-4 pb-6`}
         >
             <p className="text-color-3">{label}</p>
             <div className="bg-gradient-primary p-2px">

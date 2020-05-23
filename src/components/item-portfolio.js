@@ -3,7 +3,7 @@ import { Button } from "./ui"
 import Img from "gatsby-image"
 import { ArrowRight } from "react-feather"
 
-import Parallax from "./parallax"
+import Parallax from "../utils/parallax"
 
 export default ({ data, even }) => {
     const [state, changeState] = useState({
@@ -37,7 +37,7 @@ export default ({ data, even }) => {
         <Parallax changePercentage={updateState}>
             <div className="large-container mx-auto">
                 <div
-                    className={`my-4 py-24 portfolio-item flex ${
+                    className={`my-4 py-8 lg:py-24 portfolio-item lg:flex ${
                         state.animated ? "begin-animation" : ""
                     } ${even ? "even flex-row-reverse" : ""}`}
                 >
@@ -56,16 +56,16 @@ export default ({ data, even }) => {
                             />
                         </div>
                     </div>
-                    <div className={`flex-1 flex px-6 items-center`}>
+                    <div className="flex-1 flex lg:px-6 items-center">
                         <div
                             className={`flex flex-1 flex-wrap  ${
-                                even ? "justify-end text-right" : ""
+                                even ? "lg:justify-end lg:text-right" : ""
                             }`}
                         >
                             <h3 className="text-color-1 text-5xl font-black to-up">
                                 {data.frontmatter.title}
                             </h3>
-                            <p className="mt-4 to-up">
+                            <p className="lg:mt-4 to-up">
                                 {data.frontmatter.description}
                             </p>
                             <Button

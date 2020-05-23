@@ -72,7 +72,7 @@ p {
 }
 
 .btn {
-    @apply h-12 px-6 outline-none flex relative overflow-hidden items-center;
+    @apply h-12 px-6 outline-none inline-flex relative overflow-hidden items-center;
 }
 
 .btn span {
@@ -234,4 +234,10 @@ p {
 
 .post-content blockquote{
     @apply bg-bgalt border-l-4 border-primary p-3;
+}
+
+@media (max-width: 640px) {
+    html {
+        font-size: 14px;
+    }
 }
