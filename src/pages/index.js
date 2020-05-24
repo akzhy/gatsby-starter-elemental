@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { graphql } from "gatsby"
 
 import { ArrowRight } from "react-feather"
+import ScrollIntoView from "react-scroll-into-view"
 
 import Layout from "../components/layout"
 import { Button } from "../components/ui"
@@ -26,20 +27,22 @@ export default ({ data, location }) => {
     ))
 
     return (
-        <Layout front={true} seo={{
-            title: 'Home',
-            description: siteData.description,
-        }}
-        navPlaceholder={false}
-        location={location}
+        <Layout
+            front={true}
+            seo={{
+                title: "Home",
+                description: siteData.description,
+            }}
+            navPlaceholder={false}
+            location={location}
         >
             <Wall data={siteData} />
             {siteData.about !== "" && <About data={siteData.about} />}
-            <div className="px-4 lg:px-0">
+            <div className="px-4 lg:px-0" id="portfolio">
                 {portfolioList}
             </div>
             <Blog>{blogList}</Blog>
-            <Contact data={siteData.contact}/>
+            <Contact data={siteData.contact} />
         </Layout>
     )
 }
@@ -87,7 +90,13 @@ const Wall = ({ data }) => {
             </div>
             <p className="text-xl text-color-2">{data.introTag}</p>
             <p className="text-lg mt-4">{data.description}</p>
-            <Button title="SEE WORKS" type="button" iconRight={<ArrowRight />} />
+            <ScrollIntoView selector="#portfolio">
+                <Button
+                    title="SEE WORKS"
+                    type="button"
+                    iconRight={<ArrowRight />}
+                />
+            </ScrollIntoView>
         </React.Fragment>
     )
 
@@ -97,10 +106,16 @@ const Wall = ({ data }) => {
                 className="wall h-screen flex relative justify-center items-center overflow-hidden"
                 ref={wall}
             >
-                <div className="flex-1 lg:block absolute lg:relative">
-                    <img src={data.titleImage} alt="" className="h-full w-auto max-w-none lg:h-auto lg:w-full"/>
+                <div className="flex-1 lg:block absolute lg:relative left-0">
+                    <img
+                        src={data.titleImage}
+                        alt=""
+                        className="h-full w-auto max-w-none lg:h-auto lg:w-full"
+                    />
                 </div>
-                <div className="flex-1 text-center p-3 relative z-10 lg:text-left lg:pl-8">{innerComponents}</div>
+                <div className="flex-1 text-center p-3 relative z-10 lg:text-left lg:pl-8">
+                    {innerComponents}
+                </div>
             </div>
         )
     }
@@ -114,7 +129,6 @@ const Wall = ({ data }) => {
         </div>
     )
 }
-
 
 const About = ({ data }) => {
     return (
@@ -138,19 +152,18 @@ const Blog = ({ children }) => {
     )
 }
 
-
-const Contact = ({data}) => {
+const Contact = ({ data }) => {
     return (
         <div className="container mx-auto">
             <div className="pt-20 pb-10 lg:pt-40 lg:pb-20 text-center">
                 <h2 className="text-color-1 font-black text-6xl">Contact</h2>
             </div>
             <div className="flex flex-wrap pb-40">
-                <div className="w-full lg:w-1/2 px-6">
+                <div className="w-full lg:w-1/2 pl-2 pr-6">
                     <Form />
                 </div>
-                <div className="w-full lg:w-1/2 px-6 pt-8">
-                    <ContactDescription data={data}/>
+                <div className="w-full lg:w-1/2 pl-6 pr-2 pt-8">
+                    <ContactDescription data={data} />
                 </div>
             </div>
         </div>
