@@ -22,8 +22,8 @@ export default function({ data, pageContext, location }) {
             }}
             location={location}
         >
-            <div className="container mx-auto py-12">
-                <div className="title py-12 text-center">
+            <div className="py-12">
+                <div className="title py-8 text-center">
                     <h2 className="font-black text-5xl text-color-1">
                         Portfolio
                     </h2>
