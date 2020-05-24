@@ -32,7 +32,7 @@ export default function() {
                     </Link>
                 </div>
                 <div className="text-color-2 my-3 footer-links animated-link-parent">
-                    <Navlinks className="flex items-center justify-center flex-wrap"/>
+                    <Navlinks className="flex items-center justify-center flex-wrap" withThemeSwitch={false}/>
                 </div>
                 <div
                     className="text-color-2 my-3"

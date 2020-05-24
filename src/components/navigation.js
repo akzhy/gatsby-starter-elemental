@@ -6,7 +6,7 @@ import List from "./navigation-list"
 import { Menu } from "react-feather"
 import SideBar from "./sidebar"
 
-const Navbar = ({ navPlaceholder, location }) => {
+const Navbar = ({ navPlaceholder, location, currentTheme, switchTheme, themes }) => {
     const currentLocation = location.pathname.split("/")[1]
 
     const data = useStaticQuery(graphql`
@@ -24,6 +24,7 @@ const Navbar = ({ navPlaceholder, location }) => {
     const [scrolled, changeState] = useState(false)
     const [navbarHeight, setNavbarHeight] = useState(0)
     const [sidebarOpen, setSidebarOpen] = useState(false)
+
 
     useEffect(() => {
         const onScroll = () => {
@@ -51,7 +52,7 @@ const Navbar = ({ navPlaceholder, location }) => {
                 ref={navbar}
             >
                 <button
-                    className="absolute text-primary outline-0"
+                    className="absolute text-primary outline-0 lg:hidden"
                     style={{
                         transform: "translateY(-50%)",
                         top: "50%",
@@ -75,7 +76,7 @@ const Navbar = ({ navPlaceholder, location }) => {
                             </Link>
                         </div>
                         <div className="text-center">
-                            <List name="sidebar-nav" current={currentLocation} liClassName="block my-2"/>
+                            <List name="sidebar-nav" current={currentLocation}  currentTheme={currentTheme} switchTheme={switchTheme} themes={themes} liClassName="block my-2"/>
                         </div>
                     </div>
                 </SideBar>
@@ -87,7 +88,7 @@ const Navbar = ({ navPlaceholder, location }) => {
                     />
                 </Link>
                 <div className="hidden lg:block">
-                    <List name="navbar" className="nav-links" current={currentLocation} />
+                    <List name="navbar" className="nav-links flex" current={currentLocation} currentTheme={currentTheme} switchTheme={switchTheme} themes={themes}/>
                 </div>
                 <div className="absolute line h-px left-0 bottom-0 bg-gradient-primary"></div>
             </div>

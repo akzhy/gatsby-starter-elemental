@@ -1,6 +1,8 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
+
+import { Sun, Moon } from "react-feather"
 
 import Navbar from "./navigation"
 
@@ -10,13 +12,42 @@ import SEO from "../utils/seo";
 import "../style/index.css"
 
 export default ({ children, front, seo, navPlaceholder=true, location }) => {
+
+    const themes = [
+        {
+            name: "theme-light",
+            label: "Light Theme",
+            icon: <Sun />
+        },{
+            name: "theme-dark",
+            label: "Dark Theme",
+            icon: <Moon />
+        }
+    ]
+
+    const [theme, changeTheme] = useState(0);
+
+    useEffect(() => {
+        if(localStorage.getItem("theme")) {
+            const t = Number(localStorage.getItem("theme"));
+            changeTheme(t);
+        }
+    }, [])
+
+    const switchTheme = () => {
+        const next = theme !== themes.length-1 ? theme+1 : 0;
+        changeTheme(next);
+        localStorage.setItem("theme", next);
+    }
+
+
     return (
         <React.Fragment>
             <Head />
             <SEO {...seo} />
-            <div className="wrapper">
+            <div className={`wrapper ${themes[theme].name}`}>
                 <div className="text-color-default bg-bg">
-                    <Navbar front={front} navPlaceholder={navPlaceholder} location={location}/>
+                    <Navbar front={front} navPlaceholder={navPlaceholder} location={location} currentTheme={theme} switchTheme={switchTheme} themes={themes}/>
                     {children}
                     <Footer />
                 </div>

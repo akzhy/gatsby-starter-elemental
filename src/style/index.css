@@ -48,6 +48,10 @@ p {
     @apply w-8 h-8;
 }
 
+.nav .nav-links .theme-switcher:before{
+    display: none;
+}
+
 .nav .line {
     width: 0;
     transition: width 0.50s;
