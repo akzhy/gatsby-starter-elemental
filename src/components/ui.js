@@ -38,7 +38,7 @@ const TextInput = ({ label, type = "text", name }) => {
         <input
             type={type}
             name={name}
-            className="block w-full outline-none px-4 py-2 focus:outline-none"
+            className="block w-full outline-none px-4 py-2 focus:outline-none bg-bg text-color-default"
             onFocus={() => changeFocused(true)}
             onBlur={() => changeFocused(false)}
             aria-label={name}
@@ -48,7 +48,7 @@ const TextInput = ({ label, type = "text", name }) => {
     if (type === "textarea") {
         elem = (
             <textarea
-                className="block w-full outline-none resize-none px-4 py-2 focus:outline-none"
+                className="block w-full outline-none resize-none px-4 py-2 focus:outline-none bg-bg text-color-default"
                 name={name}
                 onChange={event => {
                     event.target.style.height = "auto"
