@@ -187,7 +187,9 @@ export default class SideBar extends React.Component{
 
     render(){
         return(
-            <div className="r-swipe-sidebar-container">
+            <div className="r-swipe-sidebar-container" style={{
+                position: "absolute"
+            }}>
                 <div className="r-swipe-sidebar" ref={this.sidebarParent} style={{
                     position: "fixed",
                     left: `${this.state.progress-100}%`,
