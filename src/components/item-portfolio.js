@@ -24,10 +24,10 @@ export default ({ data, even }) => {
 
     const percentageThreshold = 0.3
 
-    let transform = useRef(0).current;
+    let transform = useRef(0);
 
     useEffect(() => {
-        transform = Math.min(getWindowHeight() / 2, 300) * Math.max(0, state.percentage - percentageThreshold)
+        transform.current = Math.min(getWindowHeight() / 2, 300) * Math.max(0, state.percentage - percentageThreshold)
     }, [state.percentage])
 
     if (state.percentage > percentageThreshold && !state.animated)
@@ -45,7 +45,7 @@ export default ({ data, even }) => {
                         <div
                             className="image relative z-10"
                             style={{
-                                transform: `translate(0px,${transform}px)`,
+                                transform: `translate(0px,${transform.current}px)`,
                             }}
                         >
                             <Img
