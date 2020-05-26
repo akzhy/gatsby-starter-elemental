@@ -9,7 +9,6 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Row, Col } from "../components/shortcodes/index"
 
 export default function({ location, data }) {
-    console.log(data)
     return (
         <Layout
             seo={{
