@@ -79,9 +79,9 @@ const Wall = ({ data }) => {
 
     const innerComponents = (
         <React.Fragment>
-            <div className="title" {...hAttributes}>
+            <div className="title bg-bg" {...hAttributes}>
                 <h1
-                    className={`text-5xl lg:text-7xl font-black ${
+                    className={`text-6xl relative lg:text-7xl ${
                         data.capitalizeTitleOnHome ? "uppercase" : ""
                     }`}
                 >

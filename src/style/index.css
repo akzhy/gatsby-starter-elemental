@@ -65,14 +65,33 @@ p {
     @apply text-color-1 font-black;
 }
 
-.supports-blend .title {
-    @apply bg-gradient-primary;
-}
 
 .supports-blend .title h1 {
     color: #000;
     background: #fff;
+    mix-blend-mode: multiply;
+}
+
+.supports-blend .title h1:before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    @apply bg-gradient-primary;
     mix-blend-mode: screen;
+}
+
+.theme-dark .supports-blend .title h1 {
+    color: #fff;
+    background: #000;
+    mix-blend-mode: lighten;
+}
+
+.theme-dark .supports-blend .title h1:before {
+    mix-blend-mode: multiply;
 }
 
 .btn {
