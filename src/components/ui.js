@@ -31,7 +31,7 @@ const Button = props => {
     )
 }
 
-const TextInput = ({ label, type = "text", name }) => {
+const TextInput = ({ label, type = "text", name, onChange, footer }) => {
     const [focused, changeFocused] = useState(false)
 
     let elem = (
@@ -41,6 +41,7 @@ const TextInput = ({ label, type = "text", name }) => {
             className="block w-full outline-none px-4 py-2 focus:outline-none bg-bg text-color-default"
             onFocus={() => changeFocused(true)}
             onBlur={() => changeFocused(false)}
+            onChange={onChange}
             aria-label={name}
         />
     )
@@ -56,6 +57,7 @@ const TextInput = ({ label, type = "text", name }) => {
                 }}
                 onFocus={() => changeFocused(true)}
                 onBlur={() => changeFocused(false)}
+                onChange={onChange}
                 aria-label={name}
             />
         )
@@ -64,13 +66,16 @@ const TextInput = ({ label, type = "text", name }) => {
     return (
         <div
             className={`${
-                focused ? "shadow-2xl" : ""
-            } transition-shadow duration-300 py-3 lg:p-4 pb-6`}
+                focused ? "input focused shadow-2xl" : ""
+            } transition-all duration-300 py-3 lg:p-4 pb-6`}
         >
             <p className="text-color-3">{label}</p>
             <div className="bg-gradient-primary p-2px">
                 {elem}
             </div>
+            {footer && 
+            <>{footer}</>
+            }
         </div>
     )
 }
