@@ -1,48 +1,136 @@
 import React, { useState } from "react"
-import { Send, Mail, Phone, MapPin } from "react-feather"
+import { Send, Mail, Phone, MapPin, Loader } from "react-feather"
 
 import { TextInput, Button } from "./ui"
 
-import { beforeContactFormSubmit, contactFormSubmit  } from "../../config"
+import { beforeContactFormSubmit, contactFormSubmit } from "../../config"
 
 import SocialLinks from "../utils/sociallinks"
 
 const Form = ({ api }) => {
-
     const [data, changeData] = useState({
         name: "",
         email: "",
         message: "",
-        error: false,
-        feedback: ""
     })
 
-    const updateData = (v) => changeData({...data, ...v});
+    const [feedback, setFeedback] = useState({})
+
+    const [ transactionState, setTransactionState] = useState(false);
+
+    const updateData = v => changeData({ ...data, ...v })
 
     return (
-        <form onSubmit={() => {
-            const validate = beforeContactFormSubmit(data);
+        <form
+            onSubmit={event => {
+                event.preventDefault()
+                setTransactionState(true);
 
-            if(validate.result) {
-                contactFormSubmit(api, validate.data).then(res => {
-                    console.log(res);
-                })
-            }
-        }}>
-            <TextInput label="Name" name="name" onChange={(e) => updateData({
-                name: e.current.value
-            })}/>
-            <TextInput label="Email" name="email" type="email" onChange={(e) => updateData({
-                email: e.current.value
-            })}/>
-            <TextInput label="Message" name="message" type="textarea" onChange={(e) => updateData({
-                message: e.current.value
-            })}/>
+                const validate = beforeContactFormSubmit(data);
+
+                if (validate.result) {
+                    setFeedback({});
+                    contactFormSubmit(api, validate.data).then(res => {
+                        if (res.result) {
+                            setFeedback({
+                                4: {
+                                    type: "success",
+                                    message:
+                                        "Your message has been sent.",
+                                },
+                            })
+                        } else {
+                            setFeedback({
+                                4: {
+                                    message:
+                                        "There was an error sending the message. Please try again.",
+                                },
+                            })
+                        }
+                        setTransactionState(false);
+                    }).catch(err => {
+                        setFeedback({
+                            4: {
+                                message:
+                                    "There was an error sending the message. Please try again.",
+                            },
+                        })
+                        setTransactionState(false);
+                    })
+                } else {
+                    const errs = {}
+
+                    validate.errors.forEach(err => {
+                        errs[err.code] = { message: err.message }
+                    })
+
+                    setFeedback(errs)
+                    setTransactionState(false);
+                }
+            }}
+        >
+            <TextInput
+                label="Name"
+                name="name"
+                onChange={e =>
+                    updateData({
+                        name: e.target.value,
+                    })
+                }
+                footer={
+                    <FormMessage
+                        show={feedback[1] !== undefined}
+                        type="error"
+                        message={feedback[1]?.message}
+                    />
+                }
+            />
+            <TextInput
+                label="Email"
+                name="email"
+                type="email"
+                onChange={e =>
+                    updateData({
+                        email: e.target.value,
+                    })
+                }
+                footer={
+                    <FormMessage
+                        show={feedback[2] !== undefined}
+                        type="error"
+                        message={feedback[2]?.message}
+                    />
+                }
+            />
+            <TextInput
+                label="Message"
+                name="message"
+                type="textarea"
+                onChange={e =>
+                    updateData({
+                        message: e.target.value,
+                    })
+                }
+                footer={
+                    <FormMessage
+                        show={feedback[3] !== undefined}
+                        type="error"
+                        message={feedback[3]?.message}
+                    />
+                }
+            />
             <div className="py-3 lg:p-4">
+                <FormMessage
+                    show={feedback[4] !== undefined}
+                    type={feedback[4]?.type || "error"}
+                    message={feedback[4]?.message}
+                />
+
                 <Button
                     type="button,submit"
                     title="Send"
-                    iconRight={<Send />}
+                    disabled={transactionState}
+                    iconRight={<IconRight spin={transactionState}/>}
                 />
             </div>
         </form>
@@ -53,9 +141,7 @@ const Description = ({ data }) => {
     return (
         <div>
             {data.description && (
-                <p className="text-color-default">
-                    {data.description}
-                </p>
+                <p className="text-color-default">{data.description}</p>
             )}
             <ul className="my-4">
                 {data.mail && (
@@ -92,6 +178,26 @@ const Description = ({ data }) => {
             </ul>
         </div>
     )
+}
+
+const IconRight = ({spin}) => {
+    if(spin) {
+        return (
+            <span className="spin" style={{
+                display: "inline-block",
+                verticalAlign: "middle",
+                animationDuration: "5s"
+            }}>
+                <Loader />
+            </span>
+        )
+    }
+    return <Send />
+}
+
+const FormMessage = ({ show, type, message }) => {
+    if (!show) return null
+    return <p className={`text-${type} my-2`}>{message}</p>
 }
 
 export { Form, Description }

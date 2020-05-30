@@ -20,7 +20,7 @@ export default ({data, location}) => {
                 </div>
                 <div className="flex flex-wrap pb-40">
                     <div className="w-full lg:w-1/2 px-6">
-                        <Form />
+                        <Form api={data.site.siteMetadata.contact.api_url}/>
                     </div>
                     <div className="w-full lg:w-1/2 px-6 pt-8">
                         <Description data={data.site.siteMetadata.contact} />
@@ -36,6 +36,7 @@ export const query = graphql`
         site {
             siteMetadata {
                 contact {
+                    api_url
                     description
                     mail
                     phone
