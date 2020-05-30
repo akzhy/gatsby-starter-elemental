@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Link } from "./utils"
 
 const Button = props => {
-    const { title, to, type, label } = props
+    const { title, to, type, label, disabled } = props
 
     let innerComponents = (
         <React.Fragment>
@@ -20,8 +20,9 @@ const Button = props => {
     if(type) {
         const b = type.split(",");
         const t = b[1] ? b[1] : "button"
+        const dis = disabled === undefined ? false: disabled
         if (b[0] === "button") {
-            return <button type={t} className="btn btn-primary">{innerComponents}</button>
+            return <button type={t} disabled={dis} className={`btn btn-primary${dis ? ' disabled' : ''}`}>{innerComponents}</button>
         }
     }
     return (
@@ -53,11 +54,12 @@ const TextInput = ({ label, type = "text", name, onChange, footer }) => {
                 name={name}
                 onChange={event => {
                     event.target.style.height = "auto"
-                    event.target.style.height = event.target.scrollHeight + "px"
+                    event.target.style.height = event.target.scrollHeight + "px";
+
+                    onChange(event);
                 }}
                 onFocus={() => changeFocused(true)}
                 onBlur={() => changeFocused(false)}
-                onChange={onChange}
                 aria-label={name}
             />
         )
