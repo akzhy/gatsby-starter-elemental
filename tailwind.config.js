@@ -44,7 +44,9 @@ module.exports = {
             link: "#0a71c5",
             medium: "#cfd8dc",
             white: "#fff",
-            black: "#000"
+            black: "#000",
+            error: "#ef5350",
+            success: "#8bc34a"
         },
         extend: {
             fontSize: {
