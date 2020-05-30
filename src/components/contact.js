@@ -1,16 +1,43 @@
-import React from "react"
+import React, { useState } from "react"
 import { Send, Mail, Phone, MapPin } from "react-feather"
 
 import { TextInput, Button } from "./ui"
 
+import { beforeContactFormSubmit, contactFormSubmit  } from "../../config"
+
 import SocialLinks from "../utils/sociallinks"
 
-const Form = () => {
+const Form = ({ api }) => {
+
+    const [data, changeData] = useState({
+        name: "",
+        email: "",
+        message: "",
+        error: false,
+        feedback: ""
+    })
+
+    const updateData = (v) => changeData({...data, ...v});
+
     return (
-        <div>
-            <TextInput label="Name" name="name" />
-            <TextInput label="Email" name="email" type="email" />
-            <TextInput label="Message" name="message" type="textarea" />
+        <form onSubmit={() => {
+            const validate = beforeContactFormSubmit(data);
+
+            if(validate.result) {
+                contactFormSubmit(api, validate.data).then(res => {
+                    console.log(res);
+                })
+            }
+        }}>
+            <TextInput label="Name" name="name" onChange={(e) => updateData({
+                name: e.current.value
+            })}/>
+            <TextInput label="Email" name="email" type="email" onChange={(e) => updateData({
+                email: e.current.value
+            })}/>
+            <TextInput label="Message" name="message" type="textarea" onChange={(e) => updateData({
+                message: e.current.value
+            })}/>
             <div className="py-3 lg:p-4">
                 <Button
                     type="button,submit"
@@ -18,7 +45,7 @@ const Form = () => {
                     iconRight={<Send />}
                 />
             </div>
-        </div>
+        </form>
     )
 }
 
