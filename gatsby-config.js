@@ -1,4 +1,4 @@
-import {siteMetadata} from "./config"
+const {siteMetadata} =  require("./config");
 
 const plugins = [
     `gatsby-plugin-sharp`,
