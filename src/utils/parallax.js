@@ -23,6 +23,15 @@ export default class Parallax extends React.Component {
         return w.innerHeight || e.clientHeight || g.clientHeight
     }
 
+    getWindowWidth = () => {
+        const w = window
+        const d = document
+        const e = d.documentElement
+        const g = d.getElementsByTagName("body")[0]
+
+        return w.innerWidth || e.clientWidth || g.clientWidth
+    }
+
     isScrolledIntoView = (element, offset = 0) => {
         const elementTop = element.getBoundingClientRect().top - offset
         const elementBottom = element.getBoundingClientRect().bottom + offset
@@ -67,7 +76,9 @@ export default class Parallax extends React.Component {
     }
 
     componentDidMount() {
-        window.addEventListener("scroll", this.onScroll)
+        if(this.getWindowWidth() > 700 ) {
+            window.addEventListener("scroll", this.onScroll)
+        }
     }
 
     componentWillUnmount() {
@@ -75,10 +86,6 @@ export default class Parallax extends React.Component {
     }
 
     render() {
-        return (
-            <div ref={this.node}>
-                {this.props.children}
-            </div>
-        )
+        return <div ref={this.node}>{this.props.children}</div>
     }
 }
