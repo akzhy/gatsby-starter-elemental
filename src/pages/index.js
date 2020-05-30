@@ -69,26 +69,27 @@ const Wall = ({ data }) => {
         }
     }, [state.loaded])
 
-    const hAttributes = {}
+    const spanAttrs = {}
 
     if (!twoColumnWall && data.titleImage) {
-        hAttributes.style = {
+        spanAttrs.style = {
             backgroundImage: `url('${data.titleImage}')`,
         }
     }
 
     const innerComponents = (
         <React.Fragment>
-            <div className="title bg-bg" {...hAttributes}>
+            <div className="title bg-bg">
                 <h1
                     className={`text-6xl relative lg:text-7xl ${
                         data.capitalizeTitleOnHome ? "uppercase" : ""
                     }`}
                 >
+                    <span {...spanAttrs}></span>
                     {data.title}
                 </h1>
             </div>
-            <p className="text-xl text-color-2">{data.introTag}</p>
+            <p className="text-xl text-color-2 pt-4 lg:pt-0">{data.introTag}</p>
             <p className="text-lg mt-4">{data.description}</p>
             <ScrollIntoView selector="#portfolio">
                 <Button
@@ -107,6 +108,9 @@ const Wall = ({ data }) => {
                 ref={wall}
             >
                 <div className="flex-1 lg:block absolute lg:relative left-0">
+                    <div className="absolute left-0 top-0 w-full h-full lg:hidden" style={{
+                        background: "rgba(0,0,0,.75)"
+                    }}></div>
                     <img
                         src={data.titleImage}
                         alt=""
@@ -143,7 +147,7 @@ const About = ({ data }) => {
 
 const Blog = ({ children }) => {
     return (
-        <div className="container mx-auto px-4 lg:px-0">
+        <div className="container mx-auto px-0">
             <div className="pt-20 pb-10 text-center lg:pt-40 lg:pb-20">
                 <h2 className="text-color-1 font-black text-6xl">Blog</h2>
             </div>
@@ -159,10 +163,10 @@ const Contact = ({ data }) => {
                 <h2 className="text-color-1 font-black text-6xl">Contact</h2>
             </div>
             <div className="flex flex-wrap pb-40">
-                <div className="w-full lg:w-1/2 pl-2 pr-6">
-                    <Form />
+                <div className="w-full lg:w-1/2 px-4 lg:pl-2 lg:pr-6">
+                    <Form api={data.api_url}/>
                 </div>
-                <div className="w-full lg:w-1/2 pl-6 pr-2 pt-8">
+                <div className="w-full lg:w-1/2 lg:pl-6 lg:pr-2 px-4 pt-8">
                     <ContactDescription data={data} />
                 </div>
             </div>
@@ -183,6 +187,7 @@ export const query = graphql`
                 description
                 about
                 contact {
+                    api_url
                     description
                     mail
                     phone
