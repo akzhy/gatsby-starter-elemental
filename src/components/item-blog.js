@@ -1,14 +1,17 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link } from "gatsby"
 import Img from "gatsby-image"
 
 import { Calendar } from "react-feather"
 
 export default ({ data }) => {
+
+    const [focused, changeFocused] = useState(false);
+
     return (
-        <div className="w-full md:w-1/2 lg:w-1/3 p-2 lg:p-4">
-            <div className="transition-shadow duration-300 hover:shadow-2xl shadow">
-                <Link to={data.fields.slug} title={data.frontmatter.title}>
+        <div className="blog-item w-full md:w-1/2 lg:w-1/3 p-4">
+            <div className={`transition-all duration-300 hover:shadow-2xl shadow ${focused && 'focused'}`}>
+                <Link to={data.fields.slug} title={data.frontmatter.title} onFocus={() => changeFocused(true)} onBlur={() => changeFocused(false)}>
                     <div className="image">
                         <Img
                             fluid={data.frontmatter.image.childImageSharp.fluid}
