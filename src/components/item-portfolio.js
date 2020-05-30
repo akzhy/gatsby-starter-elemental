@@ -20,6 +20,15 @@ export default ({ data, even }) => {
         return w.innerHeight || e.clientHeight || g.clientHeight
     }
 
+    const getWindowWidth = () => {
+        const w = window
+        const d = document
+        const e = d.documentElement
+        const g = d.getElementsByTagName("body")[0]
+
+        return w.innerWidth || e.clientWidth || g.clientWidth
+    }
+
     const updateState = p => changeState({ ...state, ...p })
 
     const percentageThreshold = 0.3
@@ -27,7 +36,13 @@ export default ({ data, even }) => {
     let transform = useRef(0);
 
     useEffect(() => {
-        transform.current = Math.min(getWindowHeight() / 2, 300) * Math.max(0, state.percentage - percentageThreshold)
+        transform.current = Math.min(getWindowHeight() / 2, 300) * Math.max(0, state.percentage - percentageThreshold);
+        
+        if(getWindowHeight() < 700) {
+            updateState({
+                animated: true
+            })
+        }
     }, [state.percentage])
 
     if (state.percentage > percentageThreshold && !state.animated)
