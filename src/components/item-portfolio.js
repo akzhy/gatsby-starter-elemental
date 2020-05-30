@@ -20,15 +20,6 @@ export default ({ data, even }) => {
         return w.innerHeight || e.clientHeight || g.clientHeight
     }
 
-    const getWindowWidth = () => {
-        const w = window
-        const d = document
-        const e = d.documentElement
-        const g = d.getElementsByTagName("body")[0]
-
-        return w.innerWidth || e.clientWidth || g.clientWidth
-    }
-
     const updateState = p => changeState({ ...state, ...p })
 
     const percentageThreshold = 0.3
