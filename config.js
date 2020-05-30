@@ -70,8 +70,7 @@ const siteMetadata = {
         },
     ],
     contact: {
-        /* Leave the below value completely empty (no space either) if you don't want a contact form. */
-        api_url: "./test.json",
+        api_url: "https://getform.io/f/f227a36e-096a-4c6a-9963-9f1918a85bb3",
         description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet accumsan arcu. Proin ac consequat arcu.`,
         mail: "hi@akzhy.com",
         phone: "000-000-0000",
@@ -85,42 +84,56 @@ const beforeContactFormSubmit = data => {
     // Code 2 - Email
     // Code 3 - Message
     // Code 4 - Other
-    if (!data.email.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/)) {
-        return {
-            result: false,
-            code: 2,
-            message: "Enter a valid email address",
-        }
+    const errors = []
+
+    if (data.name.trim().length < 2) {
+        errors.push({
+            code: 1,
+            message: "Enter a name",
+        })
     }
 
-    if (!data.name.trim().length < 2) {
-        return {
-            result: false,
+    if (!data.email.match(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/)) {
+        errors.push({
             code: 2,
-            message: "Enter a name",
-        }
+            message: "Enter a valid email address",
+        })
     }
 
     if (data.message.trim().length < 15) {
-        return {
-            result: false,
-            code: 2,
+        errors.push({
+            code: 3,
             message: "Enter a message with atleast 15 characters",
-        }
+        })
     }
 
+    if (errors.length > 0)
+        return {
+            result: false,
+            errors: errors,
+        }
+
     return {
-        data: data,
+        data: {
+            name: data.name,
+            email: data.email,
+            message: data.message
+        },
         result: true,
     }
 }
 
-const contactFormSubmit = async ({ api, data }) => {
-    let fetch = await fetch(api, {
+const contactFormSubmit = async (api, data) => {
+    let res = await fetch(api, {
         method: "POST",
-        data: JSON.stringify(data),
+        body: JSON.stringify(data),
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
     })
-    let res = fetch.json()
+
+    res = await res.json();
 
     if (res.success) {
         return {
@@ -133,4 +146,4 @@ const contactFormSubmit = async ({ api, data }) => {
     }
 }
 
-export { siteMetadata, beforeContactFormSubmit, contactFormSubmit }
+module.exports = { siteMetadata, beforeContactFormSubmit, contactFormSubmit }
