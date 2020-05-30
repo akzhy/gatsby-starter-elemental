@@ -72,8 +72,7 @@ p {
     mix-blend-mode: multiply;
 }
 
-.supports-blend .title h1:before {
-    content: "";
+.supports-blend .title h1 span {
     position: absolute;
     display: block;
     top: 0;
@@ -90,7 +89,7 @@ p {
     mix-blend-mode: lighten;
 }
 
-.theme-dark .supports-blend .title h1:before {
+.theme-dark .supports-blend .title h1 span {
     mix-blend-mode: multiply;
 }
 
@@ -250,17 +249,32 @@ p {
     @apply border-medium;
 }
 
+.theme-dark .post-content table tr  {
+    border-bottom: 2px solid #444;
+}
 
 .post-content table tr td, .post-content table tr th {
     @apply p-2 py-3 text-left;
 }
 
 .post-content blockquote{
-    @apply bg-bgalt border-l-4 border-primary p-3;
+    @apply border-l-4 border-primary p-3;
 }
 
 .post-content iframe {
     max-width: 100%;
+}
+
+.input.focused {
+    @apply px-4;
+}
+
+.theme-dark .input.focused {
+    background: theme("themes.dark.medium");
+}
+
+.theme-dark .blog-item .focused{
+    background: theme("themes.dark.medium");
 }
 
 @media (max-width: 640px) {
