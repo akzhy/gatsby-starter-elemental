@@ -97,6 +97,10 @@ p {
     @apply h-12 px-6 outline-none inline-flex relative overflow-hidden items-center;
 }
 
+.btn.disabled {
+    @apply opacity-50;
+}
+
 .btn span {
     @apply relative z-10;
 }
@@ -275,6 +279,19 @@ p {
 
 .theme-dark .blog-item .focused{
     background: theme("themes.dark.medium");
+}
+
+.spin {
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
 }
 
 @media (max-width: 640px) {
