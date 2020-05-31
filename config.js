@@ -5,6 +5,7 @@ const siteMetadata = {
     logo: `/images/logo.png`,
     icon: `/images/icon.png`,
     titleImage: `/images/wall.png`,
+    ogImage: `/images/wall.png`,
     twoColumnWall: true,
     introTag: `PHOTOGRAPHER | VIDEOGRAPHER`,
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet accumsan arcu. Proin ac consequat arcu.`,
@@ -70,12 +71,14 @@ const siteMetadata = {
         },
     ],
     contact: {
+        // leave empty ('') or false to hide form
         api_url: "https://getform.io/f/f227a36e-096a-4c6a-9963-9f1918a85bb3",
         description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet accumsan arcu. Proin ac consequat arcu.`,
         mail: "hi@akzhy.com",
         phone: "000-000-0000",
         address: "1234 \nLocation \nLocation",
     },
+    disqus: "elemental-netlify-com",
 }
 
 const beforeContactFormSubmit = data => {
@@ -117,7 +120,7 @@ const beforeContactFormSubmit = data => {
         data: {
             name: data.name,
             email: data.email,
-            message: data.message
+            message: data.message,
         },
         result: true,
     }
@@ -128,12 +131,12 @@ const contactFormSubmit = async (api, data) => {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
     })
 
-    res = await res.json();
+    res = await res.json()
 
     if (res.success) {
         return {
@@ -145,5 +148,19 @@ const contactFormSubmit = async (api, data) => {
         ...res,
     }
 }
+
+const defaults = {
+    disqus: null,
+    twoColumnWall: true,
+    darkmode: false,
+    switchTheme: true,
+    capitalizeTitleOnHome: true,
+}
+
+Object.keys(defaults).forEach(item => {
+    if (siteMetadata[item] === undefined) {
+        siteMetadata[item] = defaults[item]
+    }
+})
 
 module.exports = { siteMetadata, beforeContactFormSubmit, contactFormSubmit }
