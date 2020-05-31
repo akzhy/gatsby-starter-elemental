@@ -76,7 +76,7 @@ export default class Parallax extends React.Component {
     }
 
     componentDidMount() {
-        if(this.getWindowWidth() > 700 ) {
+        if(this.getWindowWidth() > 1024 ) {
             window.addEventListener("scroll", this.onScroll)
         }
     }
