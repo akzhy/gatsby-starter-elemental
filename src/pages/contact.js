@@ -5,6 +5,9 @@ import Layout from "../components/layout"
 import { Form, Description } from "../components/contact"
 
 export default ({data, location}) => {
+
+    const api_url = data.site.siteMetadata.contact.api_url;
+    const hasContactForm = (api_url);
     return (
         <Layout
             seo={{
@@ -19,10 +22,12 @@ export default ({data, location}) => {
                     </h2>
                 </div>
                 <div className="flex flex-wrap pb-40">
-                    <div className="w-full lg:w-1/2 px-6">
-                        <Form api={data.site.siteMetadata.contact.api_url}/>
+                    {hasContactForm &&
+                        <div className="w-full lg:w-1/2 px-6">
+                        <Form api={api_url}/>
                     </div>
-                    <div className="w-full lg:w-1/2 px-6 pt-8">
+                    }
+                    <div className={`w-full ${hasContactForm ? 'lg:w-1/2' : 'lg:w-2/3 mx-auto'} px-6 pt-8`}>
                         <Description data={data.site.siteMetadata.contact} />
                     </div>
                 </div>
