@@ -1,4 +1,5 @@
 const {siteMetadata} =  require("./config");
+const tailwindConfig = require("./tailwind.config")
 
 const plugins = [
     `gatsby-plugin-sharp`,
@@ -38,7 +39,18 @@ const plugins = [
             ],
         },
     },
-    `gatsby-plugin-postcss`,
+    {
+        resolve: `gatsby-plugin-postcss`,
+        options: {
+          postCssPlugins: [
+            require(`tailwindcss`)(tailwindConfig),
+            require(`autoprefixer`),
+            ...(process.env.NODE_ENV === `production`
+              ? [require(`cssnano`)]
+              : []),
+          ],
+        },
+      },
 ]
 
 if (siteMetadata.disqus) {
