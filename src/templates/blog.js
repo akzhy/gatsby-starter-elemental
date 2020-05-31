@@ -8,11 +8,15 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import { Row, Col } from "../components/shortcodes/index"
 
+import Comments from "../components/comments"
+
 export default function({ location, data }) {
     return (
         <Layout
             seo={{
-                title: "Blog page",
+                title: data.mdx.frontmatter.title,
+                description: data.mdx.frontmatter.description,
+                image: data.mdx.frontmatter.banner.publicURL
             }}
             location={location}
         >
@@ -23,7 +27,7 @@ export default function({ location, data }) {
                             data.mdx.frontmatter.banner.childImageSharp.fluid
                         }
                     />
-                    <div className="relative w-full lg:w-3/4 md:w-11/12 sm:w-full p-6 box-border lg:box-content mx-auto bg-bg text-color-default blog-wall-content shadow-xl -mt-16 ">
+                    <div className="relative w-full lg:w-3/4 md:w-11/12 sm:w-full p-6 box-border lg:box-content mx-auto bg-bg text-color-default blog-wall-content shadow-xl md:-mt-16 ">
                         <div className="p-3">
                             <h1 className="text-5xl font-bold text-primary">
                                 {data.mdx.frontmatter.title}
@@ -45,37 +49,10 @@ export default function({ location, data }) {
                         <MDXRenderer>{data.mdx.body}</MDXRenderer>
                     </MDXProvider>
                 </div>
+                <div className="comments mt-8">
+                    <Comments title={data.mdx.frontmatter.title} location={location} />
+                </div>
             </div>
-            {/*
-
-            <div className="container">
-                <article className="post">
-                    <div className="head text-primary">
-                        <h1>{data.markdownRemark.frontmatter.title}</h1>
-                    </div>
-                    <div className="content row flex">
-                        {data.markdownRemark.frontmatter.image && (
-                            <div className="center">
-                                <div className="img">
-                                    <Img
-                                        fluid={
-                                            data.markdownRemark.frontmatter
-                                                .image.childImageSharp.fluid
-                                        }
-                                    />
-                                </div>
-                            </div>
-                        )}
-                        <div
-                            className="col s12 m11 l10"
-                            dangerouslySetInnerHTML={{
-                                __html: data.markdownRemark.html
-                            }}
-                        ></div>
-                    </div>
-                </article>
-            </div>
-                        {*/}
         </Layout>
     )
 }

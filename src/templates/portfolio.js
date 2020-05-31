@@ -12,7 +12,9 @@ export default function({ location, data }) {
     return (
         <Layout
             seo={{
-                title: "Portfolio page",
+                title: data.mdx.frontmatter.title,
+                description: data.mdx.frontmatter.description,
+                image: data.mdx.frontmatter.banner.publicURL,
             }}
             location={location}
         >
@@ -47,36 +49,6 @@ export default function({ location, data }) {
                     </MDXProvider>
                 </div>
             </div>
-            {/*
-
-            <div className="container">
-                <article className="post">
-                    <div className="head text-primary">
-                        <h1>{data.markdownRemark.frontmatter.title}</h1>
-                    </div>
-                    <div className="content row flex">
-                        {data.markdownRemark.frontmatter.image && (
-                            <div className="center">
-                                <div className="img">
-                                    <Img
-                                        fluid={
-                                            data.markdownRemark.frontmatter
-                                                .image.childImageSharp.fluid
-                                        }
-                                    />
-                                </div>
-                            </div>
-                        )}
-                        <div
-                            className="col s12 m11 l10"
-                            dangerouslySetInnerHTML={{
-                                __html: data.markdownRemark.html
-                            }}
-                        ></div>
-                    </div>
-                </article>
-            </div>
-                        {*/}
         </Layout>
     )
 }
