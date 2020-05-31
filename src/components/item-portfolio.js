@@ -20,6 +20,15 @@ export default ({ data, even }) => {
         return w.innerHeight || e.clientHeight || g.clientHeight
     }
 
+    const getWindowWidth = () => {
+        const w = window
+        const d = document
+        const e = d.documentElement
+        const g = d.getElementsByTagName("body")[0]
+
+        return w.innerWidth || e.clientWidth || g.clientWidth
+    }
+
     const updateState = p => changeState({ ...state, ...p })
 
     const percentageThreshold = 0.3
@@ -29,11 +38,12 @@ export default ({ data, even }) => {
     useEffect(() => {
         transform.current = Math.min(getWindowHeight() / 2, 300) * Math.max(0, state.percentage - percentageThreshold);
         
-        if(getWindowHeight() < 700) {
+        if(getWindowWidth() < 1024) {
             updateState({
                 animated: true
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state.percentage])
 
     if (state.percentage > percentageThreshold && !state.animated)
@@ -43,7 +53,7 @@ export default ({ data, even }) => {
         <Parallax changePercentage={updateState}>
             <div className="large-container mx-auto">
                 <div
-                    className={`my-4 py-8 lg:py-24 portfolio-item lg:flex ${
+                    className={`my-4 py-8 lg:py-24 portfolio-item md:flex ${
                         state.animated ? "begin-animation" : ""
                     } ${even ? "even flex-row-reverse" : ""}`}
                 >
@@ -62,10 +72,10 @@ export default ({ data, even }) => {
                             />
                         </div>
                     </div>
-                    <div className="flex-1 flex lg:px-6 items-center">
+                    <div className="flex-1 flex md:px-4 lg:px-6 items-center">
                         <div
                             className={`flex flex-1 flex-wrap  ${
-                                even ? "lg:justify-end lg:text-right" : ""
+                                even ? "md:justify-end md:text-right" : ""
                             }`}
                         >
                             <h3 className="text-color-1 text-5xl font-black to-up">
