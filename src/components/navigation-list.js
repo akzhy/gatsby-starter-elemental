@@ -35,20 +35,27 @@ const List = ({
         />
     ))
 
-
     if (withThemeSwitch) {
-        const themeButtons = themes.map((item, i) => (
-            <button
-                className={`text-color-2 transition-transform duration-200 transform top-0 left-0 ${i === currentTheme ? 'scale-100' : 'scale-0 absolute'}`}
-                title={item.label}
-                key={`${name}-theme-switch-btn-${item.name}`}
-                onClick={switchTheme}
-            >
-                {item.icon}
-            </button>
-        ))
+        const themeButtons = themes.map((item, i) => {
+            const next = i !== themes.length - 1 ? i + 1 : 0
+            return (
+                <button
+                    className={`text-color-2 transition-transform duration-200 transform top-0 left-0 ${
+                        i === currentTheme ? "scale-100" : "scale-0 absolute"
+                    }`}
+                    title={`Switch to ${themes[next].label}`}
+                    key={`${name}-theme-switch-btn-${item.name}`}
+                    onClick={switchTheme}
+                >
+                    {item.icon}
+                </button>
+            )
+        })
         list.push(
-            <li className="theme-switcher" key={`${name}-theme-switcher relative`}>
+            <li
+                className="theme-switcher"
+                key={`${name}-theme-switcher relative`}
+            >
                 {themeButtons}
             </li>
         )
@@ -60,7 +67,7 @@ const List = ({
 const ListItem = ({ data, active, liClassName }) => {
     return (
         <li className={`${liClassName} ${active ? "active" : ""}`}>
-            <Link to={data.url} title={data.name} className="text-color-2">
+            <Link to={data.url} title={data.name} className="text-color-2 focus:text-primary">
                 <span>{data.name}</span>
             </Link>
         </li>
