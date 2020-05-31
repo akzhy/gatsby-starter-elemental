@@ -16,6 +16,7 @@ const gradient = plugin(function({ addUtilities, e, theme, variants }) {
 
 
 module.exports = {
+    purge: ["./src/**/*.js", "./src/**/*.jsx", "./src/**/*.ts", "./src/**/*.tsx"],
     theme: {
         gradients: theme => ({
             primary: [theme("colors.primary"), theme("colors.secondary")],
