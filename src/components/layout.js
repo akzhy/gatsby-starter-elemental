@@ -13,6 +13,18 @@ import "../style/index.css"
 
 export default ({ children, front, seo, navPlaceholder=true, location }) => {
 
+    const query = useStaticQuery(graphql`
+        query {
+            site {
+                siteMetadata {
+                    icon
+                    switchTheme
+                    darkmode
+                }
+            }
+        }
+    `)
+
     const themes = [
         {
             name: "theme-light",
@@ -25,7 +37,9 @@ export default ({ children, front, seo, navPlaceholder=true, location }) => {
         }
     ]
 
-    const [theme, changeTheme] = useState(0);
+    const isDarkTheme = query.site.siteMetadata.darkmode;
+
+    const [theme, changeTheme] = useState(isDarkTheme ? 1 : 0);
 
     useEffect(() => {
         if(localStorage.getItem("theme")) {
@@ -43,11 +57,11 @@ export default ({ children, front, seo, navPlaceholder=true, location }) => {
 
     return (
         <React.Fragment>
-            <Head />
+            <Head data={query}/>
             <SEO {...seo} />
             <div className={`wrapper ${themes[theme].name}`}>
                 <div className="text-color-default bg-bg">
-                    <Navbar front={front} navPlaceholder={navPlaceholder} location={location} currentTheme={theme} switchTheme={switchTheme} themes={themes}/>
+                    <Navbar front={front} navPlaceholder={navPlaceholder} location={location} currentTheme={theme} switchTheme={switchTheme} themes={themes} allowThemeSwitch={query.site.siteMetadata.switchTheme}/>
                     {children}
                     <Footer />
                 </div>
@@ -56,21 +70,12 @@ export default ({ children, front, seo, navPlaceholder=true, location }) => {
     )
 }
 
-const Head = () => {
-    const query = useStaticQuery(graphql`
-        query {
-            site {
-                siteMetadata {
-                    icon
-                }
-            }
-        }
-    `)
+const Head = ({ data }) => {
     return (
         <Helmet>
             <link
                 rel="icon"
-                href={query.site.siteMetadata.icon}
+                href={data.site.siteMetadata.icon}
                 type="image/png"
             />
             <link
