@@ -6,7 +6,7 @@ import List from "./navigation-list"
 import { Menu } from "react-feather"
 import SideBar from "./sidebar"
 
-const Navbar = ({ navPlaceholder, location, currentTheme, switchTheme, themes }) => {
+const Navbar = ({ navPlaceholder, location, currentTheme, switchTheme, themes, allowThemeSwitch=true }) => {
     const currentLocation = location.pathname.split("/")[1]
 
     const data = useStaticQuery(graphql`
@@ -76,7 +76,7 @@ const Navbar = ({ navPlaceholder, location, currentTheme, switchTheme, themes })
                             </Link>
                         </div>
                         <div className="text-center">
-                            <List name="sidebar-nav" current={currentLocation}  currentTheme={currentTheme} switchTheme={switchTheme} themes={themes} liClassName="block my-2"/>
+                            <List name="sidebar-nav" current={currentLocation}  currentTheme={currentTheme} switchTheme={switchTheme} themes={themes} withThemeSwitch={allowThemeSwitch} liClassName="block my-2"/>
                         </div>
                     </div>
                 </SideBar>
@@ -88,7 +88,7 @@ const Navbar = ({ navPlaceholder, location, currentTheme, switchTheme, themes })
                     />
                 </Link>
                 <div className="hidden lg:block">
-                    <List name="navbar" className="nav-links flex" current={currentLocation} currentTheme={currentTheme} switchTheme={switchTheme} themes={themes}/>
+                    <List name="navbar" className="nav-links flex" current={currentLocation} currentTheme={currentTheme} switchTheme={switchTheme} themes={themes} withThemeSwitch={allowThemeSwitch}/>
                 </div>
                 <div className="absolute line h-px left-0 bottom-0 bg-gradient-primary"></div>
             </div>
