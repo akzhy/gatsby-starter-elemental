@@ -89,8 +89,10 @@ const Wall = ({ data }) => {
                     {data.title}
                 </h1>
             </div>
-            <p className="text-xl text-color-2 pt-4 lg:pt-0">{data.introTag}</p>
-            <p className="text-lg mt-4">{data.description}</p>
+            <p className="text-lg lg:text-xl text-color-2 pt-4 lg:pt-0">
+                {data.introTag}
+            </p>
+            <p className="text-base lg:text-lg mt-4">{data.description}</p>
             <ScrollIntoView selector="#portfolio">
                 <Button
                     title="SEE WORKS"
@@ -107,17 +109,20 @@ const Wall = ({ data }) => {
                 className="wall h-screen flex relative justify-center items-center overflow-hidden"
                 ref={wall}
             >
-                <div className="flex-1 lg:block absolute lg:relative left-0">
-                    <div className="absolute left-0 top-0 w-full h-full lg:hidden" style={{
-                        background: "rgba(0,0,0,.75)"
-                    }}></div>
+                <div className="flex-1 lg:block absolute lg:relative w-full h-full top-0 left-0">
+                    <div
+                        className="absolute left-0 top-0 w-full h-full lg:hidden"
+                        style={{
+                            background: "rgba(0,0,0,.75)",
+                        }}
+                    ></div>
                     <img
                         src={data.titleImage}
                         alt=""
                         className="h-full w-auto max-w-none lg:h-auto lg:w-full"
                     />
                 </div>
-                <div className="flex-1 text-center p-3 relative z-10 lg:text-left lg:pl-8">
+                <div className="flex-1 text-center p-3 relative z-10 lg:text-left lg:pl-8 text-white lg:text-color-default">
                     {innerComponents}
                 </div>
             </div>
@@ -138,7 +143,9 @@ const About = ({ data }) => {
     return (
         <div className="boxed">
             <div className="px-4 py-20 text-center lg:py-40 lg:px-0">
-                <h2 className="text-color-1 font-black text-6xl">About</h2>
+                <h2 className="text-color-1 font-black text-5xl lg:text-6xl">
+                    About
+                </h2>
                 <p className="mt-5 text-lg">{data}</p>
             </div>
         </div>
@@ -149,7 +156,9 @@ const Blog = ({ children }) => {
     return (
         <div className="container mx-auto px-0">
             <div className="pt-20 pb-10 text-center lg:pt-40 lg:pb-20">
-                <h2 className="text-color-1 font-black text-6xl">Blog</h2>
+                <h2 className="text-color-1 font-black text-5xl lg:text-6xl">
+                    Blog
+                </h2>
             </div>
             <div className="flex flex-wrap">{children}</div>
         </div>
@@ -157,16 +166,25 @@ const Blog = ({ children }) => {
 }
 
 const Contact = ({ data }) => {
+    const hasContactForm = data.api_url
     return (
         <div className="container mx-auto">
             <div className="pt-20 pb-10 lg:pt-40 lg:pb-20 text-center">
-                <h2 className="text-color-1 font-black text-6xl">Contact</h2>
+                <h2 className="text-color-1 font-black text-5xl lg:text-6xl">
+                    Contact
+                </h2>
             </div>
             <div className="flex flex-wrap pb-40">
-                <div className="w-full lg:w-1/2 px-4 lg:pl-2 lg:pr-6">
-                    <Form api={data.api_url}/>
-                </div>
-                <div className="w-full lg:w-1/2 lg:pl-6 lg:pr-2 px-4 pt-8">
+                {hasContactForm && (
+                    <div className="w-full lg:w-1/2 px-4 lg:pl-2 lg:pr-6">
+                        <Form api={data.api_url} />
+                    </div>
+                )}
+                <div
+                    className={`w-full ${
+                        hasContactForm ? "lg:w-1/2" : "lg:w-2/3 mx-auto"
+                    } px-6 pt-8`}
+                >
                     <ContactDescription data={data} />
                 </div>
             </div>
@@ -182,6 +200,7 @@ export const query = graphql`
                 description
                 capitalizeTitleOnHome
                 titleImage
+                ogImage
                 twoColumnWall
                 introTag
                 description
