@@ -207,6 +207,8 @@ export default class SideBar extends React.Component{
                 <div 
                     className="r-swipe-sidebar-overlay"
                     ref={this.sidebarOverlay}
+                    role="button"
+                    tabIndex="-1"
                     style={{
                         position: "fixed",
                         top: 0,
@@ -221,6 +223,9 @@ export default class SideBar extends React.Component{
                         opacity: `${this.state.progress/200}`
                     }}
                     onClick={this.closeSidebar}
+                    onKeyPress={(e) => {
+                        if(e.which === 27) this.closeSidebar();
+                    }}
                 >
 
                 </div>
