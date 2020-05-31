@@ -22,14 +22,14 @@ export default function({ data, pageContext, location }) {
             }}
             location={location}
         >
-            <div className="py-12">
+            <div className="py-12 px-4 lg:px-0">
                 <div className="title py-8 text-center">
                     <h2 className="font-black text-5xl text-color-1">
                         Portfolio
                     </h2>
                 </div>
                 <div className="flex flex-wrap">{portfolioItems}</div>
-                <div className="mt-12">
+                <div className="mt-8 lg:mt-24">
                     <Pagination pageContext={pageContext} type="portfolio" />
                 </div>
             </div>
