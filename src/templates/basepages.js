@@ -9,7 +9,7 @@ export default function({ data, location }) {
         <Layout seo={{
             title: data.mdx.frontmatter.title,
             description: data.mdx.frontmatter.description,
-            image: data.mdx.frontmatter.image.publicURL
+            image: data.mdx.frontmatter.image?.publicURL
         }}
         location={location}>
             <div className="boxed">
