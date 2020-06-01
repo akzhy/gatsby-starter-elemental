@@ -1,99 +1,244 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's hello-world starter
-</h1>
+# Gatsby Starter Elemental
 
-Kick off your project with this hello-world boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+![](https://img.shields.io/badge/version-2.0.0-green.svg) ![](https://img.shields.io/badge/License-MIT-orange.svg)
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
 
-## 🚀 Quick start
+Elemental is a portfolio template suitable for artists, photographers, designers etc. With the starter you can create blog, portfolio and miscellaneous posts (such as privacy-policy).
 
-1.  **Create a Gatsby site.**
+**[Live Demo](https://elemental.netlify.app)** 
 
-    Use the Gatsby CLI to create a new site, specifying the hello-world starter.
+## Getting Started.
 
-    ```shell
-    # create a new Gatsby site using the hello-world starter
-    gatsby new my-hello-world-starter https://github.com/gatsbyjs/gatsby-starter-hello-world
-    ```
+You will need node and [Gatsby](https://www.gatsbyjs.org/tutorial/part-zero/) installed.
 
-1.  **Start developing.**
+Start the project by 
 
-    Navigate into your new site’s directory and start it up.
+```
+gatsby new project-name https://github.com/akzhy/gatsby-starter-elemental
+cd project-name
+gatsby develop
+```
 
-    ```shell
-    cd my-hello-world-starter/
-    gatsby develop
-    ```
+And for the final build
 
-1.  **Open the source code and start editing!**
+```
+gatsby build
+```
 
-    Your site is now running at `http://localhost:8000`!
+### Configuring
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
+Almost all features of this starter are editable. In order to personalize, open the `config.js` file and start editing.
 
-    Open the `my-hello-world-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+```javascript
+// Do not remove any of the properties below.
 
-## 🧐 What's inside?
+const siteMetadata = {
+    title: `Elemental`, // Title of your webpage
+    siteUrl: `http://localhost`, // You sites URL
+    capitalizeTitleOnHome: true, // Whether to capitalize the letter on homepage
+    logo: `/images/logo.png`, // Logo 
+    icon: `/images/icon.png`, // Favicon, shown in the browsers "tab"
+    titleImage: `/images/wall.jpg`, // The main title is filled with an image.
+    ogImage: `/images/wall.png`, // open graph image (shown when link is shared in social media)
+    twoColumnWall: true, // If true, the wall will be split into two with titleImage on left side and text on the right. If false, the title image will be used as the background of the text.
+    about:"", // The short about text shown on front page
+    introTag: `PHOTOGRAPHER | VIDEOGRAPHER`, // Intro tag shown below title
+    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet accumsan arcu. Proin ac consequat arcu.`,
+    author: `@_akzhy`, // Author
+    blogItemsPerPage: 10,
+    portfolioItemsPerPage: 10,
+    darkmode: true, // Whether to enable the darkmode by default. Change to false if you want the light mode
+    switchTheme: true, // Whether to show a switch theme button on the navbar
+    // The links shown on the navbar and footer, follow the same structure to add or remove more items.
+    navLinks: [{
+            name: "HOME",
+            url: "/"
+        },
+        {
+            name: "ABOUT",
+            url: "/about"
+        },
+        {
+            name: "BLOG",
+            url: "/blog"
+        },
+        {
+            name: "PORTFOLIO",
+            url: "/portfolio"
+        },
+        {
+            name: "CONTACT",
+            url: "/contact"
+        }
+    ],
+    // Same as navbar links, except these are shown on the footer
+    footerLinks: [{
+        name: "PRIVACY POLICY",
+        url: "/privacy-policy"
+    }],
+    // Your social profile links. The icons of the given social medias are available in the static folder. If you are adding a new item, include the icon in the static/images folder.
+    social: [{
+            name: "Facebook",
+            icon: "/images/Facebook.svg",
+            url: "#"
+        },
+        {
+            name: "Twitter",
+            icon: "/images/Twitter.svg",
+            url: "#"
+        },
+        {
+            name: "Instagram",
+            icon: "/images/Instagram.svg",
+            url: "#"
+        },
+        {
+            name: "Youtube",
+            icon: "/images/Youtube.svg",
+            url: "#"
+        }
+    ],
+    contact: {
+        api_url: "https://getform.io/f/f227a36xxxxxx", // leave empty ('') or false to hide form
+        description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet accumsan arcu. Proin ac consequat arcu.`,
+        mail: "hi@akzhy.com",
+        phone: "000-000-0000",
+        address: "1234 \nLocation \nLocation"
+    },
+    disqus: `your-disqus-shortname`  // Optional, remove this if you don't use disqus
+}
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
+```
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
+#### Creating new blog posts.
 
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
+Open the `contents/blog` folder and create a new folder with the name you wish to see as the URL. Inside the folder create an `index.md` file and also include any files you wish to add.
 
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
+The frontmatter should be of the below structure
 
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
+```
+---
+title: Title of your post
+date: 2019-06-29 <-- Date should be in the given format
+image: ./image.jpg <-- Image shown on the list pages and also used as open graph image
+banner: ./banner.jpg <-- Banner shown in the blog post
+description: The description shown in the listing page. Also used for SEO description. 
+---
+```
 
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
+If you don't want the blog section, simply delete everything inside the `contents/blog` folder. (Do not delete the folder itself)
 
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
+#### Creating new portfolio posts.
 
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
+Open the `contents/portfolio` folder and create a new folder with the name you wish to see as the URL. Inside the folder create an `index.md` file and also include any files you wish to add.
 
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
+The frontmatter should be of the below structure
 
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
+```
+---
+title: Title of your post
+date: 2019-06-29 <-- Date should be in the given format
+banner: ./banner.jpg <-- Banner shown in the portfolio post and also used as open graph image
+image: ./image.jpg <-- Image shown on the list pages 
+description: The description shown in the listing page. Also used for SEO description. 
+---
+```
 
-9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
+Portfolio pages support the creation of grids.
 
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
+To create a grid, follow the below structure
 
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
+```
+<Row>
+<Col>
 
-12. **`README.md`**: A text file containing useful reference information about your project.
+**Markdown**
 
-## 🎓 Learning Gatsby
+</Col>
+</Row>
+```
 
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
+The columns will have equal width on wide screens, and will expand on smaller screens.
 
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
+#### Creating miscellaneous posts
 
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
+These posts follow the URL structure of `http://example.com/miscellaneous-post/`. They are useful for creating pages like `privacy-policy`
 
-## 💫 Deploy
+The "About" page is created as a miscellaneous post.
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-hello-world)
+Open the `contents/basepages` folder and create a new folder with the name you wish to see as the URL. Inside the folder create an `index.md` file and also include any files you wish to add.
 
-[![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/import/project?template=https://github.com/gatsbyjs/gatsby-starter-hello-world)
+The frontmatter should be of the below structure
 
-<!-- AUTO-GENERATED-CONTENT:END -->
+```
+---
+title: Title of your post
+image: ./image.jpg <-- Image  used as open graph image
+description: The description used for SEO. 
+---
+```
+
+### Contact Form
+
+The contact form will appear only if you have provided an api url. You can control the data sent to the server and can execute callback functions on response from the server.
+
+To customize these functions, edit the `config.js` file.
+
+The `beforeContactFormSubmit` function is used to validate the form data before it is sent to the server. It has one argument that contains the object 
+
+```
+{
+    name: string,
+    email: string,
+    message: string
+}
+```
+
+You can validate the data and return 
+```
+{
+    data: {
+        name: data.name,
+        email: data.email,
+        message: data.message,
+    },
+    result: true,
+}
+```
+if the data is valid. Otherwise return 
+
+```
+errors = [
+    {
+        code: int, // 1-4
+        /* Codes
+         Code 1 - Name
+         Code 2 - Email
+         Code 3 - Message
+         Code 4 - Other
+        */
+        message: string
+    }
+]
+return {
+    result: false,
+    errors: errors,
+}
+
+```
+
+You can also handle how data is sent to the server by editing the `contactFormSubmit` function. It should return the below object to indicate whether the message was sent.
+```
+{
+    result: boolean // true for success, false for fail
+}
+```
+
+## Contributing
+
+Any kind of contributions are welcome. Bump the version and create a PR.
+
+
+
+
+
