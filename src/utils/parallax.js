@@ -41,7 +41,7 @@ export default class Parallax extends React.Component {
     onScroll = () => {
         const stamp = Date.now()
         if (
-            stamp - this.timestamp >= 10 &&
+            stamp - this.timestamp >= 20 &&
             this.isScrolledIntoView(this.node.current, 100, this.canUseDOM)
         ) {
             this.props.changePercentage({
@@ -76,7 +76,7 @@ export default class Parallax extends React.Component {
     }
 
     componentDidMount() {
-        if(this.getWindowWidth() > 1024 ) {
+        if (this.getWindowWidth() > 1024) {
             window.addEventListener("scroll", this.onScroll)
         }
     }
