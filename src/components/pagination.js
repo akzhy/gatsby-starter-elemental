@@ -1,76 +1,48 @@
-import React from "react";
-import { Link } from "gatsby";
-import { ChevronLeft, ChevronRight } from "./icons";
-import "../style/pagination.less";
+import React from "react"
+import { Link } from "gatsby"
+import { ChevronLeft, ChevronRight } from "react-feather"
 
 export default function({ pageContext, type }) {
     if (pageContext.numPages > 1) {
-        let listItems = [];
-        for (let i = 1; i <= pageContext.numPages; i++) {
-            listItems.push(
-                <li
-                    className={i === pageContext.currentPage ? "active" : ""}
-                    key={"PaginationItem" + i}
-                >
-                    <Link
-                        to={"/" + type + "/" + (i === 1 ? "" : i)}
-                        title={
-                            type.charAt(0).toUpperCase() +
-                            type.slice(1) +
-                            " - Page " +
-                            i
-                        }
-                        key={"PaginationItemA" + i}
-                    >
-                        {i}
-                    </Link>
-                </li>
-            );
-        }
+        const listItems = Array.from({length: pageContext.numPages }).map((_,p) => <Item type={type} currentPage={pageContext.currentPage} page={p+1} key={`p-b-i-${p}`}/>)
+        
+
         return (
-            <div className="pagination">
-                <ul>
+            <div className="pagination mt-8">
+                <ul className="text-center">
                     {pageContext.currentPage !== 1 && (
-                        <li>
-                            <Link
-                                to={
-                                    "/" +
-                                    type +
-                                    "/" +
-                                    (pageContext.currentPage - 1 === 1
-                                        ? ""
-                                        : pageContext.currentPage - 1)
-                                }
-                                title="Previous Page"
-                            >
-                                <span className="icon">
-                                    <ChevronLeft />
-                                </span>
-                            </Link>
-                        </li>
+                        <Item type={type} currentPage={pageContext.currentPage} page={pageContext.currentPage-1} icon={<ChevronLeft />} title="Previous Page"/>
                     )}
                     {listItems}
                     {pageContext.currentPage !== pageContext.numPages && (
-                        <li>
-                            <Link
-                                to={
-                                    "/" +
-                                    type +
-                                    "/" +
-                                    (pageContext.currentPage + 1)
-                                }
-                                title="Next Page"
-                            >
-                                <span className="icon">
-                                    <ChevronRight />
-                                </span>
-                            </Link>
-                        </li>
+                        <Item type={type} currentPage={pageContext.currentPage} page={pageContext.currentPage+1} icon={<ChevronRight />} title="Next Page"/>
                     )}
                 </ul>
             </div>
-        );
+        )
     } else {
-        return <React.Fragment></React.Fragment>;
+        return <React.Fragment></React.Fragment>
     }
+}
+
+const Item = ({ type, currentPage, title=false, page, icon=false }) => {
+
+    const to = `/${type}/${(page === 1 ? "" : page)}`;
+    const active = icon ? false : (page === currentPage)
+
+    const _title = title || `${type.charAt(0).toUpperCase()}${type.slice(1)} - Page ${page}`
+
+    return (
+        <li
+            className={`inline-block align-middle`}
+        >
+            <Link
+                to={to}
+                title={_title}
+                className={`rounded-full bg-bgalt flex items-center justify-center w-12 text-center h-12 m-3 transition-all duration-300 hover:shadow-2xl focus:shadow-2xl ${active ? "bg-gradient-primary text-white shadow-2xl" : ""}`}
+            >
+                <span>{icon || page}</span>
+            </Link>
+        </li>
+    )
 }

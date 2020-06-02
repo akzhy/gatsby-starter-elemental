@@ -1,21 +1,29 @@
-import React from "react";
-import SectionTitle from "../components/sectiontitle";
-import Layout from "../components/layout";
-import SEO from "../components/seo";
+import React from "react"
+import Layout from "../components/layout"
 
-const NotFoundPage = () => (
-    <Layout>
-        <SEO title="404: Not found" />
-        <section id="404" className="container" style={{ minHeight: "600px" }}>
-            <div className="section-title">
-                <SectionTitle title="404" />
-                <p class="text-primary">
-                    The page you are looking for doesn't exist, or has been
-                    removed.
-                </p>
+export default ({ location }) => {
+    return (
+        <Layout
+            seo={{
+                title: "404",
+            }}
+            location={location}
+        >
+            <div className="container mx-auto py-12">
+                <div className="title py-12 text-center">
+                    <h2 className="font-black text-7xl text-color-1">
+                        4<span className="text-primary">0</span>4
+                    </h2>
+                </div>
+                <div className="pb-20 text-center">
+                    <p>Oops! That page does not exist. <span role="img" aria-label="Sad face">😞</span></p>
+                    <p>
+                        <button onClick={() => {
+                            if(window.history) window.history.back();
+                        }} className="text-link">Go Back?</button>
+                    </p>
+                </div>
             </div>
-        </section>
-    </Layout>
-);
-
-export default NotFoundPage;
+        </Layout>
+    )
+}

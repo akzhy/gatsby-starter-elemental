@@ -1,87 +1,81 @@
-import React from "react";
-import { graphql } from "gatsby";
-import Img from "gatsby-image";
-import Layout from "../components/layout";
-import LatestPosts from "../components/blogposts-latest";
-import SEO from "../components/seo";
-import Date from "../components/date";
-import Comments from "../components/comments";
-import "../style/blog-singlepage.less";
+import React from "react"
+import { MDXProvider } from "@mdx-js/react"
+import { graphql } from "gatsby"
+import Layout from "../components/layout"
+import Img from "gatsby-image"
+import { Calendar } from "react-feather"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 
-export default function({ data, location }) {
+import { Row, Col } from "../components/shortcodes/index"
+
+import Comments from "../components/comments"
+
+export default function({ location, data }) {
     return (
-        <Layout>
-            <SEO
-                lang="en"
-                title={data.markdownRemark.frontmatter.title}
-                description={data.markdownRemark.frontmatter.description}
-                image={data.markdownRemark.frontmatter.image.publicURL}
-            />
-            <div className="container">
-                <article className="blog-post">
-                    {data.markdownRemark.frontmatter.banner != null && (
-                        <div className="banner">
-                            <Img
-                                fluid={
-                                    data.markdownRemark.frontmatter.banner
-                                        .childImageSharp.fluid
-                                }
-                            />
+        <Layout
+            seo={{
+                title: data.mdx.frontmatter.title,
+                description: data.mdx.frontmatter.description,
+                image: data.mdx.frontmatter.banner.publicURL
+            }}
+            location={location}
+        >
+            <div className="md:px-4 mt-12 py-6 md:w-11/12 mx-auto">
+                <div className="mx-auto relative">
+                    <Img
+                        fluid={
+                            data.mdx.frontmatter.banner.childImageSharp.fluid
+                        }
+                    />
+                    <div className="relative w-full lg:w-3/4 md:w-11/12 sm:w-full p-6 box-border lg:box-content mx-auto bg-bg text-color-default blog-wall-content shadow-xl md:-mt-16 ">
+                        <div className="p-3">
+                            <h1 className="text-5xl font-bold text-primary">
+                                {data.mdx.frontmatter.title}
+                            </h1>
+                            <p className="mt-1 flex">
+                                <Calendar />{" "}
+                                <span className="ml-2">
+                                    {data.mdx.frontmatter.date}
+                                </span>
+                            </p>
+                            <p className="mt-3">
+                                {data.mdx.frontmatter.description}
+                            </p>
                         </div>
-                    )}
-                    <div className="head text-primary">
-                        <h1>{data.markdownRemark.frontmatter.title}</h1>
-                        <p className="post-date">
-                            <Date data={data.markdownRemark.frontmatter.date} />
-                        </p>
                     </div>
-                    <div className="content row flex">
-                        <div
-                            className="col s12 m11 l10"
-                            dangerouslySetInnerHTML={{
-                                __html: data.markdownRemark.html
-                            }}
-                        ></div>
-                    </div>
-                </article>
-                <Comments
-                    title={data.markdownRemark.frontmatter.title}
-                    location={location.pathname}
-                />
-                <LatestPosts id={data.markdownRemark.id} />
+                </div>
+                <div className="lg:w-3/4 md:w-11/12 sm:w-full p-3 mx-auto mt-12 post-content">
+                    <MDXProvider components={{ Row, Col }}>
+                        <MDXRenderer>{data.mdx.body}</MDXRenderer>
+                    </MDXProvider>
+                </div>
+                <div className="comments mt-8">
+                    <Comments title={data.mdx.frontmatter.title} location={location} />
+                </div>
             </div>
         </Layout>
-    );
+    )
 }
 
 export const query = graphql`
     query($slug: String!) {
-        markdownRemark(fields: { slug: { eq: $slug } }) {
-            html
-            id
+        mdx(fields: { slug: { eq: $slug } }) {
+            body
             frontmatter {
                 title
-                date
+                date(formatString: "DD MMMM YYYY")
                 description
-                image {
-                    publicURL
-                    childImageSharp {
-                        fluid(maxWidth: 1000) {
-                            srcSet
-                            ...GatsbyImageSharpFluid
-                        }
-                    }
-                }
                 banner {
                     publicURL
                     childImageSharp {
-                        fluid(maxHeight: 600, maxWidth: 1920) {
+                        fluid(maxWidth: 1920) {
                             srcSet
                             ...GatsbyImageSharpFluid
                         }
+                        id
                     }
                 }
             }
         }
     }
-`;
+`

@@ -1,38 +1,28 @@
-import React from "react";
+import React from "react"
 
-import { StaticQuery, graphql } from "gatsby";
+import { useStaticQuery, graphql } from "gatsby"
 
-import { Disqus } from "gatsby-plugin-disqus";
+import { Disqus } from "gatsby-plugin-disqus"
 
-function Comments({ url, title }) {
-    const disqusConfig = {
-        url,
-        identifier: title,
-        title
-    };
-    return <Disqus config={disqusConfig} />;
+
+const Comments = ({ title, location }) => {
+    const data = useStaticQuery(graphql`
+        query {
+            site {
+                siteMetadata {
+                    siteUrl
+                    disqus
+                }
+            }
+        }
+    `)
+
+    const url = data.site.siteMetadata.siteUrl + location
+    const noDisqusShortName = data.site.siteMetadata.disqus === null
+
+    if (noDisqusShortName) return null
+
+    return <Disqus url={url} title={title} identifier={title} />
 }
 
-export default ({ title, location }) => {
-    return (
-        <StaticQuery
-            query={graphql`
-                query {
-                    site {
-                        siteMetadata {
-                            siteUrl
-                            disqus
-                        }
-                    }
-                }
-            `}
-            render={data => {
-                const url = data.site.siteMetadata.siteUrl + location;
-                const noDisqusShortName =
-                    data.site.siteMetadata.disqus === null;
-                if (noDisqusShortName) return null;
-                return <Comments url={url} title={title} />;
-            }}
-        />
-    );
-};
+export default Comments;

@@ -1,46 +1,38 @@
-import React from "react";
-import { graphql } from "gatsby";
-import Layout from "../components/layout";
-import BlogItems from "../components/items-blog";
-import SectionTitle from "../components/sectiontitle";
-import Pagination from "../components/pagination";
-import SEO from "../components/seo";
+import React from "react"
+import { graphql } from "gatsby"
+import Layout from "../components/layout"
+import BlogItem from "../components/item-blog"
+import Pagination from "../components/pagination"
 
-class BlogList extends React.Component {
-    render() {
-        const query = this.props.datas;
-        if (query.allMarkdownRemark.edges.length > 0) {
-            return (
-                <section id="blog" className="container">
-                    <div className="section-title">
-                        <SectionTitle title="BLOG" />
-                    </div>
-                    <BlogItems data={query} />
-                    <Pagination
-                        pageContext={this.props.pageContext}
-                        type="blog"
-                    />
-                </section>
-            );
-        } else {
-            return <React.Fragment></React.Fragment>;
-        }
-    }
-}
+export default function({ data, pageContext, location }) {
+    const blogItems = data.allMdx.edges.map(item => (
+        <BlogItem data={item.node} key={item.node.id} />
+    ))
 
-export default function({ data, pageContext }) {
     return (
-        <Layout>
-            <SEO lang="en" title="Blog" />
-            <BlogList datas={data} pageContext={pageContext} />
+        <Layout
+            seo={{
+                title: "Blog",
+            }}
+            location={location}
+        >
+            <div className="container mx-auto py-12">
+                <div className="title py-12 text-center">
+                    <h2 className="font-black text-5xl text-color-1">
+                        Blog
+                    </h2>
+                </div>
+                <div className="flex flex-wrap">{blogItems}</div>
+                <Pagination pageContext={pageContext} type="blog" />
+            </div>
         </Layout>
-    );
+    )
 }
 
 export const query = graphql`
     query blogListPage($skip: Int!, $limit: Int!) {
-        allMarkdownRemark(
-            filter: { fileAbsolutePath: { regex: "/blog/" } }
+        allMdx(
+            filter: { fields: { sourceName: { eq: "blog" } } }
             sort: { fields: [frontmatter___date], order: DESC }
             limit: $limit
             skip: $skip
@@ -51,7 +43,7 @@ export const query = graphql`
                     frontmatter {
                         title
                         description
-                        date
+                        date(formatString: "DD MMMM YYYY")
                         image {
                             publicURL
                             childImageSharp {
@@ -70,4 +62,4 @@ export const query = graphql`
             }
         }
     }
-`;
+`

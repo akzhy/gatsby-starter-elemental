@@ -1,0 +1,301 @@
+@import "tailwindcss/base";
+@import "tailwindcss/utilities";
+@import "tailwindcss/components";
+
+body {
+    font-family: "Raleway", sans-serif;
+}
+
+p {
+    line-height: 165%;
+}
+
+.boxed {
+    @apply max-w-screen-lg w-full mx-auto;
+}
+
+.large-container {
+    max-width: 2100px;
+}
+
+@screen lg {
+    .boxed {
+        @apply max-w-screen-md;
+    }
+}
+
+@screen xl {
+    .boxed {
+        @apply max-w-screen-lg;
+    }
+}
+
+.nav .nav-links li{
+    @apply relative inline-block mx-2;
+}
+
+.nav .nav-links li a{
+    @apply inline-block p-1 relative z-10;
+}
+
+.nav .nav-links li:before{
+    content: "";
+    @apply absolute w-0 h-0 rounded-full bg-primary left-0 right-0 bottom-0 top-0 m-auto opacity-25;
+    transition: width .25s, height .25s;
+}
+
+.nav .nav-links li.active:before ,.nav .nav-links li:hover:before {
+    @apply w-8 h-8;
+}
+
+.nav .nav-links .theme-switcher:before{
+    display: none;
+}
+
+.nav .line {
+    width: 0;
+    transition: width 0.50s;
+}
+
+.nav.scrolled .line{
+    @apply w-full;
+}
+
+.title h1{
+    @apply text-color-1 font-black;
+}
+
+
+.supports-blend .title h1 {
+    color: #000;
+    background: #fff;
+    mix-blend-mode: multiply;
+}
+
+.supports-blend .title h1 span {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    @apply bg-gradient-primary;
+    mix-blend-mode: screen;
+}
+
+.theme-dark .supports-blend .title h1 {
+    color: #fff;
+    background: #000;
+    mix-blend-mode: lighten;
+}
+
+.theme-dark .supports-blend .title h1 span {
+    mix-blend-mode: multiply;
+}
+
+.btn {
+    @apply h-12 px-6 outline-none inline-flex relative overflow-hidden items-center;
+}
+
+.btn.disabled {
+    @apply opacity-50;
+}
+
+.btn span {
+    @apply relative z-10;
+}
+
+.btn:before{
+    content: "";
+    @apply absolute w-full h-full top-0;
+    left: 100%;
+    transition: left 0.25s;
+    transition-timing-function: cubic-bezier(1, 2.13, 1, -0.1);
+    z-index: 1;
+}
+
+.btn .icon-right {
+    @apply ml-3;
+}
+
+.btn .icon-left {
+    @apply mr-3;
+}
+
+.btn:focus {
+    @apply outline-none;
+}
+
+.btn-primary {
+    @apply bg-primary my-4;
+    color: #fff;
+}
+
+.btn-primary:before {
+    @apply bg-secondary;
+}
+
+.btn-primary:hover:before,.btn-primary:focus:before {
+    left: 0;
+}
+
+.portfolio-item .image {
+    clip-path: polygon(0 0, 0% 0, 0% 100%, 0% 100%);
+    transition: clip-path 0.50s;
+    transition-timing-function: ease-in-out;
+    z-index: 3;
+    transform: translateY(0);
+}
+
+.portfolio-item.even .image {
+    clip-path: polygon(100% 0, 100% 0, 100% 99%, 100% 100%);
+}
+
+
+.portfolio-item.begin-animation .image{
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.portfolio-item .to-up {
+    transform: translate(0, 50px);
+    transition: transform 0.25s;
+}
+
+.portfolio-item .to-up:nth-child(2){
+    transition-delay: 0.2s;
+}
+
+.portfolio-item.begin-animation .to-up {
+    transform: translate(0, 0px);
+}
+
+.footer-links li{
+    @apply mx-3;
+}
+
+.animated-link-parent a {
+    @apply inline-block relative;
+}
+
+.animated-link-parent a:after {
+    content: "";
+    transition-property: width;
+    @apply absolute bg-gradient-primary duration-300 w-0 left-0 bottom-0;
+    height: 2px;
+}
+
+.animated-link-parent a:hover:after,.animated-link-parent a:focus:after,.animated-link-parent a:active:after {
+    @apply w-full;
+}
+
+.post-content p {
+    @apply my-3;
+}
+
+.post-content h1, h2, h3, h4, h5, h6 {
+    @apply font-black text-color-2 my-4;
+}
+
+.post-content h1 {
+    @apply text-5xl;
+}
+
+.post-content h2 {
+    @apply text-4xl;
+}
+
+.post-content h3 {
+    @apply text-3xl;
+}
+
+.post-content h4 {
+    @apply text-2xl;
+}
+
+.post-content h5 {
+    @apply text-xl;
+}
+
+.post-content h5 {
+    @apply text-lg;
+}
+
+.post-content hr {
+    @apply my-4 border-medium;
+}
+
+.post-content ul {
+    list-style: disc
+}
+
+.post-content ol {
+    list-style: decimal;
+}
+
+.post-content ul, .post-content ol {
+    @apply ml-4;
+}
+
+.post-content ul ul, .post-content ol ol {
+    @apply ml-3;
+}
+
+.post-content li {
+    @apply my-2;
+}
+
+.post-content table {
+    @apply w-full my-6;
+}
+
+.post-content table tr {
+    border-bottom: 2px solid #eee;
+    @apply border-medium;
+}
+
+.theme-dark .post-content table tr  {
+    border-bottom: 2px solid #444;
+}
+
+.post-content table tr td, .post-content table tr th {
+    @apply p-2 py-3 text-left;
+}
+
+.post-content blockquote{
+    @apply border-l-4 border-primary p-3;
+}
+
+.post-content iframe {
+    max-width: 100%;
+}
+
+.input.focused {
+    @apply px-4;
+}
+
+.theme-dark .input.focused {
+    background: theme("themes.dark.medium");
+}
+
+.theme-dark .blog-item .focused{
+    background: theme("themes.dark.medium");
+}
+
+.spin {
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 640px) {
+    html {
+        font-size: 15px;
+    }
+}

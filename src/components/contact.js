@@ -1,301 +1,203 @@
-import React from "react";
-import SectionTitle from "./sectiontitle";
-import { StaticQuery, graphql } from "gatsby";
-import { PaperPlane, Mapmarker, Mobile, Envelope, Loading } from "./icons";
-import SocialLinks from "./sociallinks";
-import "../style/contact.less";
+import React, { useState } from "react"
+import { Send, Mail, Phone, MapPin, Loader } from "react-feather"
 
-class Contact extends React.Component {
-    constructor(props) {
-        super(props);
+import { TextInput, Button } from "./ui"
 
-        this.state = {
-            submitDisabled: false
-        };
+import { beforeContactFormSubmit, contactFormSubmit } from "../../config"
 
-        this.textAreaInput = this.textAreaInput.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+import SocialLinks from "../utils/sociallinks"
 
-        this.showContactForm = true;
+const Form = ({ api }) => {
+    const [data, changeData] = useState({
+        name: "",
+        email: "",
+        message: "",
+    })
 
-        if (this.props.contact.api_url === "") {
-            this.showContactForm = false;
-        }
-    }
+    const [feedback, setFeedback] = useState({})
 
-    textAreaInput(event) {
-        event.target.style.height = "auto";
-        event.target.style.height = event.target.scrollHeight + "px";
-    }
+    const [ transactionState, setTransactionState] = useState(false);
 
-    handleSubmit(event) {
-        event.preventDefault();
-        if (!this.state.submitDisabled) {
-            this.setState({
-                submitDisabled: true
-            });
+    const updateData = v => changeData({ ...data, ...v })
 
-            let name = encodeURI(this.dataName.value),
-                email = encodeURI(this.dataEmail.value),
-                message = encodeURI(this.dataMessage.value),
-                body = `name=${name}&email=${email}&message=${message}`;
+    return (
+        <form
+            onSubmit={event => {
+                event.preventDefault()
+                setTransactionState(true);
 
-            fetch(this.props.contact.api_url, {
-                method: "post",
-                body: body
-            })
-                .then(function(res) {
-                    return res.json();
-                })
-                .then(
-                    result => {
-                        this.setState({
-                            submitDisabled: false
-                        });
-                        this.resMessage.style.opacity = 1;
-                        if (result.response === "error") {
-                            this.resMessage.innerHTML =
-                                "There was an error in sending the message";
-                            this.resMessage.classList.add("color-error");
+                const validate = beforeContactFormSubmit(data);
+
+                if (validate.result) {
+                    setFeedback({});
+                    contactFormSubmit(api, validate.data).then(res => {
+                        if (res.result) {
+                            setFeedback({
+                                4: {
+                                    type: "success",
+                                    message:
+                                        "Your message has been sent.",
+                                },
+                            })
                         } else {
-                            this.resMessage.innerHTML =
-                                "Message sent succesfully";
-                            this.resMessage.classList.remove("color-error");
+                            setFeedback({
+                                4: {
+                                    message:
+                                        "There was an error sending the message. Please try again.",
+                                },
+                            })
                         }
-                        this.dataName.value = "";
-                        this.dataEmail.value = "";
-                        this.dataMessage.value = "";
-                        let _this = this;
-                        setTimeout(function() {
-                            _this.resMessage.style.opacity = 0;
-                        }, 5000);
-                    },
-                    error => {
-                        this.resMessage.innerHTML = "Message sent succesfully";
-                        this.resMessage.classList.remove("color-error");
-                        this.setState({
-                            submitDisabled: false
-                        });
-                        let _this = this;
-                        setTimeout(function() {
-                            _this.resMessage.style.opacity = 0;
-                        }, 5000);
-                    }
-                );
-        }
-    }
+                        setTransactionState(false);
+                    }).catch(err => {
+                        setFeedback({
+                            4: {
+                                message:
+                                    "There was an error sending the message. Please try again.",
+                            },
+                        })
+                        setTransactionState(false);
+                    })
+                } else {
+                    const errs = {}
 
-    componentDidMount() {
-        if (this.showContactForm) {
-            let color = window
-                .getComputedStyle(this.btn, null)
-                .getPropertyValue("color");
-            this.btn.querySelector("path").setAttribute("fill", color);
-        }
+                    validate.errors.forEach(err => {
+                        errs[err.code] = { message: err.message }
+                    })
 
-        let li = this.contactArea.querySelectorAll(".item");
+                    setFeedback(errs)
+                    setTransactionState(false);
+                }
+            }}
+        >
+            <TextInput
+                label="Name"
+                name="name"
+                onChange={e =>
+                    updateData({
+                        name: e.target.value,
+                    })
+                }
+                footer={
+                    <FormMessage
+                        show={feedback[1] !== undefined}
+                        type="error"
+                        message={feedback[1]?.message}
+                    />
+                }
+            />
+            <TextInput
+                label="Email"
+                name="email"
+                type="email"
+                onChange={e =>
+                    updateData({
+                        email: e.target.value,
+                    })
+                }
+                footer={
+                    <FormMessage
+                        show={feedback[2] !== undefined}
+                        type="error"
+                        message={feedback[2]?.message}
+                    />
+                }
+            />
+            <TextInput
+                label="Message"
+                name="message"
+                type="textarea"
+                onChange={e =>
+                    updateData({
+                        message: e.target.value,
+                    })
+                }
+                footer={
+                    <FormMessage
+                        show={feedback[3] !== undefined}
+                        type="error"
+                        message={feedback[3]?.message}
+                    />
+                }
+            />
+            <div className="py-3 lg:p-4">
+                <FormMessage
+                    show={feedback[4] !== undefined}
+                    type={feedback[4]?.type || "error"}
+                    message={feedback[4]?.message}
+                />
 
-        li.forEach(function(e, i) {
-            let p = e.querySelector("path");
-            if (p)
-                p.setAttribute(
-                    "fill",
-                    window.getComputedStyle(e, null).getPropertyValue("color")
-                );
-        });
-    }
-
-    render() {
-        return (
-            <section id="contact" className="container">
-                <div className="section-title">
-                    <SectionTitle title="CONTACT" />
-                </div>
-                <div
-                    className={"row" + (this.showContactForm ? "" : " no-form")}
-                    ref={c => (this.contactArea = c)}
-                >
-                    {this.showContactForm && (
-                        <div className="col s12 m6">
-                            <form>
-                                <div className="field">
-                                    <label>
-                                        <span className="label text-tertiary">
-                                            Name
-                                        </span>
-                                        <div className="input-border">
-                                            <input
-                                                type="text"
-                                                ref={c => (this.dataName = c)}
-                                                className="field-box"
-                                                name="name"
-                                                id="name"
-                                                required
-                                            />
-                                        </div>
-                                    </label>
-                                </div>
-                                <div className="field">
-                                    <label>
-                                        <span className="label text-tertiary">
-                                            Email
-                                        </span>
-                                        <div className="input-border">
-                                            <input
-                                                type="email"
-                                                ref={c => (this.dataEmail = c)}
-                                                className="field-box"
-                                                name="email"
-                                                id="email"
-                                                required
-                                            />
-                                        </div>
-                                    </label>
-                                </div>
-                                <div className="field">
-                                    <label>
-                                        <span className="label text-tertiary">
-                                            Message
-                                        </span>
-                                        <div className="input-border">
-                                            <textarea
-                                                style={{ overflowY: "hidden" }}
-                                                ref={c =>
-                                                    (this.dataMessage = c)
-                                                }
-                                                className="field-box"
-                                                onChange={this.textAreaInput}
-                                                name="message"
-                                                id="message"
-                                                required
-                                            />
-                                        </div>
-                                    </label>
-                                </div>
-                                <div className="field">
-                                    <label className="ib">
-                                        <button
-                                            className={
-                                                "btn" +
-                                                (this.state.submitDisabled
-                                                    ? " disabled"
-                                                    : "")
-                                            }
-                                            onClick={this.handleSubmit}
-                                            id="submit"
-                                            ref={c => (this.btn = c)}
-                                        >
-                                            SEND{" "}
-                                            <span
-                                                className="icon paper-plane"
-                                                style={{
-                                                    display: this.state
-                                                        .submitDisabled
-                                                        ? "none"
-                                                        : "inline-block"
-                                                }}
-                                            >
-                                                <PaperPlane />
-                                            </span>
-                                            <span
-                                                className="icon loading"
-                                                style={{
-                                                    display: !this.state
-                                                        .submitDisabled
-                                                        ? "none"
-                                                        : "inline-block"
-                                                }}
-                                            >
-                                                <Loading />
-                                            </span>
-                                        </button>
-                                    </label>
-                                    <label>
-                                        <p
-                                            className="res-message"
-                                            ref={c => (this.resMessage = c)}
-                                        ></p>
-                                    </label>
-                                </div>
-                            </form>
-                        </div>
-                    )}
-                    <div
-                        className={
-                            this.showContactForm
-                                ? "col s12 m6 details"
-                                : "col s12 details"
-                        }
-                    >
-                        {this.props.contact.description && (
-                            <p className="text-tertiary">
-                                {this.props.contact.description}
-                            </p>
-                        )}
-                        <ul>
-                            {this.props.contact.mail && (
-                                <li className="text-secondary item">
-                                    <span className="icon">
-                                        <Envelope />
-                                    </span>
-                                    <a
-                                        href={
-                                            "mailto:" + this.props.contact.mail
-                                        }
-                                    >
-                                        {this.props.contact.mail}
-                                    </a>
-                                </li>
-                            )}
-                            {this.props.contact.phone && (
-                                <li className="text-secondary item">
-                                    <span className="icon">
-                                        <Mobile />
-                                    </span>
-                                    <a href={"tel:" + this.props.contact.phone}>
-                                        {this.props.contact.phone}
-                                    </a>
-                                </li>
-                            )}
-                            {this.props.contact.address && (
-                                <li
-                                    className="text-tertiary item"
-                                    style={{ whiteSpace: "pre" }}
-                                >
-                                    <span className="icon">
-                                        <Mapmarker />
-                                    </span>
-                                    {this.props.contact.address}
-                                </li>
-                            )}
-                            <li>
-                                <SocialLinks />
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-        );
-    }
+                <Button
+                    type="button,submit"
+                    title="Send"
+                    disabled={transactionState}
+                    iconRight={<IconRight spin={transactionState}/>}
+                />
+            </div>
+        </form>
+    )
 }
 
-export default () => (
-    <StaticQuery
-        query={graphql`
-            query {
-                site {
-                    siteMetadata {
-                        contact {
-                            api_url
-                            description
-                            mail
-                            phone
-                            address
-                        }
-                    }
-                }
-            }
-        `}
-        render={data => <Contact contact={data.site.siteMetadata.contact} />}
-    />
-);
+const Description = ({ data }) => {
+    return (
+        <div>
+            {data.description && (
+                <p className="text-color-default">{data.description}</p>
+            )}
+            <ul className="my-4">
+                {data.mail && (
+                    <li className="flex items-center">
+                        <span className="text-secondary icon">
+                            <Mail />
+                        </span>
+                        <a className="ml-4" href={"mailto:" + data.mail}>
+                            {data.mail}
+                        </a>
+                    </li>
+                )}
+                {data.phone && (
+                    <li className="flex items-center mt-4">
+                        <span className="text-secondary icon">
+                            <Phone />
+                        </span>
+                        <a className="ml-4" href={"tel:" + data.phone}>
+                            {data.phone}
+                        </a>
+                    </li>
+                )}
+                {data.address && (
+                    <li className="flex items-start mt-4">
+                        <span className="mt-1 text-secondary icon">
+                            <MapPin />
+                        </span>
+                        <p className="whitespace-pre ml-4">{data.address}</p>
+                    </li>
+                )}
+                <li>
+                    <SocialLinks />
+                </li>
+            </ul>
+        </div>
+    )
+}
+
+const IconRight = ({spin}) => {
+    if(spin) {
+        return (
+            <span className="spin" style={{
+                display: "inline-block",
+                verticalAlign: "middle",
+                animationDuration: "5s"
+            }}>
+                <Loader />
+            </span>
+        )
+    }
+    return <Send />
+}
+
+const FormMessage = ({ show, type, message }) => {
+    if (!show) return null
+    return <p className={`text-${type} my-2`}>{message}</p>
+}
+
+export { Form, Description }

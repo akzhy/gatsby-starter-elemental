@@ -1,46 +1,46 @@
-import React from "react";
-import { graphql } from "gatsby";
-import Layout from "../components/layout";
-import PortfolioItems from "../components/items-portfolio";
-import SectionTitle from "../components/sectiontitle";
-import Pagination from "../components/pagination";
-import SEO from "../components/seo";
+import React, { useEffect } from "react"
+import { graphql } from "gatsby"
+import Layout from "../components/layout"
+import PortfolioItem from "../components/item-portfolio"
+import Pagination from "../components/pagination"
 
-class PortfolioList extends React.Component {
-    render() {
-        const query = this.props.datas;
-        if (query.allMarkdownRemark.edges.length > 0) {
-            return (
-                <section id="portfolio" className="container">
-                    <div className="section-title">
-                        <SectionTitle title="PORTFOLIO" />
-                    </div>
-                    <PortfolioItems data={query} />
-                    <Pagination
-                        pageContext={this.props.pageContext}
-                        type="portfolio"
-                    />
-                </section>
-            );
-        } else {
-            return <React.Fragment></React.Fragment>;
-        }
-    }
-}
+export default function({ data, pageContext, location }) {
 
-export default function({ data, pageContext }) {
+
+    useEffect(() => {
+        window.dispatchEvent(new CustomEvent('scroll'))
+    }, [])
+
+    const portfolioItems = data.allMdx.edges.map((item, i) => (
+        <PortfolioItem data={item.node} key={item.node.id} even={(i + 1) % 2 === 0}/>
+    ))
+
     return (
-        <Layout>
-            <SEO lang="en" title="Portfolio" />
-            <PortfolioList datas={data} pageContext={pageContext} />
+        <Layout
+            seo={{
+                title: "Portfolio",
+            }}
+            location={location}
+        >
+            <div className="py-12 px-4 lg:px-0">
+                <div className="title py-8 text-center">
+                    <h2 className="font-black text-5xl text-color-1">
+                        Portfolio
+                    </h2>
+                </div>
+                <div className="flex flex-wrap">{portfolioItems}</div>
+                <div className="mt-8 lg:mt-24">
+                    <Pagination pageContext={pageContext} type="portfolio" />
+                </div>
+            </div>
         </Layout>
-    );
+    )
 }
 
 export const query = graphql`
     query portfolioListPage($skip: Int!, $limit: Int!) {
-        allMarkdownRemark(
-            filter: { fileAbsolutePath: { regex: "/portfolio/" } }
+        allMdx(
+            filter: { fields: { sourceName: { eq: "portfolio" } } }
             sort: { fields: [frontmatter___date], order: DESC }
             limit: $limit
             skip: $skip
@@ -51,7 +51,6 @@ export const query = graphql`
                     frontmatter {
                         title
                         description
-                        date
                         image {
                             publicURL
                             childImageSharp {
@@ -70,4 +69,4 @@ export const query = graphql`
             }
         }
     }
-`;
+`
