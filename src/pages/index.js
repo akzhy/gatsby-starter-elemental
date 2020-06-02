@@ -75,6 +75,7 @@ const Wall = ({ data }) => {
         spanAttrs.style = {
             backgroundImage: `url('${data.titleImage}')`,
         }
+
     }
 
     const innerComponents = (
