@@ -1,68 +1,14 @@
-const {siteMetadata} =  require("./config");
-const tailwindConfig = require("./tailwind.config")
+'use strict';
 
-const plugins = [
-    `gatsby-plugin-sharp`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-react-helmet`,
-    {
-        resolve: `gatsby-source-filesystem`,
-        options: {
-            name: `blog`,
-            path: `${__dirname}/contents/blog/`,
-        },
-    },
-    {
-        resolve: `gatsby-source-filesystem`,
-        options: {
-            name: `portfolio`,
-            path: `${__dirname}/contents/portfolio/`,
-        },
-    },
-    {
-        resolve: `gatsby-source-filesystem`,
-        options: {
-            name: `basepages`,
-            path: `${__dirname}/contents/basepages`,
-        },
-    },
-    {
-        resolve: `gatsby-plugin-mdx`,
-        options: {
-            gatsbyRemarkPlugins: [
-                {
-                    resolve: `gatsby-remark-images`,
-                    options: {
-                        maxWidth: 1200,
-                    },
-                },
-            ],
-        },
-    },
-    {
-        resolve: `gatsby-plugin-postcss`,
-        options: {
-          postCssPlugins: [
-            require(`tailwindcss`)(tailwindConfig),
-            require(`autoprefixer`),
-            ...(process.env.NODE_ENV === `production`
-              ? [require(`cssnano`)]
-              : []),
-          ],
-        },
-      },
-]
+/**
+ * Run TypeScript code without compiling it
+ * Source-map-support mimics node's stack trace making debugging easier
+ * ts-node register helps compiling and importing TypeScript modules
+ */
+require('source-map-support').install();
+require('ts-node').register();
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
 
-if (siteMetadata.disqus) {
-    plugins.push({
-        resolve: `gatsby-plugin-disqus`,
-        options: {
-            shortname: siteMetadata.disqus,
-        },
-    })
-}
-
-module.exports = {
-    siteMetadata: siteMetadata,
-    plugins: plugins,
-}
+module.exports = require('./gatsby-config.ts');

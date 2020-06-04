@@ -1,7 +1,9 @@
-const { createFilePath } = require(`gatsby-source-filesystem`)
-const path = require(`path`)
+import { createFilePath } from 'gatsby-source-filesystem';
+import { GatsbyNode } from 'gatsby';
+import path from 'path';
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
+
+export const onCreateNode: GatsbyNode['onCreateNode'] = async ({ node, getNode, actions }) => {
     const { createNodeField } = actions
     if (node.internal.type === `Mdx`) {
         const slug = createFilePath({ node, getNode })
@@ -22,11 +24,11 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 }
 
 
-exports.createPages = ({ graphql, actions }) => {
+export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions }) => {
     const { createPage } = actions
 
-    return graphql(`
-        {
+    return graphql<any>(`
+        query GatsbyNodeQuery {
             all: allMdx {
                 edges {
                     node {
@@ -63,7 +65,7 @@ exports.createPages = ({ graphql, actions }) => {
             let template = node.fields.sourceName
             createPage({
                 path: node.fields.slug,
-                component: path.resolve("./src/templates/" + template + ".js"),
+                component: path.resolve("./src/templates/" + template + ".tsx"),
                 context: {
                     slug: node.fields.slug,
                 },
@@ -78,7 +80,7 @@ exports.createPages = ({ graphql, actions }) => {
         Array.from({ length: numBlogPages }).forEach((_, i) => {
             createPage({
                 path: i === 0 ? `/blog` : `/blog/${i + 1}`,
-                component: path.resolve("./src/templates/blog-list.js"),
+                component: path.resolve("./src/templates/blog-list.tsx"),
                 context: {
                     limit: blogPostsPerPage,
                     skip: i * blogPostsPerPage,
@@ -97,7 +99,7 @@ exports.createPages = ({ graphql, actions }) => {
         Array.from({ length: numPortfolioItems }).forEach((_, i) => {
             createPage({
                 path: i === 0 ? `/portfolio` : `/portfolio/${i + 1}`,
-                component: path.resolve("./src/templates/portfolio-list.js"),
+                component: path.resolve("./src/templates/portfolio-list.tsx"),
                 context: {
                     limit: portfolioItemsPerPage,
                     skip: i * portfolioItemsPerPage,

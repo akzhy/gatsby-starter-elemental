@@ -4,7 +4,7 @@ import Layout from "../components/layout"
 import BlogItem from "../components/item-blog"
 import Pagination from "../components/pagination"
 
-export default function({ data, pageContext, location }) {
+export default function blogList({ data, pageContext, location }) {
     const blogItems = data.allMdx.edges.map(item => (
         <BlogItem data={item.node} key={item.node.id} />
     ))
@@ -30,7 +30,7 @@ export default function({ data, pageContext, location }) {
 }
 
 export const query = graphql`
-    query blogListPage($skip: Int!, $limit: Int!) {
+    query BlogListQuery($skip: Int!, $limit: Int!) {
         allMdx(
             filter: { fields: { sourceName: { eq: "blog" } } }
             sort: { fields: [frontmatter___date], order: DESC }

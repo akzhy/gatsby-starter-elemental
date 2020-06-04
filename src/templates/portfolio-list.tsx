@@ -4,7 +4,7 @@ import Layout from "../components/layout"
 import PortfolioItem from "../components/item-portfolio"
 import Pagination from "../components/pagination"
 
-export default function({ data, pageContext, location }) {
+export default function portfolioList({ data, pageContext, location }) {
 
 
     useEffect(() => {
@@ -38,7 +38,7 @@ export default function({ data, pageContext, location }) {
 }
 
 export const query = graphql`
-    query portfolioListPage($skip: Int!, $limit: Int!) {
+    query PortfolioListQuery($skip: Int!, $limit: Int!) {
         allMdx(
             filter: { fields: { sourceName: { eq: "portfolio" } } }
             sort: { fields: [frontmatter___date], order: DESC }

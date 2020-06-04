@@ -6,7 +6,7 @@ import Navlinks from "./navigation-list"
 
 export default function() {
     const query = useStaticQuery(graphql`
-        query {
+        query FooterLinksQuery {
             site {
                 siteMetadata {
                     title

@@ -69,7 +69,7 @@ const Wall = ({ data }) => {
         }
     }, [state.loaded])
 
-    const spanAttrs = {}
+    let spanAttrs: Partial<{ style: unknown }> = {}
 
     if (!twoColumnWall && data.titleImage) {
         spanAttrs.style = {
@@ -194,7 +194,7 @@ const Contact = ({ data }) => {
 }
 
 export const query = graphql`
-    query {
+    query IndexPageQuery {
         site: site {
             siteMetadata {
                 title

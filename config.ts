@@ -138,7 +138,7 @@ const contactFormSubmit = async (api, data) => {
 
     res = await res.json()
 
-    if (res.success) {
+    if (res.ok) {
         return {
             result: true,
         }
@@ -163,4 +163,4 @@ Object.keys(defaults).forEach(item => {
     }
 })
 
-module.exports = { siteMetadata, beforeContactFormSubmit, contactFormSubmit }
+export { siteMetadata, beforeContactFormSubmit, contactFormSubmit }

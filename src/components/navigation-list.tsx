@@ -12,7 +12,7 @@ const List = ({
     themes,
 }) => {
     const data = useStaticQuery(graphql`
-        query {
+        query NavigationListQuery {
             site {
                 siteMetadata {
                     navLinks {

@@ -10,7 +10,7 @@ const Navbar = ({ navPlaceholder, location, currentTheme, switchTheme, themes, a
     const currentLocation = location.pathname.split("/")[1]
 
     const data = useStaticQuery(graphql`
-        query {
+        query NavigationQuery {
             site {
                 siteMetadata {
                     title

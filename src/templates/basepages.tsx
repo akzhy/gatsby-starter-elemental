@@ -4,7 +4,7 @@ import Layout from "../components/layout";
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
-export default function({ data, location }) {
+export default function basePages({ data, location }) {
     return (
         <Layout seo={{
             title: data.mdx.frontmatter.title,
@@ -28,7 +28,7 @@ export default function({ data, location }) {
 
 
 export const query = graphql`
-    query($slug: String!) {
+    query BasePagesQuery($slug: String!) {
         mdx(fields: { slug: { eq: $slug } }) {
             body
             frontmatter {

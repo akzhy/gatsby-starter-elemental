@@ -8,7 +8,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import { Row, Col } from "../components/shortcodes/index"
 
-export default function({ location, data }) {
+export default function porfolio({ location, data }) {
     return (
         <Layout
             seo={{
@@ -54,7 +54,7 @@ export default function({ location, data }) {
 }
 
 export const query = graphql`
-    query($slug: String!) {
+    query PortfolioQuery($slug: String!) {
         mdx(fields: { slug: { eq: $slug } }) {
             body
             frontmatter {

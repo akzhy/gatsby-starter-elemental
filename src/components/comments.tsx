@@ -7,7 +7,7 @@ import { Disqus } from "gatsby-plugin-disqus"
 
 const Comments = ({ title, location }) => {
     const data = useStaticQuery(graphql`
-        query {
+        query CommentsQuery {
             site {
                 siteMetadata {
                     siteUrl

@@ -4,7 +4,7 @@ import { useStaticQuery, graphql, Link as GatsbyLink } from "gatsby"
 
 const Logo = ({ className = "logo" }) => {
     const data = useStaticQuery(graphql`
-        query {
+        query LogoQuery {
             site {
                 siteMetadata {
                     title

@@ -14,7 +14,7 @@ import "../style/index.css"
 export default ({ children, front, seo, navPlaceholder=true, location }) => {
 
     const query = useStaticQuery(graphql`
-        query {
+        query ThemeQuery {
             site {
                 siteMetadata {
                     icon
