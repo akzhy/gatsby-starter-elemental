@@ -1,9 +1,10 @@
 import React from "react"
 
 import { useStaticQuery, graphql, Link as GatsbyLink } from "gatsby"
+import { LogoQuery } from "./__generated__/LogoQuery"
 
 const Logo = ({ className = "logo" }) => {
-    const data = useStaticQuery(graphql`
+    const data = useStaticQuery<LogoQuery>(graphql`
         query LogoQuery {
             site {
                 siteMetadata {

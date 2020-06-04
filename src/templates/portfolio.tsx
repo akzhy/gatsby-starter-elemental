@@ -1,14 +1,15 @@
 import React from "react"
 import { MDXProvider } from "@mdx-js/react"
-import { graphql } from "gatsby"
+import { graphql, PageProps } from "gatsby"
 import Layout from "../components/layout"
 import Img from "gatsby-image"
 import { Calendar } from "react-feather"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import { Row, Col } from "../components/shortcodes/index"
+import { PortfolioQuery } from "./__generated__/PortfolioQuery"
 
-export default function porfolio({ location, data }) {
+export default function porfolio ({ location, data }: PageProps<PortfolioQuery, {}>) {
     return (
         <Layout
             seo={{

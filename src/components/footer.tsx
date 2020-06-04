@@ -2,10 +2,11 @@ import React from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import { Logo } from "./utils"
 import Navlinks from "./navigation-list"
+import { FooterLinksQuery, FooterLinksQuery_site_siteMetadata_footerLinks } from "./__generated__/FooterLinksQuery"
 
 
 export default function() {
-    const query = useStaticQuery(graphql`
+    const query = useStaticQuery<FooterLinksQuery>(graphql`
         query FooterLinksQuery {
             site {
                 siteMetadata {
@@ -20,7 +21,7 @@ export default function() {
     `)
 
     const footerLinks = query.site.siteMetadata.footerLinks.map((item, _) => (
-        <ListItem data={item} className="nav-links" key={`footer-n-l-${_}`} />
+        <ListItem data={item} key={`footer-n-l-${_}`} />
     ))
 
     return (
@@ -50,7 +51,7 @@ export default function() {
     )
 }
 
-const ListItem = ({ data }) => {
+const ListItem: React.FC<{ data: FooterLinksQuery_site_siteMetadata_footerLinks }> = ({ data }) => {
     return (
         <li className="inline-block mx-3 animated-link-parent">
             <Link to={data.url} title={data.name}>

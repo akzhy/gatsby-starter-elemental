@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
+import { WindowLocation } from '@reach/router';
 
 import { Sun, Moon } from "react-feather"
 
 import Navbar from "./navigation"
 
 import Footer from "./footer"
-import SEO from "../utils/seo";
+import SEO, { SEOProps } from "../utils/seo";
 
 import "../style/index.css"
+import { ThemeQuery } from "./__generated__/ThemeQuery"
 
-export default ({ children, front, seo, navPlaceholder=true, location }) => {
+export type Theme = { name: string, label: string, icon: JSX.Element };
+type LayoutProps = { children: any, front?: boolean, seo: Partial<SEOProps>, navPlaceholder?: boolean, location: WindowLocation<{}>};
+export default ({ children, front, seo, navPlaceholder=true, location }: LayoutProps) => {
 
-    const query = useStaticQuery(graphql`
+    const query = useStaticQuery<ThemeQuery>(graphql`
         query ThemeQuery {
             site {
                 siteMetadata {
@@ -25,7 +29,7 @@ export default ({ children, front, seo, navPlaceholder=true, location }) => {
         }
     `)
 
-    const themes = [
+    const themes: Theme[] = [
         {
             name: "theme-light",
             label: "Light Theme",
@@ -51,7 +55,7 @@ export default ({ children, front, seo, navPlaceholder=true, location }) => {
     const switchTheme = () => {
         const next = theme !== themes.length-1 ? theme+1 : 0;
         changeTheme(next);
-        localStorage.setItem("theme", next);
+        localStorage.setItem("theme", `${next}`);
     }
 
 

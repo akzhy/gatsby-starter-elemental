@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import { graphql } from "gatsby"
+import { graphql, PageProps } from "gatsby"
 
 import { ArrowRight } from "react-feather"
 import ScrollIntoView from "react-scroll-into-view"
@@ -10,8 +10,9 @@ import { Button } from "../components/ui"
 import ItemPortfolio from "../components/item-portfolio"
 import ItemBlog from "../components/item-blog"
 import { Form, Description as ContactDescription } from "../components/contact"
+import { IndexPageQuery } from "./__generated__/IndexPageQuery"
 
-export default ({ data, location }) => {
+export default ({ data, location }: PageProps<IndexPageQuery>) => {
     const siteData = data.site.siteMetadata
 
     const portfolioList = data.portfolio.edges.map((item, _) => (

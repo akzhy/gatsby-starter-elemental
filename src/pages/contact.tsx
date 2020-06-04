@@ -1,10 +1,11 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, PageProps } from "gatsby"
 
 import Layout from "../components/layout"
 import { Form, Description } from "../components/contact"
+import { ContactQuery } from "./__generated__/ContactQuery"
 
-export default ({data, location}) => {
+export default ({data, location}: PageProps<ContactQuery>) => {
 
     const api_url = data.site.siteMetadata.contact.api_url;
     const hasContactForm = (api_url);

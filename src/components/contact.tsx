@@ -6,15 +6,18 @@ import { TextInput, Button } from "./ui"
 import { beforeContactFormSubmit, contactFormSubmit } from "../../config"
 
 import SocialLinks from "../utils/sociallinks"
+import { ContactQuery_site_siteMetadata_contact } from "../pages/__generated__/ContactQuery"
 
-const Form = ({ api }) => {
+type FeedbackState = { [id: number]: { message?: string, type?: string }}
+
+const Form: React.FC<{ api: string }> = ({ api }) => {
     const [data, changeData] = useState({
         name: "",
         email: "",
         message: "",
     })
 
-    const [feedback, setFeedback] = useState({})
+    const [feedback, setFeedback] = useState<FeedbackState>({})
 
     const [ transactionState, setTransactionState] = useState(false);
 
@@ -137,7 +140,7 @@ const Form = ({ api }) => {
     )
 }
 
-const Description = ({ data }) => {
+const Description: React.FC<{ data: ContactQuery_site_siteMetadata_contact }> = ({ data }) => {
     return (
         <div>
             {data.description && (
@@ -180,7 +183,7 @@ const Description = ({ data }) => {
     )
 }
 
-const IconRight = ({spin}) => {
+const IconRight = ({ spin = false }) => {
     if(spin) {
         return (
             <span className="spin" style={{
@@ -195,7 +198,8 @@ const IconRight = ({spin}) => {
     return <Send />
 }
 
-const FormMessage = ({ show, type, message }) => {
+type FormMessageProps = { show: boolean, type: string, message: string }
+const FormMessage: React.FC<FormMessageProps> = ({ show, type, message }) => {
     if (!show) return null
     return <p className={`text-${type} my-2`}>{message}</p>
 }

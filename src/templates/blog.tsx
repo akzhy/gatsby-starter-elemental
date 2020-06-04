@@ -1,6 +1,6 @@
 import React from "react"
 import { MDXProvider } from "@mdx-js/react"
-import { graphql } from "gatsby"
+import { graphql, PageProps } from "gatsby"
 import Layout from "../components/layout"
 import Img from "gatsby-image"
 import { Calendar } from "react-feather"
@@ -9,8 +9,9 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Row, Col } from "../components/shortcodes/index"
 
 import Comments from "../components/comments"
+import { BlogQuery } from "./__generated__/BlogQuery"
 
-export default function blog({ location, data }) {
+export default function blog({ location, data }: PageProps<BlogQuery, {}>) {
     return (
         <Layout
             seo={{

@@ -1,18 +1,36 @@
 import React from "react"
 
-export default class SideBar extends React.Component{
+type SideBarState = {
+  touchDown?: boolean,
+  sidebarOpen?: boolean,
+  opening?: boolean,
+  progress?: number,
+  touchX?: number,
+  touchTime?: number,
+  lastTouch?: number,
+  transitionTime?: number,
+  screenWidth?: number
+};
+
+type SettingsProps = { sensitivity: number; overlayColor: string; sidebarWidth: string; swipeDistance: number; }
+
+export default class SideBar extends React.Component<{ settings?: SettingsProps, open: boolean, onChange: Function }, SideBarState>{
+    sidebarParent: React.RefObject<HTMLDivElement>;
+    sidebarOverlay: React.RefObject<HTMLDivElement>;
+    open?: number;
+    settings: { sensitivity: number; overlayColor: string; sidebarWidth: string; swipeDistance: number; };
     constructor(props){
         super(props);
 
         this.state = {
-            touchDown: false,
-            sidebarOpen: false,
-            progress: 0,
-            touchX: 0,
-            touchTime: 0,
-            lastTouch: 0,
-            transitionTime: 0
-        }
+          touchDown: false,
+          sidebarOpen: false,
+          opening: false,
+          progress: 0,
+          touchX: 0,
+          touchTime: 0,
+          lastTouch: 0,
+        };
 
         this.sidebarParent = React.createRef();
         this.sidebarOverlay = React.createRef();
@@ -38,7 +56,7 @@ export default class SideBar extends React.Component{
     }
 
     touchStart = (e) => {
-        let s = {
+        let s: SideBarState = {
             touchX: e.touches[0].pageX,
             lastTouch: e.touches[0].pageX,
             touchTime: new Date().getTime()

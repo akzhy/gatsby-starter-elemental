@@ -1,7 +1,19 @@
 import React from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
+import { NavigationListQuery } from "./__generated__/NavigationListQuery"
+import { Theme } from "./layout"
 
-const List = ({
+type NavigationListProps = {
+  name?: string,
+  className?: string,
+  liClassName?: string,
+  current?: string,
+  withThemeSwitch?: boolean,
+  currentTheme?: number,
+  switchTheme?: () => void,
+  themes?: Theme[],
+}
+const List: React.FC<NavigationListProps> = ({
     name,
     className = "",
     liClassName = "",
@@ -11,7 +23,7 @@ const List = ({
     switchTheme,
     themes,
 }) => {
-    const data = useStaticQuery(graphql`
+    const data = useStaticQuery<NavigationListQuery>(graphql`
         query NavigationListQuery {
             site {
                 siteMetadata {

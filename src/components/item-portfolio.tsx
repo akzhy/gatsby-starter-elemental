@@ -4,8 +4,10 @@ import Img from "gatsby-image"
 import { ArrowRight } from "react-feather"
 
 import Parallax from "../utils/parallax"
+import { IndexPageQuery_portfolio_edges_node } from "../pages/__generated__/IndexPageQuery"
 
-export default ({ data, even }) => {
+type ItemPortfolioProps = { data: IndexPageQuery_portfolio_edges_node, even: boolean };
+export const ItemPortfolio: React.FC<ItemPortfolioProps> = ({ data, even }) => {
     const [state, changeState] = useState({
         animated: false,
         percentage: 0,
@@ -97,3 +99,5 @@ export default ({ data, even }) => {
         </Parallax>
     )
 }
+
+export default ItemPortfolio;

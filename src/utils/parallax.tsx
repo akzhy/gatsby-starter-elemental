@@ -2,7 +2,12 @@ import React from "react"
 
 // Stolen from https://github.com/rrutsche/react-parallax
 
-export default class Parallax extends React.Component {
+type ParallaxProps = { changePercentage: ({ percentage: number }) => void };
+export default class Parallax extends React.Component<ParallaxProps> {
+
+    node: React.RefObject<HTMLDivElement>;
+    timestamp: number;
+    
     constructor(props) {
         super(props)
 
@@ -60,7 +65,7 @@ export default class Parallax extends React.Component {
     getRelativePosition = node => {
         const element = node
         const { top, height } = element.getBoundingClientRect()
-        const parentHeight = this.getNodeHeight()
+        const parentHeight = this.getNodeHeight(element)
         const maxHeight = height > parentHeight ? height : parentHeight
         const y = Math.round(top > maxHeight ? maxHeight : top)
 

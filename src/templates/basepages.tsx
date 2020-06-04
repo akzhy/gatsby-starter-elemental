@@ -1,10 +1,11 @@
 import React from "react";
-import { graphql } from "gatsby";
+import { graphql, PageProps } from "gatsby";
 import Layout from "../components/layout";
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+import { BasePagesQuery } from "./__generated__/BasePagesQuery";
 
-export default function basePages({ data, location }) {
+export default function basePages({ data, location }: PageProps<BasePagesQuery, {}>) {
     return (
         <Layout seo={{
             title: data.mdx.frontmatter.title,

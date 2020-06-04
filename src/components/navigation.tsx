@@ -1,15 +1,19 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
+import { WindowLocation } from '@reach/router';
 
 import { Logo } from "./utils"
 import List from "./navigation-list"
 import { Menu } from "react-feather"
 import SideBar from "./sidebar"
+import { NavigationQuery } from "./__generated__/NavigationQuery"
+import { Theme } from "./layout"
 
-const Navbar = ({ navPlaceholder, location, currentTheme, switchTheme, themes, allowThemeSwitch=true }) => {
+type NavbarProps = { navPlaceholder: boolean, location: WindowLocation, currentTheme: number, switchTheme: () => void, themes: Theme[], allowThemeSwitch: boolean, front: boolean };
+const Navbar: React.FC<NavbarProps> = ({ navPlaceholder, location, currentTheme, switchTheme, themes, allowThemeSwitch=true, front }) => {
     const currentLocation = location.pathname.split("/")[1]
 
-    const data = useStaticQuery(graphql`
+    const data = useStaticQuery<NavigationQuery>(graphql`
         query NavigationQuery {
             site {
                 siteMetadata {

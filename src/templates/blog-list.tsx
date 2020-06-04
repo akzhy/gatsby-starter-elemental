@@ -1,10 +1,11 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { graphql, PageProps } from "gatsby"
 import Layout from "../components/layout"
 import BlogItem from "../components/item-blog"
 import Pagination from "../components/pagination"
+import { BlogListQuery } from "./__generated__/BlogListQuery"
 
-export default function blogList({ data, pageContext, location }) {
+export default function blogList({ data, pageContext, location }: PageProps<BlogListQuery, {}>) {
     const blogItems = data.allMdx.edges.map(item => (
         <BlogItem data={item.node} key={item.node.id} />
     ))
