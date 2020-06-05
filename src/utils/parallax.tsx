@@ -1,19 +1,23 @@
 import React from "react"
 
 // Stolen from https://github.com/rrutsche/react-parallax
+export function canUseDOM() {
+  return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+}
 
 type ParallaxProps = { changePercentage: ({ percentage: number }) => void };
 export default class Parallax extends React.Component<ParallaxProps> {
 
     node: React.RefObject<HTMLDivElement>;
     timestamp: number;
+    canUseDom: boolean;
     
     constructor(props) {
         super(props)
 
         this.node = React.createRef()
         this.timestamp = 0
-
+        this.canUseDom = canUseDOM();
         this.state = {
             percentage: 0,
         }
@@ -37,32 +41,38 @@ export default class Parallax extends React.Component<ParallaxProps> {
         return w.innerWidth || e.clientWidth || g.clientWidth
     }
 
-    isScrolledIntoView = (element, offset = 0) => {
-        const elementTop = element.getBoundingClientRect().top - offset
-        const elementBottom = element.getBoundingClientRect().bottom + offset
-        return elementTop <= this.getWindowHeight() && elementBottom >= 0
-    }
+    isScrolledIntoView = (element, offset = 0, useDOM: boolean) => {
+      if (!useDOM) {
+        return false;
+      }
+      const elementTop = element.getBoundingClientRect().top - offset;
+      const elementBottom = element.getBoundingClientRect().bottom + offset;
+      return elementTop <= this.getWindowHeight() && elementBottom >= 0;
+  };
 
     onScroll = () => {
         const stamp = Date.now()
         if (
             stamp - this.timestamp >= 20 &&
-            this.isScrolledIntoView(this.node.current, 100)
+            this.isScrolledIntoView(this.node.current, 100, this.canUseDom)
         ) {
             this.props.changePercentage({
-                percentage: 1 - this.getRelativePosition(this.node.current),
+                percentage: 1 - this.getRelativePosition(this.node.current, this.canUseDom),
             })
             this.timestamp = stamp
         }
     }
 
-    getPercentage = (startpos, endpos, currentpos) => {
-        const distance = endpos - startpos
-        const displacement = currentpos - startpos
-        return displacement / distance || 0
-    }
+    getPercentage = (startpos: number, endpos: number, currentpos: number) => {
+        const distance = endpos - startpos;
+        const displacement = currentpos - startpos;
+        return displacement / distance || 0;
+    };
 
-    getRelativePosition = node => {
+    getRelativePosition = (node: HTMLElement, useDOM: boolean) => {
+        if (!useDOM) {
+          return 0;
+        }
         const element = node
         const { top, height } = element.getBoundingClientRect()
         const parentHeight = this.getNodeHeight(element)
@@ -72,7 +82,7 @@ export default class Parallax extends React.Component<ParallaxProps> {
         return this.getPercentage(-height, maxHeight, y)
     }
 
-    getNodeHeight(node) {
+    getNodeHeight(node: HTMLElement | Document) {
         if (!node || !("clientHeight" in node)) {
             return this.getWindowHeight()
         }
