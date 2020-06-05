@@ -47,7 +47,7 @@ export default class Parallax extends React.Component<ParallaxProps> {
         const stamp = Date.now()
         if (
             stamp - this.timestamp >= 20 &&
-            this.isScrolledIntoView(this.node.current, 100, this.canUseDOM)
+            this.isScrolledIntoView(this.node.current, 100)
         ) {
             this.props.changePercentage({
                 percentage: 1 - this.getRelativePosition(this.node.current),

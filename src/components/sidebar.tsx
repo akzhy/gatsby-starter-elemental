@@ -13,11 +13,12 @@ type SideBarState = {
 };
 
 type SettingsProps = { sensitivity: number; overlayColor: string; sidebarWidth: string; swipeDistance: number; }
+type SideBarProps = { settings?: SettingsProps, open: boolean, onChange: Function };
 
-export default class SideBar extends React.Component<{ settings?: SettingsProps, open: boolean, onChange: Function }, SideBarState>{
+export default class SideBar extends React.Component<SideBarProps, SideBarState>{
     sidebarParent: React.RefObject<HTMLDivElement>;
     sidebarOverlay: React.RefObject<HTMLDivElement>;
-    open?: number;
+    open: boolean;
     settings: { sensitivity: number; overlayColor: string; sidebarWidth: string; swipeDistance: number; };
     constructor(props){
         super(props);
@@ -35,7 +36,7 @@ export default class SideBar extends React.Component<{ settings?: SettingsProps,
         this.sidebarParent = React.createRef();
         this.sidebarOverlay = React.createRef();
 
-        this.open = 0;
+        this.open = false;
 
         this.settings = {
             sensitivity: 50,
@@ -182,7 +183,6 @@ export default class SideBar extends React.Component<{ settings?: SettingsProps,
     }
 
     componentDidUpdate(){
-        if(this.open !== this.props.open){
             if(this.props.open){
                 if(!this.state.sidebarOpen){
                     this.openSidebar();
@@ -193,7 +193,6 @@ export default class SideBar extends React.Component<{ settings?: SettingsProps,
                 }
             }
             this.open = this.props.open;
-        }
     }
 
     componentWillUnmount(){
@@ -214,7 +213,7 @@ export default class SideBar extends React.Component<{ settings?: SettingsProps,
                     width: this.settings.sidebarWidth,
                     height: "100%",
                     top: 0,
-                    zIndex: "9999",
+                    zIndex: 9999,
                     transitionProperty: "left",
                     transitionDuration: this.state.transitionTime+"s",
                     transitionTimingFunction: "linear",
@@ -226,7 +225,7 @@ export default class SideBar extends React.Component<{ settings?: SettingsProps,
                     className="r-swipe-sidebar-overlay"
                     ref={this.sidebarOverlay}
                     role="button"
-                    tabIndex="-1"
+                    tabIndex={-1}
                     style={{
                         position: "fixed",
                         top: 0,
@@ -235,7 +234,7 @@ export default class SideBar extends React.Component<{ settings?: SettingsProps,
                         width: "100%",
                         height: "100%",
                         background: "#000",
-                        zIndex: "9998",
+                        zIndex: 9998,
                         transitionProperty: "opacity",
                         transitionDuration: "0s",
                         opacity: `${this.state.progress/200}`
