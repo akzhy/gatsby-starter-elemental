@@ -127,7 +127,7 @@ const beforeContactFormSubmit = data => {
 }
 
 const contactFormSubmit = async (api, data) => {
-    let res = await fetch(api, {
+    let res: any = await fetch(api, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
@@ -138,7 +138,7 @@ const contactFormSubmit = async (api, data) => {
 
     res = await res.json()
 
-    if (res.ok) {
+    if (res.success) {
         return {
             result: true,
         }
