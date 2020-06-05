@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = props => {
 
     if(type) {
         const b = type.split(",");
-        const t = b[1] ? b[1] : "button";
+        const t = b[1] ? b[1] : "button"
         const dis = disabled === undefined ? false: disabled
         if (b[0] === "button") {
             return <button type={t} disabled={dis} className={`btn btn-primary${dis ? ' disabled' : ''}`}>{innerComponents}</button>

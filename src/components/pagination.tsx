@@ -25,8 +25,8 @@ export default function({ pageContext, type }) {
     }
 }
 
-type ItemProps = any;
-const Item: React.FC<ItemProps> = ({ type, currentPage, title=false, page, icon=false }) => {
+type ItemProps = { type: string, currentPage, title?: string, page: number, icon?: JSX.Element };
+const Item: React.FC<ItemProps> = ({ type, currentPage, title, page, icon }) => {
 
     const to = `/${type}/${(page === 1 ? "" : page)}`;
     const active = icon ? false : (page === currentPage)

@@ -3,16 +3,7 @@ import { useStaticQuery, graphql, Link } from "gatsby"
 import { NavigationListQuery } from "./__generated__/NavigationListQuery"
 import { Theme } from "./layout"
 
-type NavigationListProps = {
-  name?: string,
-  className?: string,
-  liClassName?: string,
-  current?: string,
-  withThemeSwitch?: boolean,
-  currentTheme?: number,
-  switchTheme?: () => void,
-  themes?: Theme[],
-}
+type NavigationListProps = { name?: string, className?: string, liClassName?: string, current?: string, withThemeSwitch?: boolean, currentTheme?: number, switchTheme?: () => void, themes?: Theme[] }
 const List: React.FC<NavigationListProps> = ({
     name,
     className = "",
