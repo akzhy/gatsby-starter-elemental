@@ -12,9 +12,11 @@ import SEO, { SEOProps } from "../utils/seo";
 
 import "../style/index.css"
 import { ThemeQuery } from "./__generated__/ThemeQuery"
+import CookieBox from "./cookie";
 
 export type Theme = { name: string, label: string, icon: JSX.Element };
-type LayoutProps = { children: any, front?: boolean, seo: Partial<SEOProps>, navPlaceholder?: boolean, location: WindowLocation<{}>};
+type LayoutProps = { children: any, front?: boolean, seo: Partial<SEOProps>, navPlaceholder?: boolean, location: WindowLocation;}
+
 export default ({ children, front, seo, navPlaceholder=true, location }: LayoutProps) => {
 
     const query = useStaticQuery<ThemeQuery>(graphql`
@@ -24,6 +26,7 @@ export default ({ children, front, seo, navPlaceholder=true, location }: LayoutP
                     icon
                     switchTheme
                     darkmode
+                    cookiePolicy
                 }
             }
         }
@@ -42,15 +45,28 @@ export default ({ children, front, seo, navPlaceholder=true, location }: LayoutP
     ]
 
     const isDarkTheme = query.site.siteMetadata.darkmode;
+    const cookiePolicyEnabled = query.site.siteMetadata.cookiePolicy;
 
     const [theme, changeTheme] = useState(isDarkTheme ? 1 : 0);
+    const [cookieShown, setCookieShown] = useState(false);
 
     useEffect(() => {
         if(localStorage.getItem("theme")) {
             const t = Number(localStorage.getItem("theme"));
             changeTheme(t);
         }
+
+        if(localStorage.getItem("cookie-accept")) {
+            setCookieShown(true)
+        }
     }, [])
+
+    const onCookieAccept = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+
+        localStorage.setItem("cookie-accept", "1");
+        setCookieShown(true);
+    }
 
     const switchTheme = () => {
         const next = theme !== themes.length-1 ? theme+1 : 0;
@@ -69,6 +85,9 @@ export default ({ children, front, seo, navPlaceholder=true, location }: LayoutP
                     {children}
                     <Footer />
                 </div>
+                {
+                    (query.site.siteMetadata.cookiePolicy && !cookieShown) && <CookieBox onChange={onCookieAccept}/>
+                }
             </div>
         </React.Fragment>
     )
