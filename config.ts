@@ -7,6 +7,7 @@ const siteMetadata = {
     titleImage: `/images/wall.png`,
     ogImage: `/images/wall.png`,
     twoColumnWall: true,
+    cookiePolicy: true,
     introTag: `PHOTOGRAPHER | VIDEOGRAPHER`,
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet accumsan arcu. Proin ac consequat arcu.`,
     about:
@@ -155,6 +156,7 @@ const defaults = {
     darkmode: false,
     switchTheme: true,
     capitalizeTitleOnHome: true,
+    cookiePolicy: false
 }
 
 Object.keys(defaults).forEach(item => {
