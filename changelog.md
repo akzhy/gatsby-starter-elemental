@@ -1,3 +1,13 @@
+# v2.1.1
+
+- Cookie Policy
+- Fix ogIMage
+
+# v2.1.0
+
+- Typescript
+
+
 # v2.0.0
 
 - Switched from less to tailwindcss
