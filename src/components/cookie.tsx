@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "gatsby";
 
 interface Props {
-    onChange: Function
+    onChange: React.MouseEventHandler
 }
 
 const CookieBox = ({ onChange}: Props) => {

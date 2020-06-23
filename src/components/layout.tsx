@@ -61,7 +61,7 @@ export default ({ children, front, seo, navPlaceholder=true, location }: LayoutP
         }
     }, [])
 
-    const onCookieAccept = (e:MouseEvent) => {
+    const onCookieAccept = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
 
         localStorage.setItem("cookie-accept", "1");
