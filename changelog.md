@@ -1,3 +1,7 @@
+# v2.1.2
+
+- Reload disqus on theme switch
+
 # v2.1.1
 
 - Cookie Policy
