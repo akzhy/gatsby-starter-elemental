@@ -2,7 +2,7 @@
   "name": "gatsby-starter-elemental",
   "private": true,
   "description": "A simplified bare-bones starter for Gatsby",
-  "version": "2.0.0",
+  "version": "2.1.2",
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
