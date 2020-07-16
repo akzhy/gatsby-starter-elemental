@@ -2,7 +2,7 @@
   "name": "gatsby-starter-elemental",
   "private": true,
   "description": "A simplified bare-bones starter for Gatsby",
-  "version": "2.0.0",
+  "version": "2.1.2",
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
@@ -34,11 +34,12 @@
     "react-helmet": "^5.2.1",
     "react-scroll-into-view": "^1.8.2",
     "tailwind-theme-switcher": "^1.0.2",
-    "tailwindcss": "^1.4.6"
+    "tailwindcss": "^1.4.6",
+    "vegemite": "^1.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.2",
     "@babel/compat-data": "^7.10.1",
+    "@babel/core": "^7.10.2",
     "@types/node": "^13.13.0",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",

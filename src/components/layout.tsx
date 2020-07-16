@@ -13,6 +13,7 @@ import SEO, { SEOProps } from "../utils/seo";
 import "../style/index.css"
 import { ThemeQuery } from "./__generated__/ThemeQuery"
 import CookieBox from "./cookie";
+import store from "../utils/store";
 
 export type Theme = { name: string, label: string, icon: JSX.Element };
 type LayoutProps = { children: any, front?: boolean, seo: Partial<SEOProps>, navPlaceholder?: boolean, location: WindowLocation;}
@@ -72,6 +73,7 @@ export default ({ children, front, seo, navPlaceholder=true, location }: LayoutP
         const next = theme !== themes.length-1 ? theme+1 : 0;
         changeTheme(next);
         localStorage.setItem("theme", `${next}`);
+        store.dispatch("theme:change", undefined);
     }
 
 
