@@ -73,11 +73,11 @@ const siteMetadata = {
     ],
     contact: {
         // leave empty ('') or false to hide form
-        api_url: "https://getform.io/f/f227a36e-096a-4c6a-9963-9f1918a85bb3",
+        api_url: "https://getform.io/f/6a622e55-8f78-4daa-8e34-1f9a06ed7e55",
         description: `Please feel free to contact xo9 web about any digitial or technical web questions you have. If we cannot answer it directly we will point you towards someone who can. Thanks for looking!`,
         mail: "web@xo9.io",
         phone: "000-000-0000",
-        address: "1234 \nLocation \nLocation",
+        address: "Austin, TX",
     },
     disqus: "elemental-netlify-com",
 }
