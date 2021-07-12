@@ -1,7 +1,7 @@
 {
-  "name": "gatsby-starter-elemental",
+  "name": "xo9-web",
   "private": true,
-  "description": "A simplified bare-bones starter for Gatsby",
+  "description": "Web consulting services offered by xo9",
   "version": "2.1.2",
   "license": "MIT",
   "scripts": {

@@ -1,6 +1,6 @@
 const siteMetadata = {
-    title: `Elemental`,
-    siteUrl: `http://localhost`,
+    title: `xo9 web`,
+    siteUrl: `https://web.xo9.io`,
     capitalizeTitleOnHome: false,
     logo: `/images/logo.png`,
     icon: `/images/icon.png`,
@@ -8,11 +8,11 @@ const siteMetadata = {
     ogImage: `/images/wall.png`,
     twoColumnWall: true,
     cookiePolicy: true,
-    introTag: `PHOTOGRAPHER | VIDEOGRAPHER`,
-    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet accumsan arcu. Proin ac consequat arcu.`,
+    introTag: `DEVELOPER | CONSULTANT`,
+    description: `Web consulting services available for anything needing direction in navigating todays digital landscape.`,
     about:
-        "Cras accumsan a lectus at tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus elementum dapibus dictum. Mauris auctor quam nec est tincidunt hendrerit. Donec pulvinar lobortis mauris. Cras vulputate ullamcorper ligula a rhoncus. Nunc venenatis elementum ligula in semper. Mauris malesuada purus nunc, et ultricies leo aliquam ac. Ut sit amet nunc id magna accumsan hendrerit in eget metus.",
-    author: `@_akzhy`,
+        "Mike studied JavaScript at the coding bootcamp Hack Reactor, and spent the past 4 years working as a full time developer. From custom react sites to setting up squarespace and wordpress sites for your small business, he has the knowledge and skills necessary to help your business grow and succeed in todays digital world",
+    author: `@burt23`,
     blogItemsPerPage: 10,
     portfolioItemsPerPage: 10,
     darkmode: true,
@@ -74,8 +74,8 @@ const siteMetadata = {
     contact: {
         // leave empty ('') or false to hide form
         api_url: "https://getform.io/f/f227a36e-096a-4c6a-9963-9f1918a85bb3",
-        description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet accumsan arcu. Proin ac consequat arcu.`,
-        mail: "hi@akzhy.com",
+        description: `Please feel free to contact xo9 web about any digitial or technical web questions you have. If we cannot answer it directly we will point you towards someone who can. Thanks for looking!`,
+        mail: "web@xo9.io",
         phone: "000-000-0000",
         address: "1234 \nLocation \nLocation",
     },
@@ -156,7 +156,7 @@ const defaults = {
     darkmode: false,
     switchTheme: true,
     capitalizeTitleOnHome: true,
-    cookiePolicy: false
+    cookiePolicy: false,
 }
 
 Object.keys(defaults).forEach(item => {
