@@ -24,13 +24,13 @@ module.exports = {
         themes: {
             dark: {
                 bg: "#111",
-                bgalt: "#000",
+                bgalt: "#111",
                 "color-default": "#eee",
                 "color-1": "#c35fde",
                 "color-2": "#adbfef",
                 border: "#718096",
                 primary: "#f55555",
-                medium: "#222"
+                medium: "#222",
             },
         },
         colors: {
