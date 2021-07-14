@@ -46,7 +46,7 @@ const siteMetadata = {
         },
         {
             name: "GitHub",
-            url: "https://github.com/akzhy/gatsby-starter-elemental",
+            url: "https://github.com/burt23",
         },
     ],
     social: [
