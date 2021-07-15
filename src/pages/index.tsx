@@ -11,6 +11,7 @@ import ItemPortfolio from "../components/item-portfolio"
 import ItemBlog from "../components/item-blog"
 import { Form, Description as ContactDescription } from "../components/contact"
 import { IndexPageQuery } from "./__generated__/IndexPageQuery"
+import AnimationBackground from "../components/AnimationBackground"
 
 export default ({ data, location }: PageProps<IndexPageQuery>) => {
     const siteData = data.site.siteMetadata
@@ -23,7 +24,7 @@ export default ({ data, location }: PageProps<IndexPageQuery>) => {
         />
     ))
 
-    const blogList = data.blog.edges.map(item => (
+    const blogList = data.blog.edges.map((item) => (
         <ItemBlog data={item.node} key={`b-item-index-${item.node.id}`} />
     ))
 
@@ -76,12 +77,11 @@ const Wall = ({ data }) => {
         spanAttrs.style = {
             backgroundImage: `url('${data.titleImage}')`,
         }
-
     }
 
     const innerComponents = (
         <React.Fragment>
-            <div className="title bg-bg">
+            <div>
                 <h1
                     className={`text-6xl relative lg:text-7xl ${
                         data.capitalizeTitleOnHome ? "uppercase" : ""
@@ -111,20 +111,8 @@ const Wall = ({ data }) => {
                 className="wall h-screen flex relative justify-center items-center overflow-hidden"
                 ref={wall}
             >
-                <div className="flex-1 lg:block absolute lg:relative w-full h-full top-0 left-0">
-                    <div
-                        className="absolute left-0 top-0 w-full h-full lg:hidden"
-                        style={{
-                            background: "rgba(0,0,0,.75)",
-                        }}
-                    ></div>
-                    <img
-                        src={data.titleImage}
-                        alt=""
-                        className="h-full w-auto max-w-none lg:h-auto lg:w-full"
-                    />
-                </div>
-                <div className="flex-1 text-center p-3 relative z-10 lg:text-left lg:pl-8 text-white lg:text-color-default">
+                <AnimationBackground />
+                <div className="bg-black flex-1 text-center p-3 relative z-10 lg:text-center lg:pl-8 text-white lg:text-color-default">
                     {innerComponents}
                 </div>
             </div>
@@ -136,6 +124,7 @@ const Wall = ({ data }) => {
             className="wall h-screen flex flex-col justify-center items-center text-center"
             ref={wall}
         >
+            <AnimationBackground />
             {innerComponents}
         </div>
     )
@@ -179,7 +168,7 @@ const Contact = ({ data }) => {
             <div className="flex flex-wrap pb-40">
                 {hasContactForm && (
                     <div className="w-full lg:w-1/2 px-4 lg:pl-2 lg:pr-6">
-                        <Form api={data.api_url} />
+                        <Form />
                     </div>
                 )}
                 <div

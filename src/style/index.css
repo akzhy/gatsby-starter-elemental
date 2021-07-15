@@ -3,7 +3,7 @@
 @import "tailwindcss/components";
 
 html {
-    background-color: #111111;
+    background-color: #000;
 }
 
 body {
@@ -302,4 +302,10 @@ p {
     html {
         font-size: 15px;
     }
+}
+
+.bg-black {
+    background: rgba(0, 0, 0, 0.8) !important;
+    width: min-content;
+    /* border: 10px solid gold; */
 }

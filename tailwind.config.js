@@ -23,8 +23,8 @@ module.exports = {
         }),
         themes: {
             dark: {
-                bg: "#111",
-                bgalt: "#111",
+                bg: "#000",
+                bgalt: "#000",
                 "color-default": "#eee",
                 "color-1": "#c35fde",
                 "color-2": "#adbfef",
