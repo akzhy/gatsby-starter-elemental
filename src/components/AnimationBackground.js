@@ -1,7 +1,14 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 const AnimationBackground = () => {
-    const c = document.getElementById("c")
+    const [c, setCanvas] = useState(null)
+    useEffect(() => {
+        if (c === null && typeof document !== "undefined") {
+            const canvasElement = document.getElementById("c")
+            setCanvas(canvasElement)
+        }
+    }, [c])
+
     if (c) {
         var w = (c.width = window.innerWidth),
             h = (c.height = window.innerHeight),
