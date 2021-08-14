@@ -1,7 +1,7 @@
-import { siteMetadata } from "./config";
-import tailwindConfig from "./tailwind.config";
-import autoprefixer from 'autoprefixer';
-import tailwindcss from 'tailwindcss';
+import { siteMetadata } from "./config"
+import tailwindConfig from "./tailwind.config"
+import autoprefixer from "autoprefixer"
+import tailwindcss from "tailwindcss"
 
 const plugins = [
     `gatsby-plugin-sharp`,
@@ -46,27 +46,18 @@ const plugins = [
     {
         resolve: `gatsby-plugin-postcss`,
         options: {
-          postCssPlugins: [
-            tailwindcss(tailwindConfig),
-            autoprefixer,
-            ...(process.env.NODE_ENV === `production`
-              ? [require(`cssnano`)]
-              : []),
-          ],
+            postCssPlugins: [
+                tailwindcss(tailwindConfig),
+                autoprefixer,
+                ...(process.env.NODE_ENV === `production`
+                    ? [require(`cssnano`)]
+                    : []),
+            ],
         },
-      },
+    },
 ]
 
-if (siteMetadata.disqus) {
-    plugins.push({
-        resolve: `gatsby-plugin-disqus`,
-        options: {
-            shortname: siteMetadata.disqus,
-        },
-    } as any)
-}
-
 export default {
-  siteMetadata: siteMetadata,
-  plugins: plugins,
-};
+    siteMetadata: siteMetadata,
+    plugins: plugins,
+}

@@ -105,7 +105,6 @@ const siteMetadata = {
         phone: "000-000-0000",
         address: "1234 \nLocation \nLocation"
     },
-    disqus: `your-disqus-shortname`  // Optional, remove this if you don't use disqus
 }
 
 ```

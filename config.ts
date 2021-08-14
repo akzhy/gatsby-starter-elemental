@@ -79,7 +79,7 @@ const siteMetadata = {
         phone: "000-000-0000",
         address: "Austin, TX",
     },
-    disqus: "elemental-netlify-com",
+    // disqus: "elemental-netlify-com",
 }
 
 const beforeContactFormSubmit = data => {
