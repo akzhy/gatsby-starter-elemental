@@ -112,7 +112,7 @@ const Wall = ({ data }) => {
                 ref={wall}
             >
                 <AnimationBackground />
-                <div className="bg-black flex-1 text-center p-3 relative z-10 lg:text-center lg:pl-8 text-white lg:text-color-default">
+                <div className="banner-wrapper flex-1 text-center p-3 relative z-10 lg:text-center lg:pl-8 text-white lg:text-color-default">
                     {innerComponents}
                 </div>
             </div>

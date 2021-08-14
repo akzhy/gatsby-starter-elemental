@@ -1,21 +1,28 @@
-import React from "react";
-import { graphql, PageProps } from "gatsby";
-import Layout from "../components/layout";
+import React from "react"
+import { graphql, PageProps } from "gatsby"
+import Layout from "../components/layout"
 import { MDXProvider } from "@mdx-js/react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
-import { BasePagesQuery } from "./__generated__/BasePagesQuery";
+import { BasePagesQuery } from "./__generated__/BasePagesQuery"
 
-export default function basePages({ data, location }: PageProps<BasePagesQuery, {}>) {
+export default function basePages({
+    data,
+    location,
+}: PageProps<BasePagesQuery, {}>) {
     return (
-        <Layout seo={{
-            title: data.mdx.frontmatter.title,
-            description: data.mdx.frontmatter.description,
-            image: data.mdx.frontmatter.image?.publicURL
-        }}
-        location={location}>
+        <Layout
+            seo={{
+                title: data.mdx.frontmatter.title,
+                description: data.mdx.frontmatter.description,
+                image: data.mdx.frontmatter.image?.publicURL,
+            }}
+            location={location}
+        >
             <div className="boxed">
-                <div className="title py-12 text-center">
-                    <h2 className="font-black text-5xl text-color-1">{data.mdx.frontmatter.title}</h2>
+                <div className="title py-12 text-center banner-wrapper">
+                    <h2 className="font-black text-5xl text-color-1">
+                        {data.mdx.frontmatter.title}
+                    </h2>
                 </div>
                 <div className="post-content px-4 lg:px-24 md:px-8 pb-12">
                     <MDXProvider>
@@ -24,9 +31,8 @@ export default function basePages({ data, location }: PageProps<BasePagesQuery, 
                 </div>
             </div>
         </Layout>
-    );
+    )
 }
-
 
 export const query = graphql`
     query BasePagesQuery($slug: String!) {
@@ -41,4 +47,4 @@ export const query = graphql`
             }
         }
     }
-`;
+`
