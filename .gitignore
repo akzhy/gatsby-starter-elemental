@@ -57,6 +57,7 @@ typings/
 # gatsby files
 .cache/
 public
+__generated__
 
 # Mac files
 .DS_Store
@@ -67,3 +68,7 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
+
+# Webstorm / Rider
+.idea/
+
