@@ -66,7 +66,16 @@ if (siteMetadata.disqus) {
     } as any)
 }
 
+const flags = {
+    DEV_WEBPACK_CACHE: true,
+    FAST_DEV: true,
+    DEV_SSR: true,
+    PRESERVE_FILE_DOWNLOAD_CACHE: true,
+    PARALLEL_SOURCING: true,
+};
+
 export default {
-  siteMetadata: siteMetadata,
-  plugins: plugins,
+    siteMetadata,
+    plugins,
+    flags,
 };
